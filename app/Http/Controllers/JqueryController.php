@@ -144,11 +144,18 @@ class JqueryController extends Controller
                             ->orWhere('REMARKS', '=', 'NO RECORD FOUND');
                     })
                     ->get();
-                if ($si_report->isEmpty() == true) {
+                $si_report2 = db::table('sales_invoice')
+                    ->where('INVOICE_NO', $invoiceNo)
+                    ->get();
+
+                if ($si_report->isEmpty() == true && $si_report2->isEmpty() == true) {
                     return response()->json(array('issuedBy' => $issuedBy, 'issuerID' => $issuerID , 'status' => "active"));
-                } else {
+                }else if($si_report2->isEmpty() == false){
+                    return response()->json(array(['status' => "DONE"]));
+                }
+                else {
                     foreach ($si_report as $remarks) {
-                        return response()->json(array(['status' => $remarks->REMARKS]));
+                        return response()->json(array(['status' => $remarks]));
                     }
 
                 }
@@ -182,9 +189,15 @@ class JqueryController extends Controller
                     })
                     ->get();
 
-                if ($report->isEmpty() == true) {
+                $report2 = db::table('cylinder_receipt')
+                    ->where('ICR_NO', $invoiceNo)
+                    ->get();
+
+                if ($report->isEmpty() == true && $report2->isEmpty() == true) {
                     return response()->json(array('issuedBy' => $issuedBy, 'issuerID' => $issuerID , 'status' => "active"));
-                } else {
+                } else if($report2->isEmpty() == false){
+                    return response()->json(array(['status' => "DONE"]));
+                }else {
                     foreach ($report as $remarks) {
                         return response()->json(array(['status' => $remarks->REMARKS]));
                     }
@@ -220,8 +233,14 @@ class JqueryController extends Controller
                     })
                     ->get();
 
-                if ($report->isEmpty() == true) {
+                $report2 = db::table('cylinder_loan_contract')
+                    ->where('CLC_NO', $invoiceNo)
+                    ->get();
+
+                if ($report->isEmpty() == true  && $report2->isEmpty() == true) {
                     return response()->json(array('issuedBy' => $issuedBy, 'issuerID' => $issuerID , 'status' => "active"));
+                } else if($report2->isEmpty() == false){
+                    return response()->json(array(['status' => "DONE"]));
                 } else {
                     foreach ($report as $remarks) {
                         return response()->json(array(['status' => $remarks->REMARKS]));
@@ -258,8 +277,14 @@ class JqueryController extends Controller
                     })
                     ->get();
 
-                if ($report->isEmpty() == true) {
+                $report2 = db::table('delivery_receipt')
+                    ->where('DR_NO', $invoiceNo)
+                    ->get();
+
+                if ($report->isEmpty() == true && $report2->isEmpty() == true) {
                     return response()->json(array('issuedBy' => $issuedBy, 'issuerID' => $issuerID , 'status' => "active"));
+                } else if($report2->isEmpty() == false){
+                    return response()->json(array(['status' => "DONE"]));
                 } else {
                     foreach ($report as $remarks) {
                         return response()->json(array(['status' => $remarks->REMARKS]));
@@ -296,8 +321,14 @@ class JqueryController extends Controller
                     })
                     ->get();
 
-                if ($report->isEmpty() == true) {
+                $report2 = db::table('official_receipt')
+                    ->where('OR_NO', $invoiceNo)
+                    ->get();
+
+                if ($report->isEmpty() == true && $report2->isEmpty() == true) {
                     return response()->json(array('issuedBy' => $issuedBy, 'issuerID' => $issuerID , 'status' => "active"));
+                } else if($report2->isEmpty() == false){
+                    return response()->json(array(['status' => "DONE"]));
                 } else {
                     foreach ($report as $remarks) {
                         return response()->json(array(['status' => $remarks->REMARKS]));
