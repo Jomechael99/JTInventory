@@ -168,6 +168,8 @@ $(document).ready(function(){
         totalProductAmount();
     });
 
+    $('#submitButton').attr('disabled', true);
+
     $('#invoiceValidate').on('click', function(){
         var invoiceNo = $('#invoiceNo').val();
         var buttonVal = $('#invoiceValidate').val();

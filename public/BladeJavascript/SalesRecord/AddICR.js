@@ -9,6 +9,8 @@ $(document).ready(function () {
           dropdownAutoWidth: true,
      });
 
+     $('#submitButton').attr('disabled', true);
+
      function idValidation() {
 
           var invoiceNo = $('#icrNo').val();

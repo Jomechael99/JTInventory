@@ -4,6 +4,7 @@ $(document).ready(function(){
     $(document).on('click', '#cancelInvoice', function () {
         window.history.back();
     });
+    $('#submitButton').attr('disabled', true);
 
     function idValidation() {
 

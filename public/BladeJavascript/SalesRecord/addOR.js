@@ -8,6 +8,8 @@ $(document).ready(function(){
 
     $('#amountPaid').maskMoney();
 
+    $('#submitButton').attr('disabled', true);
+
     function idValidation() {
 
         var orNo = $('#orNo').val();
