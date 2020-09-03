@@ -15,15 +15,59 @@ class PagesController extends Controller
     public function getDashboard(){
 
         if(session()->has('user')){
-            return view('dashboard');
+
+            $sales_data = db::table('sales_invoice')
+                ->select(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE) as AGING'),'INVOICE_DATE as REPORTDATE','INVOICE_NO as REPORTNO', 'BALANCE' ,'NAME')
+                ->join('client', 'client.CLIENTID', '=', 'sales_invoice.client_id')
+                ->where('sales_invoice.STATUS', 1)
+                ->where(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE)'),'>','120')
+                ->where('FULLY_PAID', 0);
+
+            $dr_data = db::table('delivery_receipt')
+                ->select(db::raw('DATEDIFF(CURDATE(),DR_DATE) as AGING'),'DR_DATE as REPORTDATE','DR_NO as REPORTNO','BALANCE','NAME')
+                ->join('client', 'client.CLIENTID', '=', 'delivery_receipt.client_id')
+                ->where('delivery_receipt.STATUS', 1)
+                ->where('FULLY_PAID', 0)
+                ->where(db::raw('DATEDIFF(CURDATE(),DR_DATE)'),'>','120')
+                ->unionAll($sales_data)
+                ->orderBy('REPORTNO', 'DESC')
+                ->get();
+
+            $sales_data2 = db::table('sales_invoice')
+                ->select(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE) as AGING'),'INVOICE_DATE as REPORTDATE','INVOICE_NO as REPORTNO', 'BALANCE' ,'NAME')
+                ->join('client', 'client.CLIENTID', '=', 'sales_invoice.client_id')
+                ->where('sales_invoice.STATUS', 1)
+                ->where(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE)'), 120)
+                ->where('FULLY_PAID', 0);
+
+            $dr_data2 = db::table('delivery_receipt')
+                ->select(db::raw('DATEDIFF(CURDATE(),DR_DATE) as AGING'),'DR_DATE as REPORTDATE','DR_NO as REPORTNO','BALANCE','NAME')
+                ->join('client', 'client.CLIENTID', '=', 'delivery_receipt.client_id')
+                ->where('delivery_receipt.STATUS', 1)
+                ->where('FULLY_PAID', 0)
+                ->where(db::raw('DATEDIFF(CURDATE(),DR_DATE)'), 120)
+                ->unionAll($sales_data2)
+                ->orderBy('REPORTNO', 'DESC')
+                ->paginate(10);
+
+            $cnt = 0;
+
+            if($dr_data2->count() == 0){
+                $cnt =  0;
+            }else{
+                $cnt = $dr_data2->count();
+            }
+
+            return view('dashboard')
+                ->with('Aging', $dr_data)
+                ->with('cnt', $cnt);
+
         }else{
-            Return view('login');
+           Return redirect() -> Route('loginPage');
         }
     }
 
     public function getCustomerView(){
-
-
 
         if(session()->has('user')){
             $client = DB::table('client')
