@@ -19,7 +19,6 @@ class OfficialReceipt extends Controller
         if(session()->has('user')){
             $OR = db::table('official_receipt')
                 ->join('client', 'official_receipt.CLIENT_ID', '=', 'client.CLIENTID')
-                ->where('official_receipt.STATUS', 1)
                 ->get();
 
             return view('SalesRecord.OfficialReceipt.viewor')

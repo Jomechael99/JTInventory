@@ -23,7 +23,6 @@ class SalesInvoice extends Controller
         if(session()->has('user')){
             $invoice_data = db::table('client')
                 ->join('sales_invoice', 'client.CLIENTID' , '=' , 'sales_invoice.CLIENT_ID')
-                ->where('sales_invoice.FULLY_PAID', 0)
                 ->get();
 
 

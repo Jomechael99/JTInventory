@@ -21,7 +21,6 @@ class DeliverSalesinvoice extends Controller
             $deliver_invoice = db::table('delivery_receipt')
                 ->join('client', 'delivery_receipt.CLIENT_ID', '=', 'client.CLIENTID')
                 ->where('delivery_receipt.AS_INVOICE', 1)
-                ->where('delivery_receipt.FULLY_PAID', 0)
                 ->get();
 
             return view('SalesRecord.DeliveryReceipt.viewdeliveryinvoice')

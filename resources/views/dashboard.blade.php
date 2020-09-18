@@ -77,7 +77,6 @@
                 pageSize: 'A5',
                 order: [[ 1, "desc" ]]
             } );
-
         } );
     </script>
 @endsection
