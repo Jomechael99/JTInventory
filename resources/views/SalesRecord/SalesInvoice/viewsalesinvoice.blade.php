@@ -14,7 +14,7 @@
            </div>
             <div class="box-body">
                 <div class="box-body table-responsive">
-                        <table id="salesInvoice" class="table table-bordered table-striped">
+                        <table id="salesInvoice" class="table table-bordered table-striped salesInvoice">
                             @foreach(Session::get('user') as $user)
                             @endforeach
                             <thead>
@@ -29,8 +29,9 @@
                                     @endif
                                 </tr>
                             </thead>
-                            <tbody>
-                                    @foreach($invoice_data as $data)
+                            <tbody class="text-center">
+                                {{--@foreach($invoice_data->chunk(100) as $chunk)
+                                    @foreach($chunk as $data)
                                         <tr class="text-center">
                                             <td><a href="#invoiceModal" id="invoiceData" data-toggle="modal" data-target="#invoiceModal">{{ $data->INVOICE_NO }}</a></td>
                                             <td>{{ $data->INVOICE_DATE }}</td>
@@ -46,6 +47,7 @@
                                             @endif
                                         </tr>
                                     @endforeach
+                                @endforeach--}}
                             </tbody>
                         </table>
                       </div>
@@ -63,12 +65,30 @@
 
         $(document).ready(function(){
 
-            $('#salesInvoice').DataTable({
-                "paging":   true,
-                "ordering": true,
-                "info":     true,
-                'searching': true,
-                'bJQueryUI': true
+            var table = $('.salesInvoice').DataTable({
+                processing: true,
+                serverSide: true,
+                bjQueryUI: true,
+                ajax : {
+                    url : "{{ route('sales_invoice_data') }}",
+                    type : "GET",
+                    dataType: 'JSON'
+                },
+                columns: [
+                    {data: 'INVOICE_NO', name: 'a.INVOICE_NO'},
+                    {data: 'INVOICE_DATE', name: 'a.INVOICE_DATE'},
+                    {data: 'NAME', name: 'b.NAME'},
+                    {data: 'DESIGNATION', name: 'b.DESIGNATION'},
+                    {data: 'CELL_NO', name: 'b.CELL_NO'},
+                    @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
+                    @endif
+                ]
             });
 
             $(document).on('click', '#invoiceData',  function(){

@@ -21,13 +21,9 @@ class SalesInvoice extends Controller
         //
 
         if(session()->has('user')){
-            $invoice_data = db::table('client')
-                ->join('sales_invoice', 'client.CLIENTID' , '=' , 'sales_invoice.CLIENT_ID')
-                ->get();
 
+            return view('SalesRecord.SalesInvoice.viewsalesinvoice');
 
-            return view('SalesRecord.SalesInvoice.viewsalesinvoice')
-                ->with("invoice_data", $invoice_data);
        }else{
            return view('login');
        }

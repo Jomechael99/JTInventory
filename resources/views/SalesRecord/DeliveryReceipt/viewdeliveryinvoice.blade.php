@@ -28,8 +28,8 @@
                          <th class="text-center"> Actions </th>
                         @endif
                         </thead>
-                        <tbody>
-                        @foreach($deliver_invoice as $deliver_invoice)
+                        <tbody class="text-center">
+                        {{--@foreach($deliver_invoice as $deliver_invoice)
                             <tr class="text-center">
                                 <td> {{ $deliver_invoice -> DR_NO }}</td>
                                 <td> {{ $deliver_invoice -> DR_DATE }}</td>
@@ -40,7 +40,7 @@
                                     </td>
                                 @endif
                             </tr>
-                        @endforeach
+                        @endforeach--}}
                         </tbody>
                     </table>
                 </div>
@@ -60,11 +60,28 @@
                 dropdownAutoWidth: true,
             });
 
-            $('#deliveryInvoice, #delivery').DataTable({
-                "paging":   true,
-                "ordering": true,
-                "info":     true,
-                'searching': true,
+            var table = $('#deliveryInvoice').DataTable({
+                processing: true,
+                serverSide: true,
+                bjQueryUI: true,
+                ajax : {
+                    url : "{{ route('delivery_sales_data') }}",
+                    type : "GET",
+                    dataType: 'JSON'
+                },
+                columns: [
+                    {data: 'DR_NO', name: 'a.DR_NO'},
+                    {data: 'DR_DATE', name: 'a.DR_DATE'},
+                    {data: 'NAME', name: 'b.NAME'},
+                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
+                    @endif
+                ]
             });
 
             $('#invoiceValidate').on('click', function(){

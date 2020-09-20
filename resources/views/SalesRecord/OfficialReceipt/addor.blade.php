@@ -231,7 +231,7 @@
             $('#prodListTable').dataTable({
                 scrollY:        '30vh',
                 scrollCollapse: true,
-                paging:         false,
+                paging: false,
                 searching: false
             });
 

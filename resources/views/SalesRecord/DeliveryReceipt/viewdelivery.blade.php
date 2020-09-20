@@ -27,8 +27,8 @@
                                 <th class="text-center"> Actions </th>
                             @endif
                         </thead>
-                        <tbody>
-                        @foreach($deliver_receipt as $deliver_data)
+                        <tbody class="text-center">
+                        {{--@foreach($deliver_receipt as $deliver_data)
                             <tr class="text-center">
                                 <td> {{ $deliver_data -> DR_NO }}</td>
                                 <td> {{ $deliver_data -> DR_DATE }}</td>
@@ -39,7 +39,7 @@
                                     </td>
                                 @endif
                             </tr>
-                        @endforeach
+                        @endforeach--}}
                         </tbody>
                     </table>
                 </div>
@@ -53,11 +53,28 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
-            $('#delivery').DataTable({
-                "paging":   true,
-                "ordering": true,
-                "info":     true,
-                'searching': true,
+            var table = $('#delivery').DataTable({
+                processing: true,
+                serverSide: true,
+                bjQueryUI: true,
+                ajax : {
+                    url : "{{ route('delivery_sales_data2') }}",
+                    type : "GET",
+                    dataType: 'JSON'
+                },
+                columns: [
+                    {data: 'DR_NO', name: 'a.DR_NO'},
+                    {data: 'DR_DATE', name: 'a.DR_DATE'},
+                    {data: 'NAME', name: 'b.NAME'},
+                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
+                    @endif
+                ]
             });
         });
     </script>

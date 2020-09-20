@@ -128,5 +128,13 @@ Route::post('summaryReport', ['uses'=> 'ReportPageController@summary_account', '
 Route::post('statementcylinder', ['uses'=> 'ReportPageController@statement_cylinder', 'as' => 'statement_cylinder']);
 
 
-
 Route::get('Logout', ['uses'=> 'PagesController@AccountLogout', 'as' => 'Logout']);
+
+// DataTables Controller
+
+Route::get('SalesInvoiceData', ['uses' => 'PagesDatatablesController@sales_invoice_data', 'as'=>'sales_invoice_data']);
+Route::get('DeliveryInvoiceDate', ['uses' => 'PagesDatatablesController@delivery_sales', 'as'=>'delivery_sales_data']);
+Route::get('DeliveryDate', ['uses' => 'PagesDatatablesController@delivery_sales_2', 'as'=>'delivery_sales_data2']);
+Route::get('official_receipt_data', ['uses' => 'PagesDatatablesController@official_receipt_data', 'as'=>'official_receipt_data']);
+Route::get('dashboard_data', ['uses' => 'PagesDatatablesController@dashboard_data', 'as'=>'dashboard_data']);
+

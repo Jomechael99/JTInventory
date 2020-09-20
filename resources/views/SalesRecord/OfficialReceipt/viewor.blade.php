@@ -24,8 +24,8 @@
                         <th class="text-center"> Actions </th>
                         @endif
                         </thead>
-                        <tbody>
-                        @foreach($OR as $DATA)
+                        <tbody class="text-center">
+                        {{--@foreach($OR as $DATA)
                             <tr class="text-center">
                                 <td> {{ $DATA -> OR_NO }}</td>
                                 <td> {{ $DATA -> OR_DATE }}</td>
@@ -36,7 +36,7 @@
                                 </td>
                                 @endif
                             </tr>
-                        @endforeach
+                        @endforeach--}}
                         </tbody>
                     </table>
                 </div>
@@ -50,7 +50,29 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
-            $('#delivery').DataTable();
+            var table = $('#delivery').DataTable({
+                processing: true,
+                serverSide: true,
+                bjQueryUI: true,
+                ajax : {
+                    url : "{{ route('official_receipt_data') }}",
+                    type : "GET",
+                    dataType: 'JSON'
+                },
+                columns: [
+                    {data: 'OR_NO', name: 'a.OR_NO'},
+                    {data: 'OR_DATE', name: 'a.OR_DATE'},
+                    {data: 'NAME', name: 'b.NAME'},
+                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
+                    @endif
+                ]
+            });
         });
     </script>
 @endsection

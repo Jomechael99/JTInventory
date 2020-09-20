@@ -48,7 +48,7 @@ class PagesController extends Controller
                 ->where(db::raw('DATEDIFF(CURDATE(),DR_DATE)'), 120)
                 ->unionAll($sales_data2)
                 ->orderBy('REPORTNO', 'DESC')
-                ->paginate(10);
+                ->get();
 
             $cnt = 0;
 

@@ -21,8 +21,7 @@ class OfficialReceipt extends Controller
                 ->join('client', 'official_receipt.CLIENT_ID', '=', 'client.CLIENTID')
                 ->get();
 
-            return view('SalesRecord.OfficialReceipt.viewor')
-                    ->with('OR', $OR);
+            return view('SalesRecord.OfficialReceipt.viewor');
        }else{
            return view('login');
        }

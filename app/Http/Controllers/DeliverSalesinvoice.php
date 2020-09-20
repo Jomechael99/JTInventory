@@ -18,13 +18,10 @@ class DeliverSalesinvoice extends Controller
         //
 
         if(session()->has('user')){
-            $deliver_invoice = db::table('delivery_receipt')
-                ->join('client', 'delivery_receipt.CLIENT_ID', '=', 'client.CLIENTID')
-                ->where('delivery_receipt.AS_INVOICE', 1)
-                ->get();
 
-            return view('SalesRecord.DeliveryReceipt.viewdeliveryinvoice')
-                ->with('deliver_invoice', $deliver_invoice);
+
+            return view('SalesRecord.DeliveryReceipt.viewdeliveryinvoice');
+
        }else{
            return view('login');
        }
