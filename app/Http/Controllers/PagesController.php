@@ -147,7 +147,7 @@ class PagesController extends Controller
 
     public function getLogin(){
         if(session()->has('user')){
-            return view('dashboard');
+           return redirect()->route('Dashboard');
         }else{
             return view('login');
         }
