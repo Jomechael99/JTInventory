@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Arr;
 use App;
+use Yajra\DataTables\Facades\DataTables;
 
 class ReportPageController extends Controller
 {
@@ -238,31 +239,101 @@ class ReportPageController extends Controller
 
     }
 
-    public function aging_account(Request $request){
+    public function view_aging(){
 
-        $id = $request -> custDetails;
-        $from_date = $request -> fromDate;
-        $to_date = $request -> toDate;
+        db::table('dr_aging_report')
+            ->truncate();
 
         $sales_data = db::table('sales_invoice')
             ->select(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE) as AGING'),'INVOICE_DATE as REPORTDATE','INVOICE_NO as REPORTNO', 'BALANCE')
-            ->where('STATUS', 1)
-            ->where('CLIENT_ID', $id)
-            ->where('FULLY_PAID', 0)
-            ->whereBetween('INVOICE_DATE',[$from_date, $to_date]);
+            ->where('FULLY_PAID', 1)
+            ->where('BALANCE' ,'!=', 0);
 
         $dr_data = db::table('delivery_receipt')
             ->select(db::raw('DATEDIFF(CURDATE(),DR_DATE) as AGING'),'DR_DATE as REPORTDATE','DR_NO as REPORTNO','BALANCE')
-            ->where('STATUS', 1)
-            ->where('CLIENT_ID', $id)
-            ->where('FULLY_PAID', 0)
-            ->whereBetween('DR_DATE',[$from_date, $to_date])
+            ->where('FULLY_PAID', 1)
+            ->where('BALANCE' ,'!=', 0)
             ->unionAll($sales_data)
             ->get();
 
+        /*foreach($sales_data as $data){
 
-        return view('Reports.CustomerReports.Reporting.agingacccount')
-            ->with('Aging', $dr_data);
+
+            $report_data = [
+                'REPORTNO' => $data -> REPORTNO,
+                'REPORTDATE' => $data -> REPORTDATE,
+                'AGING' => $data -> AGING,
+                'BALANCE' => $data -> BALANCE
+            ];
+
+            db::table('sales_aging_report')
+                ->insert($report_data);
+
+        }*/
+
+        foreach($dr_data as $data){
+
+            $report_data = [
+                'REPORTNO' => $data -> REPORTNO,
+                'REPORTDATE' => $data -> REPORTDATE,
+                'AGING' => $data -> AGING,
+                'BALANCE' => $data -> BALANCE
+            ];
+
+            db::table('dr_aging_report')
+                ->insert($report_data);
+
+        }
+
+        return view('Reports.CustomerReports.Reporting.agingacccount');
+    }
+
+    public function aging_account(){
+
+        $delivery = db::table('dr_aging_report')
+            ->select('REPORTNO','REPORTDATE', 'AGING', 'BALANCE');
+
+        return DataTables::query($delivery)
+            ->addColumn('col1', function($data) {
+                if($data->AGING <= 30){
+                    return number_format($data -> BALANCE, 2);
+                }else{
+                    return '-';
+                }
+            })
+            ->addColumn('col2', function($data) {
+                if($data -> AGING > 30 && $data -> AGING <= 60){
+                    return number_format($data -> BALANCE, 2);
+                }else{
+                    return '-';
+                }
+            })
+            ->addColumn('col3', function($data) {
+                if($data -> AGING > 60 && $data -> AGING <= 90){
+                    return number_format($data -> BALANCE, 2);
+                }else{
+                    return '-';
+                }
+            })
+            ->addColumn('col4', function($data) {
+                if($data -> AGING > 90 && $data->AGING <= 120){
+                    return number_format($data -> BALANCE, 2);
+                }else{
+                    return '-';
+                }
+            })
+            ->addColumn('col5', function($data) {
+                if($data -> AGING > 120){
+                    return number_format($data -> BALANCE, 2);
+                }else{
+                    return '-';
+                }
+            })
+            ->addColumn('BALANCE', function($data) {
+                    return number_format($data -> BALANCE, 2);
+            })
+            ->toJson();
+
     }
 
     public function summary_account(Request $request){

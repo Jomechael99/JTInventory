@@ -39,7 +39,7 @@
                                 </tr>
                             </thead>
                             <tbody class="text-center">
-                                @foreach($Aging as $data)
+                                {{--@foreach($Aging as $data)
                                     <tr>
                                         <td> {{ $data -> REPORTNO }}</td>
                                         <td> {{ $data -> REPORTDATE }}</td>
@@ -82,7 +82,7 @@
                                             {{ $data -> BALANCE }}
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endforeach--}}
                             </tbody>
 
                         </table>
@@ -112,9 +112,31 @@
                 ],
                 orientation: 'landscape',
                 pageSize: 'A5',
+                processing: true,
+                serverSide: true,
+                bjQueryUI: true,
+                ajax : {
+                    url : "{{ route('aging_account') }}",
+                    type : "GET",
+                    dataType: 'JSON'
+                },
+                columns: [
+                    {data: 'REPORTNO', name: 'REPORTNO'},
+                    {data: 'REPORTDATE', name: 'REPORTDATE'},
+                    {data: 'col1', name: 'col1' , orderable: false,
+                        searchable: false},
+                    {data: 'col2', name: 'col2', orderable: false,
+                        searchable: false},
+                    {data: 'col3', name: 'col3',orderable: false,
+                        searchable: false},
+                    {data: 'col4', name: 'col4',orderable: false,
+                        searchable: false},
+                    {data: 'col5', name: 'col5',orderable: false,
+                        searchable: false},
+                    {data: 'BALANCE', name: 'BALANCE',orderable: false,
+                        searchable: false},
+                ]
             } );
-
-
         } );
     </script>
 

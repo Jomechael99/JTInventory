@@ -122,7 +122,8 @@ Route::get('getUserAccounts', ['uses'=> 'ReportPageController@viewStatementRepor
 
 Route::post('statementReport', ['uses'=> 'ReportPageController@statement_report', 'as' => 'statement_report']);
 
-Route::post('agingReport', ['uses'=> 'ReportPageController@aging_account', 'as' => 'aging_account']);
+Route::get('agingReport', ['uses'=> 'ReportPageController@aging_account', 'as' => 'aging_account']);
+Route::get('agingView', ['uses' => 'ReportPageController@view_aging', 'as' => 'viewaging']);
 
 Route::post('summaryReport', ['uses'=> 'ReportPageController@summary_account', 'as' => 'summary_account']);
 Route::post('statementcylinder', ['uses'=> 'ReportPageController@statement_cylinder', 'as' => 'statement_cylinder']);

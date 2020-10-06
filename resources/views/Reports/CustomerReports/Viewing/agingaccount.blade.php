@@ -7,7 +7,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+           {{-- <div class="modal-body">
                 <form id="statement" action="{{ route('aging_account') }}"  method="post">
                     {{ csrf_field() }}
                     <div class="row">
@@ -16,7 +16,7 @@
                             <select id="agingCust" class="form-control agingCust" name="custDetails">
                                 <option value="" custId="">Choose Option</option>
                             </select>
-                            {{--<input type="text" id="custName" class="form-control">--}}
+                            --}}{{--<input type="text" id="custName" class="form-control">--}}{{--
                         </div>
                         <div class="form-group col-md-6">
                             <label for=""> FROM DATE </label>
@@ -32,7 +32,7 @@
                         <button type="submit" id="reportButton" class="btn btn-primary">Generate Report</button>
                     </div>
                 </form>
-            </div>
+            </div>--}}
 
         </div>
     </div>
