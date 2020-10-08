@@ -30,6 +30,7 @@
                                 <tr>
                                     <th class="text-center">REPORT NO</th>
                                     <th class="text-center">REPORT DATE</th>
+                                    <th class="text-center">CUSTOMER NAME</th>
                                     <th class="text-center">BELOW 30</th>
                                     <th class="text-center">WITHIN 30 AND 60</th>
                                     <th class="text-center">WITHIN 60 AND 90</th>
@@ -123,6 +124,8 @@
                 columns: [
                     {data: 'REPORTNO', name: 'REPORTNO'},
                     {data: 'REPORTDATE', name: 'REPORTDATE'},
+                    {data: 'NAME', name: 'NAME' , orderable: true,
+                        searchable: true},
                     {data: 'col1', name: 'col1' , orderable: false,
                         searchable: false},
                     {data: 'col2', name: 'col2', orderable: false,
