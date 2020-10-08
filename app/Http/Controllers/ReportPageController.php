@@ -266,7 +266,8 @@ class ReportPageController extends Controller
                 'REPORTNO' => $data -> REPORTNO,
                 'REPORTDATE' => $data -> REPORTDATE,
                 'AGING' => $data -> AGING,
-                'BALANCE' => $data -> BALANCE
+                'BALANCE' => $data -> BALANCE,
+                'NAME' => $data -> NAME
             ];
 
             db::table('dr_aging_report')
