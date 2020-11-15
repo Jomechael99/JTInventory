@@ -29,6 +29,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center">REPORT NO</th>
+                                    <th class="text-center">REPORT TYPE</th>
                                     <th class="text-center">REPORT DATE</th>
                                     <th class="text-center">CUSTOMER NAME</th>
                                     <th class="text-center">BELOW 30</th>
@@ -123,6 +124,7 @@
                 },
                 columns: [
                     {data: 'REPORTNO', name: 'REPORTNO'},
+                    {data: 'REPORTTYPE', name: 'REPORTTYPE'},
                     {data: 'REPORTDATE', name: 'REPORTDATE'},
                     {data: 'NAME', name: 'NAME' , orderable: true,
                         searchable: true},

@@ -246,6 +246,7 @@ class ReportPageController extends Controller
 
         $sales_data = db::table('sales_invoice as a')
             ->select(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE) as AGING'),'INVOICE_DATE as REPORTDATE','INVOICE_NO as REPORTNO', 'BALANCE' , 'b.NAME')
+            ->selectRaw(" 'CR' as TYPE")
             ->join('client as b', 'b.CLIENTID', '=', 'a.CLIENT_ID')
             ->where('FULLY_PAID', 1)
             ->where('BALANCE' ,'!=', 0)
@@ -253,6 +254,7 @@ class ReportPageController extends Controller
 
         $dr_data = db::table('delivery_receipt as a')
             ->select(db::raw('DATEDIFF(CURDATE(),DR_DATE) as AGING'),'DR_DATE as REPORTDATE','DR_NO as REPORTNO','BALANCE','b.NAME')
+            ->selectRaw(" 'PR' as TYPE")
             ->join('client as b', 'b.CLIENTID', '=', 'a.CLIENT_ID')
             ->where('FULLY_PAID', 1)
             ->where('BALANCE' ,'!=', 0)
@@ -264,6 +266,7 @@ class ReportPageController extends Controller
 
             $report_data = [
                 'REPORTNO' => $data -> REPORTNO,
+                'REPORTTYPE' => $data -> TYPE,
                 'REPORTDATE' => $data -> REPORTDATE,
                 'AGING' => $data -> AGING,
                 'BALANCE' => $data -> BALANCE,
@@ -278,6 +281,7 @@ class ReportPageController extends Controller
 
             $report_data = [
                 'REPORTNO' => $data -> REPORTNO,
+                'REPORTTYPE' => $data -> TYPE,
                 'REPORTDATE' => $data -> REPORTDATE,
                 'AGING' => $data -> AGING,
                 'BALANCE' => $data -> BALANCE,
@@ -295,7 +299,7 @@ class ReportPageController extends Controller
     public function aging_account(){
 
         $delivery = db::table('dr_aging_report')
-            ->select('REPORTNO','REPORTDATE', 'AGING', 'BALANCE', 'NAME');
+            ->select('REPORTNO','REPORTTYPE','REPORTDATE', 'AGING', 'BALANCE', 'NAME');
 
         return DataTables::query($delivery)
             ->addColumn('col1', function($data) {
