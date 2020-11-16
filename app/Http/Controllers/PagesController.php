@@ -52,6 +52,7 @@ class PagesController extends Controller
 
             $sales_data = db::table('sales_invoice')
                 ->select(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE) as AGING'),'INVOICE_DATE as REPORTDATE','INVOICE_NO as REPORTNO', 'BALANCE' ,'NAME')
+                ->selectRaw(' "CR" AS TYPE ')
                 ->join('client', 'client.CLIENTID', '=', 'sales_invoice.client_id')
                 ->where('BALANCE','!=', 0)
                 ->where(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE)'),'=','120')
@@ -59,6 +60,7 @@ class PagesController extends Controller
 
             $dr_data = db::table('delivery_receipt')
                 ->select(db::raw('DATEDIFF(CURDATE(),DR_DATE) as AGING'),'DR_DATE as REPORTDATE','DR_NO as REPORTNO','BALANCE','NAME')
+                ->selectRaw(' "PR" AS TYPE ')
                 ->join('client', 'client.CLIENTID', '=', 'delivery_receipt.client_id')
                 ->where('BALANCE','!=', 0)
                 ->where('FULLY_PAID', 1)
@@ -85,6 +87,7 @@ class PagesController extends Controller
                 ->get();
 
             $cnt = 0;
+            
 
             if($dr_data2->count() == 0){
                 $cnt =  0;

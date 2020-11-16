@@ -27,6 +27,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">REPORT NO</th>
+                                                <th class="text-center">REPORT TYPE</th>
                                                 <th class="text-center">REPORT DATE</th>
                                                 <th class="text-center">Customer_Name</th>
                                                 <th class="text-center">TOTAL</th>
@@ -37,6 +38,7 @@
                                             @foreach($chunk as $data)
                                             <tr>
                                                 <td> {{ $data -> REPORTNO }}</td>
+                                                <td> {{ $data -> TYPE }}</td>
                                                 <td> {{ $data -> REPORTDATE }}</td>
                                                 <td> {{ $data -> NAME }}</td>
                                                 <td> {{ $data -> BALANCE }}</td>
