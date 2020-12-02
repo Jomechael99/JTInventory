@@ -11,7 +11,7 @@
                 </div>
                 @foreach($declaration as $data)
                 @endforeach
-                <form method="post" action="{{ route('updateOR') }}">
+                <form method="post" action="{{ route('updateORDeclaration') }}">
                     <div class="box-body">
                         {{ csrf_field() }}
                         <div class="row">
@@ -23,11 +23,11 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for=""> From Invoice No. </label>
-                                <input type="text" class="form-control" id="FromInvoice" name="FromInvoice" value="{{ $data->FROM_NO }}" placeholder="Enter From Invoice No.">
+                                <input type="text" class="form-control" id="FromInvoice" name="FromInvoice" value="{{ $data->FROM_OR_NO }}" placeholder="Enter From Invoice No.">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for=""> To Invoice No. </label>
-                                <input type="text" class="form-control" id="ToInvoice" name="ToInvoice" value="{{ $data->TO_NO }}" placeholder="Enter To Invoice No.">
+                                <input type="text" class="form-control" id="ToInvoice" name="ToInvoice" value="{{ $data->TO_OR_NO }}" placeholder="Enter To Invoice No.">
                             </div>
                             <div class="form-group col-md-3">
                                 @foreach(Session::get('user') as $user)

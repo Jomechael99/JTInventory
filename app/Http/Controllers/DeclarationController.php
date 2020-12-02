@@ -118,7 +118,7 @@ class DeclarationController extends Controller
     }
 
     public function vieworDeclaration($id){
-        $declaration = db::table('dr_assigned')
+        $declaration = db::table('or_assigned')
             ->where('ID', $id)
             ->get();
 
@@ -190,7 +190,7 @@ class DeclarationController extends Controller
     public function deleteOr(Request $request){
         $id = $request->id;
 
-        $delete = db::table('icr_assigned')
+        $delete = db::table('or_assigned')
             ->where('ID', $id)
             ->delete();
 

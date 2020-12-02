@@ -262,7 +262,7 @@
                         data: $('#orForm').serialize(),
                         success: function (response) {
                             try {
-                                swal('Sales invoice successfully', '', 'success');
+                                swal('Official Receipt successfully', '', 'success');
                                 windows.history.back();
                             } catch (Exception) {
                                 swal(Exception, Exception, 'error');

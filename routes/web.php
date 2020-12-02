@@ -52,7 +52,7 @@ Route::post('updateSalesInvoiceDeclaration', ['uses' => 'DeclarationController@u
 Route::post('updateICRDeclaration', ['uses' => 'DeclarationController@updateICRDeclaration' , 'as' => 'updateICR']);
 Route::post('updateCLCDeclaration', ['uses' => 'DeclarationController@updateCLCDeclaration' , 'as' => 'updateCLC']);
 Route::post('updateDRDeclaration', ['uses' => 'DeclarationController@updateDRDeclaration' , 'as' => 'updateDR']);
-Route::post('updateORDeclaration', ['uses' => 'DeclarationController@updateORDeclaration' , 'as' => 'updateOR']);
+Route::post('updateORDeclaration', ['uses' => 'DeclarationController@updateORDeclaration' , 'as' => 'updateORDeclaration']);
 
 //POST DELETE
 

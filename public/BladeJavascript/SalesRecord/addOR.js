@@ -74,12 +74,7 @@ $(document).ready(function(){
             success: function(response){
                 $('#productBody').empty();
                 $('#productBody').append(response.table_data2);
-                $('#prodListTable2').dataTable({
-                    scrollY:        '30vh',
-                    scrollCollapse: true,
-                    paging:         false,
-                    searching: false
-                });
+
             },
             error: function(jqXHR){
                 console.log(jqXHR);
