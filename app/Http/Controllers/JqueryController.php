@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference;
+use Svg\Tag\Rect;
 
 class JqueryController extends Controller
 {
@@ -702,6 +703,14 @@ class JqueryController extends Controller
 
         return response()->json(array('option' => $option, 'option2' => $option2));
 
+    }
+
+
+    public function delete_pricelist(Request $request){
+        $id = $request->id;
+        db::table('product_list')->where('ID', $id)->delete();
+
+        return Response()->json(['status' => 'true']);
     }
 
 }

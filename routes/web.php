@@ -94,6 +94,7 @@ Route::post('poProductDetails', ['uses' => 'JqueryController@poProductDetails', 
 Route::post('getClientSalesInvoice', ['uses' => 'JqueryController@client_sales_invoice', 'as' => 'clientsalesinvoice']);
 Route::post('validateCylinderType', ['uses' => 'JqueryController@cylinder_type_validation', 'as' => 'cylinderTypeValidation']);
 Route::post('customer_po', ['uses' => 'JqueryController@customer_po', 'as' => 'customerpo']);
+Route::post('DeletePricelist', ['uses' => 'JqueryController@delete_pricelist', 'as' => 'delete_pricelist']);
 
 
 // Resoures

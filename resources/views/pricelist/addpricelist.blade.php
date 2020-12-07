@@ -139,6 +139,7 @@
 
                                                 <div class="btn-group-vertical btn-action">
                                                     <a type="button" class="btn btn-info btn-edit"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
+                                                    <a type="button" class="btn btn-warning btn-delete"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Delete</a>
                                                 </div>
 
                                                 <div class="btn-group-vertical btn-edit-yes hidden">
@@ -240,8 +241,53 @@
             });
             // End of file
 
-            p
+        
 
+        });
+
+        $('.btn-delete').on('click', function(){
+
+            var prod_id = $(this).closest('tr').find('#prodID').val();
+
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+
+                            $.ajax({
+                                url: '{{ route('delete_pricelist') }}' ,
+                                type: "POST",
+                                data: {
+                                    'id' : prod_id,
+                                    "_token": "{{ csrf_token() }}",
+                                },
+                                success: function( response ) {
+                                if(response.status == "true"){
+                                            swal({title: "Success!", text: "Product Price is Deleted.", type: "success"})
+                                                .then((value) => {
+                                                    location.reload();
+                                                });
+
+                                }else{
+                                    swal("Error in adding of Product", "danger");
+                                }
+                                }
+                            });
+                        } else {
+                            swal("Product pricelist is not deleted");
+                        }
+            });
         });
 
     </script>
