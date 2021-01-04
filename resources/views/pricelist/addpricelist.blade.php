@@ -100,6 +100,9 @@
                             <div class="btn-group">
                                 <button type="button" id="back" class="btn btn-primary pull-left">Back</button>
                             </div>
+                            <div class="btn-group">
+                                <button type="button" id="reset" class="btn btn-primary pull-left">Reset</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -186,6 +189,10 @@
                 ]
             });
             // End of Datatables
+
+            $('#reset').on('click', function(){
+                location.reload();
+            });
 
             // Dynamic Select Option of Product => Size
             $('#prodCode').on('change', function(){

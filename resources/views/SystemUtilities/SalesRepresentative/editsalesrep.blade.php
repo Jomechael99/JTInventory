@@ -62,8 +62,11 @@
                <div class="box-footer">
                    <div class="row">
                        <div class="form-group col-md-4 pull-right">
+                          <button type="submit" class="form-control btn btn-primary"> Edit Sales Representative </button>
                        </div>
-                           <button type="submit" class="form-control btn btn-primary"> Edit Sales Representative </button>
+                       <div class="form-group col-md-1">
+                            <button type="button" id="reset" class="form-control btn btn-primary pull-left">Reset</button>
+                        </div>
                    </div>
                </div>
                </form>
@@ -79,5 +82,13 @@
 
 
 @section('scripts')
+
+<script>
+  $(document).ready(function(){
+      $('#reset').on('click', function(){
+          location.reload();
+      });
+  });
+</script>
 
 @endsection

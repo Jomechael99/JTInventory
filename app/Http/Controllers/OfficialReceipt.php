@@ -212,10 +212,13 @@ class OfficialReceipt extends Controller
             ->where('OR_NO', $or)
             ->get();
 
+        $edit_status = 1;
+
         return view('SalesRecord.OfficialReceipt.editor')
             ->with('data', $client)
             ->with('or_list', $data_product)
-            ->with('or', $data);
+            ->with('or', $data)
+            ->with('status', $edit_status);
     }
 
     /**

@@ -92,6 +92,9 @@
                     <div class="form-group col-md-3 pull-right">
                         <button class="form-control btn btn-info" type="submit"> Add Purchase Order </button>
                     </div>
+                    <div class="btn-group">
+                        <button type="button" id="reset" class="btn btn-primary pull-left">Reset</button>
+                    </div>
                 </div>
 
             </div>
@@ -107,6 +110,13 @@
 @section('scripts')
 
     <script type="text/javascript">
+
+        $(document).ready(function(){
+            $('#reset').on('click', function(){
+                location.reload();
+            });
+        });
+
         $('#custCode').select2({
             selectOnClose: true,
         });

@@ -124,11 +124,11 @@
                             <button type="button" class="btn btn-primary pull-left">Back</button>
                         </div>
                         <div class="btn-group">
-                            <button type="button" id="btnClear" class="btn btn-primary pull-left">Clear</button>
+                            <button type="button" id="reset" class="btn btn-primary pull-left">Reset</button>
                         </div>
-                        <div class="btn-group">
+                        <!-- <div class="btn-group">
                             <button type="button" id="btnClear" class="btn btn-primary pull-left">Masterlist</button>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
 
@@ -157,6 +157,10 @@
                     $('#cashPay').val("0");
                 }
             });
+
+            $('#reset').on('click', function(){
+                location.reload();
+            })
 
         });
 

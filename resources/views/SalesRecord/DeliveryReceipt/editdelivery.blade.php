@@ -11,6 +11,11 @@
 
     <div class="content-wrapper">
         <section class="content">
+
+            @if($status == 1)
+                <input type="hidden" id="status" value="{{ $status }}">    
+            @endif
+            
             <div class="box">
                 <div class="box-header text-center">
                     <span> Delivery Receipt Information </span>
@@ -153,6 +158,9 @@
                             <div class="form-group col-md-3 pull-left">
                                 <button type="button" id="cancelInvoice" class="form-control btn btn-primary"> Cancel Invoice </button>
                             </div>
+                            <div class="form-group col-md-1 pull-left">
+                                <button type="button" id="reset" class="form-control btn btn-primary"> Reset </button>
+                            </div>
                             <div class="form-group col-md-3 pull-right">
                                 <button type="button" id="submitButton" class="form-control btn btn-primary"> Edit Delivery Receipt </button>
                             </div>
@@ -171,6 +179,10 @@
         $(document).ready(function(){
 
             $('#size').maskMoney();
+
+            $('#reset').on('click', function(){
+                location.reload();
+            });
 
             function validationonFail(){
 

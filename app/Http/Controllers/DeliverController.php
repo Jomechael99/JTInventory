@@ -154,10 +154,14 @@ class DeliverController extends Controller
             ->get();
 
 
+            $edit_status = 1;
+
+
         return view('SalesRecord.DeliveryReceipt.editdelivery')
             ->with('dr', $data)
             ->with('data', $client)
-            ->with('product', $data_product);
+            ->with('product', $data_product)
+            ->with('status', $edit_status);;
     }
 
     /**

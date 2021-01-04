@@ -123,6 +123,9 @@
                             <div class="form-group col-md-3 pull-left">
                                 <button type="button" id="cancelInvoice" class="form-control btn btn-primary"> Cancel Invoice </button>
                             </div>
+                            <div class="form-group col-md-1 pull-left">
+                                <button type="button" id="reset" class="form-control btn btn-primary"> Reset </button>
+                            </div>
                             <div class="form-group col-md-3 pull-right">
                                 <button type="button" id="submitButton" class="form-control btn btn-primary"> Add Cylinder Receipt </button>
                             </div>
@@ -139,6 +142,10 @@
     <script type="text/javascript" src="{{ asset('BladeJavascript/SalesRecord/AddICR.js') }}"></script>
     <script type="text/javascript" >
         $(document).ready(function(){
+
+            $('#reset').on('click', function(){
+                location.reload();
+            });
 
             function submitButton(){
 

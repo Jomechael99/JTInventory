@@ -25,6 +25,9 @@
                 <div class="box-header text-center">
                     <span> Delivery as Invoice Information </span>
                 </div>
+                @if($status == 1)
+                    <input type="hidden" id="status" value="{{ $status }}">    
+                @endif
                 <form method="post" id="salesinvoiceform">
                     <div class="box-body">
                         {{ csrf_field() }}
@@ -256,6 +259,9 @@
                             <div class="form-group col-md-3 pull-left">
                                 <button type="button" id="cancelInvoice" class="form-control btn btn-primary"> Back </button>
                             </div>
+                            <div class="form-group col-md-1 pull-left">
+                                <button type="button" id="reset" class="form-control btn btn-primary"> Reset </button>
+                            </div>
                             <div class="form-group col-md-3 pull-right">
                                 <button type="button" id="submitButton" class="form-control btn btn-primary"> Edit DR </button>
                             </div>
@@ -283,6 +289,10 @@
                 placeholder: 'Select an option',
                 dropdownAutoWidth: true,
                 allowClear: true
+            });
+
+            $('#reset').on('click', function(){
+                location.reload();
             });
 
             function submitButton(){

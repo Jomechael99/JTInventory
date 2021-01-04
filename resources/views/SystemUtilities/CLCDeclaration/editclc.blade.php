@@ -43,6 +43,9 @@
                                 <button type="submit" id="addSalesInvoice" class="form-control btn btn-primary"> Edit CLC </button>
                                 {{--                           <a href="{{ route('SalesInvoice.index') }}" class="form-control btn btn-primary"> Back</a>--}}
                             </div>
+                            <div class="form-group col-md-1">
+                                <button type="button" id="reset" class="form-control btn btn-primary pull-left">Reset</button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -57,4 +60,11 @@
 
 
 @section('scripts')
+    <script>
+        $(document).ready(function(){
+            $('#reset').on('click', function(){
+                location.reload();
+            });
+        });
+    </script>
 @endsection

@@ -114,9 +114,12 @@
                 <div class="btn-group pull-right">
                     <button type="submit" id="submit" class="btn btn-primary ">Submit</button>
                 </div>
-                    <div class="btn-group">
-                        <button type="button" id="back" class="btn btn-primary pull-left">Back</button>
-                    </div>
+                <div class="btn-group">
+                    <button type="button" id="back" class="btn btn-primary pull-left">Back</button>
+                </div>
+                <div class="btn-group">
+                    <button type="button" id="reset" class="btn btn-primary pull-left">Reset</button>
+                </div>
 
 
               </form>
@@ -134,16 +137,14 @@
 @section('scripts')
     <script type="text/javascript">
 
+    
+
 
     $(document).ready(function(){
-        // $.validate({});
-        //
-        //
-        // $('#submit').on('click', function(){
-        //     $.validate({
-        //         modules: '#custInfo'
-        //     });
-        // });
+        
+        $('#reset').on('click', function(){
+            location.reload();
+        })
 
 
         

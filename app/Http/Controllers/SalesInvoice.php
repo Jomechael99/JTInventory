@@ -595,11 +595,14 @@ class SalesInvoice extends Controller
         $client = db::table('client')
             ->get();
 
+        $edit_status = 1;
+
 
         return view('SalesRecord.SalesInvoice.editsalesinvoice')
             ->with('sales', $data)
             ->with('data', $client)
-            ->with('product', $data_product);
+            ->with('product', $data_product)
+            ->with('status', $edit_status);
     }
 
     /**

@@ -38,9 +38,14 @@
                    <div class="row">
                        <div class="form-group col-md-4 pull-right">
                            <button type="submit" id="addSalesInvoice" class="form-control btn btn-primary"> Add ICR </button>
-                           <a href="{{ route('SalesInvoice.index') }}" class="form-control btn btn-primary"> Back</a>
                        </div>
-                   </div>
+                       <div class="form-group col-md-1">
+                            <a href="{{ route('SalesInvoice.index') }}" class="form-control btn btn-primary"> Back</a>
+                        </div>
+                       <div class="form-group col-md-1">
+                            <button type="button" id="reset" class="form-control btn btn-primary pull-left">Reset</button>
+                        </div>
+                    </div>
                </div>
                </form>
        </div>
@@ -105,6 +110,10 @@
                 "info":     true,
                 'searching': true,
                 'bJQueryUI': true
+            });
+
+            $('#reset').on('click', function(){
+                location.reload();
             });
 
             @if(Session::has('status'))

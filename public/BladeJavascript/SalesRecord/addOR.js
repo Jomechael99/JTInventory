@@ -8,7 +8,15 @@ $(document).ready(function(){
 
     $('#amountPaid').maskMoney();
 
-    $('#submitButton').attr('disabled', true);
+    var status = $('#status').val();
+
+    if(status != 1){
+        $('#submitButton').attr('disabled', true);
+        $('.btn-validate').attr('disabled', false);
+    }else{
+        $('#submitButton').attr('disabled', false);
+        $('.btn-validate').attr('disabled', true);
+    }
 
     function idValidation() {
 
