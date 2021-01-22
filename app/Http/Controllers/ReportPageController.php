@@ -248,7 +248,7 @@ class ReportPageController extends Controller
             ->select(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE) as AGING'),'INVOICE_DATE as REPORTDATE','INVOICE_NO as REPORTNO', 'BALANCE' , 'b.NAME')
             ->selectRaw(" 'CR' as TYPE")
             ->join('client as b', 'b.CLIENTID', '=', 'a.CLIENT_ID')
-            ->where('FULLY_PAID', 1)
+            ->where('FULLY_PAID', 0)
             ->where('BALANCE' ,'!=', 0)
             ->get();
 
@@ -256,8 +256,9 @@ class ReportPageController extends Controller
             ->select(db::raw('DATEDIFF(CURDATE(),DR_DATE) as AGING'),'DR_DATE as REPORTDATE','DR_NO as REPORTNO','BALANCE','b.NAME')
             ->selectRaw(" 'PR' as TYPE")
             ->join('client as b', 'b.CLIENTID', '=', 'a.CLIENT_ID')
-            ->where('FULLY_PAID', 1)
+            ->where('FULLY_PAID', 0)
             ->where('BALANCE' ,'!=', 0)
+            ->where('AS_INVOICE', 1)
             ->get();
 
 

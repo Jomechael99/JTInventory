@@ -85,7 +85,7 @@
         <li class="{{ (request()->is('DeliverSales')) ? 'active' : '' }}"><a href="{{ route('DeliverSales.index') }}"><i
                   class="fa fa-user"></i> Delivery Invoice Receipt </a></li>
         <li class="{{ (request()->is('OfficialReceipt')) ? 'active' : '' }}"><a
-            href="{{ route('OfficialReceipt.index') }}"><i class="fa fa-user"></i> Official Receipt </a></li>
+            href="{{ route('OfficialReceipt.index') }}"><i class="fa fa-user"></i> OR/PR Receipt </a></li>
       </ul>
     </li>
       <li class="treeview menu-open" style="height: auto;">

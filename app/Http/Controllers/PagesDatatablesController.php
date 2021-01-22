@@ -51,7 +51,7 @@ class PagesDatatablesController extends Controller
             return DataTables::query($deliver_invoice)
                 ->addColumn('action', function($row){
                     $btn = '<td></d></tr><div class="btn-group-vertical">
-                                <a type="button" class="btn btn-info" href='. route('Sales.edit', $row->ID) .'><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
+                                <a type="button" class="btn btn-info" href='. route('DeliverSales.edit', $row->ID) .'><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
                             </div></td>';
                     return $btn;
                 })
@@ -77,7 +77,7 @@ class PagesDatatablesController extends Controller
             return DataTables::query($deliver_invoice)
                 ->addColumn('action', function($row){
                     $btn = '<td></d></tr><div class="btn-group-vertical">
-                                <a type="button" class="btn btn-info" href='. route('Sales.edit', $row->ID) .'><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
+                                <a type="button" class="btn btn-info" href='. route('Deliver.edit', $row->ID) .'><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
                             </div></td>';
                     return $btn;
                 })
@@ -102,7 +102,7 @@ class PagesDatatablesController extends Controller
             return DataTables::query($OR)
                 ->addColumn('action', function($row){
                     $btn = '<td></d></tr><div class="btn-group-vertical">
-                                <a type="button" class="btn btn-info" href='. route('Sales.edit', $row->ID) .'><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
+                                <a type="button" class="btn btn-info" href='. route('OfficialReceipt.edit', $row->ID) .'><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
                             </div></td>';
                     return $btn;
                 })
