@@ -297,6 +297,69 @@ class ReportPageController extends Controller
         return view('Reports.CustomerReports.Reporting.agingacccount');
     }
 
+    public function view_aging2(Request $request){
+
+        $id = $request->custDetails;
+
+        db::table('dr_aging_report')
+            ->truncate();
+
+        $sales_data = db::table('sales_invoice as a')
+            ->select(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE) as AGING'),'INVOICE_DATE as REPORTDATE','INVOICE_NO as REPORTNO', 'BALANCE' , 'b.NAME')
+            ->selectRaw(" 'CR' as TYPE")
+            ->join('client as b', 'b.CLIENTID', '=', 'a.CLIENT_ID')
+            ->where('CLIENT_ID', $id)
+            ->where('FULLY_PAID', 0)
+            ->where('BALANCE' ,'!=', 0)
+
+            ->get();
+
+        $dr_data = db::table('delivery_receipt as a')
+            ->select(db::raw('DATEDIFF(CURDATE(),DR_DATE) as AGING'),'DR_DATE as REPORTDATE','DR_NO as REPORTNO','BALANCE','b.NAME')
+            ->selectRaw(" 'PR' as TYPE")
+            ->join('client as b', 'b.CLIENTID', '=', 'a.CLIENT_ID')
+            ->where('FULLY_PAID', 0)
+            ->where('CLIENT_ID', $id)
+            ->where('BALANCE' ,'!=', 0)
+            ->where('AS_INVOICE', 1)
+            ->get();
+
+
+        foreach($sales_data as $data){
+
+
+            $report_data = [
+                'REPORTNO' => $data -> REPORTNO,
+                'REPORTTYPE' => $data -> TYPE,
+                'REPORTDATE' => $data -> REPORTDATE,
+                'AGING' => $data -> AGING,
+                'BALANCE' => $data -> BALANCE,
+                'NAME' => $data -> NAME
+            ];
+
+            db::table('dr_aging_report')
+                ->insert($report_data);
+        }
+
+        foreach($dr_data as $data){
+
+            $report_data = [
+                'REPORTNO' => $data -> REPORTNO,
+                'REPORTTYPE' => $data -> TYPE,
+                'REPORTDATE' => $data -> REPORTDATE,
+                'AGING' => $data -> AGING,
+                'BALANCE' => $data -> BALANCE,
+                'NAME' => $data -> NAME
+            ];
+
+            db::table('dr_aging_report')
+                ->insert($report_data);
+
+        }
+
+        return view('Reports.CustomerReports.Reporting.agingacccount');
+    }
+
     public function aging_account(){
 
         $delivery = db::table('dr_aging_report')

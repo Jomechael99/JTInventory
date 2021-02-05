@@ -9,7 +9,7 @@
                 <div class="box-header text-center">
                     <div class="col-md-4" role="alert">
                         <br>
-                        <a href="{{ route('OfficialReceipt.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Collection Receipt</a>
+                        <a href="{{ route('ProvisionalReceipt.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Provisional Receipt</a>
                     </div>
                 </div>
                 <div class="box-body table-responsive">
@@ -17,11 +17,11 @@
                         @foreach(Session::get('user') as $user)
                         @endforeach
                         <thead>
-                        <th class="text-center"> CR No. </th>
-                        <th class="text-center"> CR Date. </th>
+                        <th class="text-center"> PR No. </th>
+                        <th class="text-center"> PR Date. </th>
                         <th class="text-center"> Customer Name </th>
                         @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
-                        <th class="text-center"> Actions </th>
+                            <th class="text-center"> Actions </th>
                         @endif
                         </thead>
                         <tbody class="text-center">
@@ -55,13 +55,13 @@
                 serverSide: true,
                 bjQueryUI: true,
                 ajax : {
-                    url : "{{ route('official_receipt_data') }}",
+                    url : "{{ route('provisional_data') }}",
                     type : "GET",
                     dataType: 'JSON'
                 },
                 columns: [
-                    {data: 'OR_NO', name: 'a.OR_NO'},
-                    {data: 'OR_DATE', name: 'a.OR_DATE'},
+                    {data: 'PR_NO', name: 'a.PR_NO'},
+                    {data: 'PR_DATE', name: 'a.PR_DATE'},
                     {data: 'NAME', name: 'b.NAME'},
                         @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
                     {

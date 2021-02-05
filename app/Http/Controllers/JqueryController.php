@@ -339,7 +339,21 @@ class JqueryController extends Controller
             }else{
                 return Response()->json(['status' => 'empty']);
             }
-        }
+        }elseif($buttonVal == "PR"){
+
+
+            $report2 = db::table('provisional_receipt')
+                ->where('PR_NO', $invoiceNo)
+                ->get();
+
+            if ($report2->isEmpty() == true ) {
+                    return response()->json(array('status' => "active"));
+                } else if($report2->isEmpty() == false){
+                    return response()->json(array(['status' => "DONE"]));
+                }
+            }else{
+                return Response()->json(['status' => 'empty']);
+            }
     }
 
     // Add Sales Invoice Customer Details
@@ -557,7 +571,29 @@ class JqueryController extends Controller
             ->select('INVOICE_NO as No', 'INVOICE_DATE as date' , 'BALANCE as balance')
             ->selectRaw("'INVOICE' as TYPE")
             ->where('CLIENT_ID', $data_id)
-            ->where('FULLY_PAID', 0);
+            ->where('FULLY_PAID', 0)
+            ->get();
+
+
+
+        foreach($sales_invoice as $data){
+            $data0 = '<td> <input type="checkbox" id="radioButton"></td>';
+            $data1 = '<td>'.$data -> No .'</td>';
+            $data2 = '<td>'.$data -> date .'</td>';
+            $data3 = '<td>'.$data -> balance .'</td>';
+            $data4 = '<td class="hidden">'.$data -> TYPE .'</td>';
+
+            $tableData2 .= '<tr class="text-center">'.$data0.' '.$data1.' '. $data2 .' '.$data3.' '.$data4.' </tr>';
+        }
+
+        return response()->json(['table_data2' => $tableData2]);
+
+    }
+
+    public function client_sales_invoice2(Request $request){
+        $data_id = $request -> client_id;
+        $tableData2 = '';
+
 
         $delivery_invoice = db::table('delivery_receipt')
             ->select('DR_NO as No', 'DR_DATE as date' , 'BALANCE as balance')
@@ -565,7 +601,6 @@ class JqueryController extends Controller
             ->where('CLIENT_ID', $data_id)
             ->where('AS_INVOICE', '=', '1')
             ->where('FULLY_PAID', 0)
-            ->unionAll($sales_invoice)
             ->get();
 
         foreach($delivery_invoice as $data){

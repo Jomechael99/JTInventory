@@ -266,9 +266,9 @@
                         data: $('#orForm').serialize(),
                         success: function (response) {
                             try {
+                                window.history.back();
                                 swal('Official Receipt successfully edited', '', 'success');
-                               location.reload();
-                            } catch (Exception) {
+                           } catch (Exception) {
                                 swal(Exception, Exception, 'error');
                             }
                         },

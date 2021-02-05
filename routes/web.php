@@ -70,6 +70,7 @@ Route::post('UpdateDR', ['uses' => 'SalesRecordUpdate@updateDELIVER', 'as' => 'U
 Route::post('UpdateDRSALES', ['uses' => 'SalesRecordUpdate@updateDELIVERSALES', 'as' => 'UpdateDELIVERSALES']);
 Route::post('UpdateSALES', ['uses' => 'SalesRecordUpdate@updateSALES', 'as' => 'updateSALES']);
 Route::post('UpdateOR', ['uses' => 'SalesRecordUpdate@updateOR', 'as' => 'updateOR']);
+Route::post('updatePR', ['uses' => 'SalesRecordUpdate@updatePR', 'as' => 'updatePR']);
 
 
 
@@ -92,6 +93,7 @@ Route::post('noValidate', ['uses' => 'JqueryController@noValidate', 'as' => 'noV
 Route::post('poCustomerDetails', ['uses' => 'JqueryController@poCustomerDetails', 'as' => 'poCustDetails']);
 Route::post('poProductDetails', ['uses' => 'JqueryController@poProductDetails', 'as' => 'poProdDetails']);
 Route::post('getClientSalesInvoice', ['uses' => 'JqueryController@client_sales_invoice', 'as' => 'clientsalesinvoice']);
+Route::post('getClientSalesInvoice2', ['uses' => 'JqueryController@client_sales_invoice2', 'as' => 'clientsalesinvoice2']);
 Route::post('validateCylinderType', ['uses' => 'JqueryController@cylinder_type_validation', 'as' => 'cylinderTypeValidation']);
 Route::post('customer_po', ['uses' => 'JqueryController@customer_po', 'as' => 'customerpo']);
 Route::post('DeletePricelist', ['uses' => 'JqueryController@delete_pricelist', 'as' => 'delete_pricelist']);
@@ -116,6 +118,7 @@ Route::resource('CylinderLoan', 'CylinderLoan');
 Route::resource('Deliver', 'DeliverController');
 Route::resource('DeliverSales','DeliverSalesinvoice');
 Route::resource('OfficialReceipt', 'OfficialReceipt');
+Route::resource('ProvisionalReceipt', 'ProvisionalController');
 
 // Reports
 
@@ -125,6 +128,7 @@ Route::post('statementReport', ['uses'=> 'ReportPageController@statement_report'
 
 Route::get('agingReport', ['uses'=> 'ReportPageController@aging_account', 'as' => 'aging_account']);
 Route::get('agingView', ['uses' => 'ReportPageController@view_aging', 'as' => 'viewaging']);
+Route::post('agingView2', ['uses' => 'ReportPageController@view_aging2', 'as' => 'viewaging2']);
 
 Route::post('summaryReport', ['uses'=> 'ReportPageController@summary_account', 'as' => 'summary_account']);
 Route::post('statementcylinder', ['uses'=> 'ReportPageController@statement_cylinder', 'as' => 'statement_cylinder']);
@@ -138,5 +142,7 @@ Route::get('SalesInvoiceData', ['uses' => 'PagesDatatablesController@sales_invoi
 Route::get('DeliveryInvoiceDate', ['uses' => 'PagesDatatablesController@delivery_sales', 'as'=>'delivery_sales_data']);
 Route::get('DeliveryDate', ['uses' => 'PagesDatatablesController@delivery_sales_2', 'as'=>'delivery_sales_data2']);
 Route::get('official_receipt_data', ['uses' => 'PagesDatatablesController@official_receipt_data', 'as'=>'official_receipt_data']);
+Route::get('provisional_data', ['uses' => 'PagesDatatablesController@provisional_data', 'as'=>'provisional_data']);
+
 Route::get('dashboard_data', ['uses' => 'PagesDatatablesController@dashboard_data', 'as'=>'dashboard_data']);
 

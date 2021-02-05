@@ -21,8 +21,7 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MENU NAVIGATION</li>
-      <li
-        class=" {{ (request()->is('Customer')) || (request()->is('Pricelist')) || (request()->is('Purchase_Order'))   ? 'active' : '' }} treeview">
+      <li class="treeview">
         <a>
           <i class="fa fa-users"></i> <span>Customer Masterfile</span>
           <span class="pull-right-container">
@@ -41,7 +40,7 @@
             class="fa fa-shopping-cart"></i> Purchase Order </a></li>
     </ul>
     </li>
-    <li class=" {{ (request()->is('SystemUtilities/SystemUsers')) ? 'active' : '' }} treeview">
+    <li class="treeview">
       <a>
         <i class="fa fa-wrench"></i> <span>System Utilities</span>
         <span class="pull-right-container">
@@ -66,7 +65,7 @@
           </a></li>
       </ul>
     </li>
-    <li class=" {{ (request()->is('Sales') || request()->is('CylinderReceipt'))  ? 'active' : '' }} treeview">
+    <li class="treeview">
       <a>
         <i class="fa fa-wrench"></i> <span>Sales Record</span>
         <span class="pull-right-container">
@@ -85,33 +84,28 @@
         <li class="{{ (request()->is('DeliverSales')) ? 'active' : '' }}"><a href="{{ route('DeliverSales.index') }}"><i
                   class="fa fa-user"></i> Delivery Invoice Receipt </a></li>
         <li class="{{ (request()->is('OfficialReceipt')) ? 'active' : '' }}"><a
-            href="{{ route('OfficialReceipt.index') }}"><i class="fa fa-user"></i> OR/PR Receipt </a></li>
+            href="{{ route('OfficialReceipt.index') }}"><i class="fa fa-user"></i> Collection Receipt </a></li>
+        <li class="{{ (request()->is('ProvisionalReceipt')) ? 'active' : '' }}"><a
+                  href="{{ route('ProvisionalReceipt.index') }}"><i class="fa fa-user"></i> Provisional Receipt </a></li>
       </ul>
     </li>
-      <li class="treeview menu-open" style="height: auto;">
-        <a>
-          <i class="fa fa-share"></i> <span>Reports</span>
-          <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-        </a>
-        <ul class="treeview-menu" style="display: block;">
-          <li class="treeview menu-open" style="height: auto;">
-            <a><i class="fa fa-circle-o"></i> Customer Reports
-              <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu" style="display: block;">
-             {{-- <li><a href="#"><i class="fa fa-circle-o"></i> Pricelist Report </a></li>--}}
-              <li><a href="{{ route('viewaging') }}"><i class="fa fa-circle-o"></i> Aging Report </a></li>
-              <li><a data-toggle="modal" data-target="#statementAccount"> <i class="fa fa-circle-o"></i> Statement of Account </a></li>
-              <li><a data-toggle="modal" data-target="#summaryAccount"> <i class="fa fa-circle-o"></i> Summary of Account </a></li>
-              <li><a data-toggle="modal" data-target="#cylinderBalModal"> <i class="fa fa-circle-o"></i> Statement of Cylinder Balance </a></li>
-            </ul>
-          </li>
+      <li class="treeview">
+      <a>
+        <i class="fa fa-files-o"></i> <span>Reports</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+        <ul class="treeview-menu">
+           {{--<li><a href="#"><i class="fa fa-circle-o"></i> Pricelist Report </a></li>--}}
+          <li><a data-toggle="modal" data-target="#agingAccount"> <i class="fa fa-circle-o"></i> Customer Aging Report </a></li>
+          <li><a href="{{ route('viewaging') }}"><i class="fa fa-circle-o"></i> General Aging Report </a></li>
+          <li><a data-toggle="modal" data-target="#statementAccount"> <i class="fa fa-circle-o"></i> Statement of Account </a></li>
+          <li><a data-toggle="modal" data-target="#summaryAccount"> <i class="fa fa-circle-o"></i> Summary of Account </a></li>
+          <li><a data-toggle="modal" data-target="#cylinderBalModal"> <i class="fa fa-circle-o"></i> Statement of Cylinder Balance </a></li>
         </ul>
-      </li>
+    </li>
+
       <li class="treeview">
         <a>
           <i class="fa fa-wrench"></i> <span>System User</span>

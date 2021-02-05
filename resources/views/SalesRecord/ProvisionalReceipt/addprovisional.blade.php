@@ -11,24 +11,25 @@
         <section class="content">
             <div class="box">
                 <div class="box-header text-center">
-                    <span> Collection Receipt </span>
+                    <span> Provisional Receipt </span>
                 </div>
                 <div class="box-body">
                     <form method="post" id="orForm">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label for="">CR NO. &nbsp;<label id="status"></label> </label>
+                                <label for="">Provisional NO. &nbsp;<label id="status"></label> </label>
                                 <input type="text" class="form-control" id="orNo" name="orNo" value="">
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="lbl" for=""> &nbsp;</label>
-                                <button type="button" class="form-control btn btn-primary btn-validate" id="invoiceValidate" value="OR"> Validate Collection No. </button>
+                                <button type="button" class="form-control btn btn-primary btn-validate" id="invoiceValidate" value="PR"> Validate Delivery No. </button>
                             </div>
                             <div class="form-group col-md-6">
-                                <label class="lbl" for="">CR DATE</label>
+                                <label class="lbl" for="">PR DATE</label>
                                 <input type="date" id="cylinderDate" name="cylinderDate" class="form-control">
                             </div>
+
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
@@ -62,8 +63,8 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center">  </th>
-                                        <th class="text-center"> CR No </th>
-                                        <th class="text-center"> CR Date </th>
+                                        <th class="text-center"> DR No </th>
+                                        <th class="text-center"> DR Date </th>
                                         <th class="text-center"> Amount </th>
                                     </tr>
                                     </thead>
@@ -76,8 +77,8 @@
                                 <table id="prodListTable2" class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th class="text-center">  CR No</th>
-                                        <th class="text-center">  CR Date </th>
+                                        <th class="text-center">  DR No</th>
+                                        <th class="text-center">  DR Date </th>
                                         <th class="text-center">  Amount</th>
                                         <th class="text-center">  </th>
                                     </tr>
@@ -91,11 +92,11 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-3">
-                                <label class="lbl" for="">P/O Payment CR No.</label>
+                                <label class="lbl" for="">P/O Payment OR No.</label>
                                 <input type="text" id="PaymentOr" class="form-control">
                             </div>
                             <div class="form-group col-md-3">
-                                <label class="lbl" for="">P/O Payment CR No.</label>
+                                <label class="lbl" for="">P/O Payment OR No.</label>
                                 <button type="button" class="form-control btn btn-primary btn-validate" id="loadPayment"> Load P/O Payment </button>
                             </div>
                         </div>
@@ -153,7 +154,7 @@
                             <div class="form-group col-md-3">
                             </div>
                             <div class="form-group col-md-3">
-                                <label class="lbl" for="">Double Payment Invoice CR.</label>
+                                <label class="lbl" for="">Double Payment Invoice No.</label>
                                 <input type="text" id="doublePaymentNo" class="form-control" name="doublePaymentNo">
                             </div>
                             <div class="form-group col-md-3">
@@ -165,8 +166,7 @@
                         <div class="row">
                             <div class="form-group col-md-3">
                                 <label class="lbl" for="">Sales Representative</label>
-                                <input type="text" class="form-control" id="issuedBy" name="issuedBy" readonly>
-                                <input type="text" class="form-control hidden" id="issuedId" name="issuedId" readonly >
+                                <input type="text" class="form-control" id="issuedBy" name="issuedBy">
                             </div>
                             <div class="form-group col-md-3 radio-label-vertical-wrapper">
                                 <label for = "name"></label>
@@ -204,16 +204,18 @@
                         <div class="box-footer">
                             <div class="row">
                                 <div class="form-group col-md-3 pull-left">
-                                    <button type="button" id="cancelInvoice" class="form-control btn btn-primary"> Cancel Invoice </button>
+                                    <button type="button" id="cancelInvoice" class="form-control btn btn-primary"> Cancel Provisional </button>
                                 </div>
                                 <div class="form-group col-md-1 pull-left">
                                     <button type="button" id="reset" class="form-control btn btn-primary"> Reset </button>
                                 </div>
                                 <div class="form-group col-md-3 pull-right">
-                                    <button type="button" id="submitButton" class="form-control btn btn-primary"> Add Collection Receipt </button>
+                                    <button type="button" id="submitButton" class="form-control btn btn-primary"> Add Provisional Receipt </button>
                                 </div>
                             </div>
                         </div>
+
+
                     </form>
                 </div>
             </div>
@@ -224,7 +226,7 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="{{ asset('BladeJavascript/SalesRecord/addOR.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('BladeJavascript/SalesRecord/addPR.js') }}"></script>
     <script>
         $(document).ready(function(){
 
@@ -261,13 +263,13 @@
                     });
 
                     $.ajax({
-                        url: "{{ route('OfficialReceipt.store') }}",
+                        url: "{{ route('ProvisionalReceipt.store') }}",
                         type: "POST",
                         data: $('#orForm').serialize(),
                         success: function (response) {
                             try {
                                 window.history.back();
-                                swal('Official Receipt successfully', '', 'success');
+                                swal('Provisional Receipt successfully', '', 'success');
                             } catch (Exception) {
                                 swal(Exception, Exception, 'error');
                             }

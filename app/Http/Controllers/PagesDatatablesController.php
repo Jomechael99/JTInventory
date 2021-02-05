@@ -112,4 +112,29 @@ class PagesDatatablesController extends Controller
             return DataTables::query($OR)->toJson();
         }
     }
+
+    public function provisional_data(){
+
+        $PR = db::table('provisional_receipt as a')
+            ->select(['a.ID','a.PR_NO', 'a.PR_DATE', 'b.NAME'])
+            ->join('client as b', 'a.CLIENT_ID', '=', 'b.CLIENTID');
+
+        foreach(Session::get('user') as $user){
+            $role = $user -> user_authorization;
+        }
+
+        if($role == "ADMINISTRATOR" || $role == 1){
+            return DataTables::query($PR)
+                ->addColumn('action', function($row){
+                    $btn = '<td></d></tr><div class="btn-group-vertical">
+                                <a type="button" class="btn btn-info" href='. route('ProvisionalReceipt.edit', $row->ID) .'><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
+                            </div></td>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->toJson();
+        }else{
+            return DataTables::query($PR)->toJson();
+        }
+    }
 }

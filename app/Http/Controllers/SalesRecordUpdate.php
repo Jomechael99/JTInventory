@@ -271,4 +271,33 @@ class SalesRecordUpdate extends Controller
 
         return response()->json(array('status' => 'success'));
     }
+    public function updatePR(Request $request){
+
+
+        $or_data = [
+            'PR_NO' => $request->orNo,
+            'PR_DATE' => $request->cylinderDate,
+            'RECEIVED_FROM' => $request-> issuedBy,
+            'CLIENT_ID' => $request->customer,
+            'SALESREPID' => $request -> issuedBy,
+            'PAYMENT_TYPE' => $request->cashType,
+            'TOTAL' => str_replace( ',', '', $request->grossSales),
+            'CHECK_NO' => $request->Checkno,
+            'CHECK_DATE' =>$request->checkDate,
+            'BANK' =>$request->Bank,
+            'STATUS' => 1,
+            'OR_TYPE'=>$request->radioType,
+            'CREDITABLE'=> $request->creditable,
+            'REMARKS'=>$request->Remarks,
+            'PAY_MODE' =>$request->PaymentType
+        ];
+
+        $id = $request->id;
+
+        $cylinder_receipt_insert = db::table('provisional_receipt')
+            ->where('ID', $id)
+            ->update($or_data);
+
+        return response()->json(array('status' => 'success'));
+    }
 }
