@@ -29,7 +29,20 @@ class CustomerController extends Controller
         //
         $clientType = DB::table('client_type')->get();
 
-        return view('customer.addcustomer' , ['clientType' => $clientType]);
+        $product = DB::table('products')
+            ->get();
+
+        $prodSize = DB::table('products')
+            ->join('product_size', 'products.PROD_CODE' , '=' , 'product_size.PROD_CODE')
+            ->select('SIZES')
+            ->distinct('SIZES')
+            ->get();
+
+
+        return view('customer.addcustomer' , [
+            'clientType' => $clientType,
+            'product' => $product,
+            'prodSize' => $prodSize]);
 
 
 
@@ -71,7 +84,8 @@ class CustomerController extends Controller
         $cashPay = $request->input("cashPay");
         $orCopy = $request->input("orCopy");
 
-        $client = DB::table("client")->insert([
+
+        $client = DB::table("client")->insertGetId(
 	        [
 		        'NAME' => $custName,
 		        'TYPE' => $custType,
@@ -88,7 +102,34 @@ class CustomerController extends Controller
 		        'PAYMENT_TYPE' => $cashPay,
 		        'ORCOPY' => $orCopy
 	        ]
-        ]);
+        );
+
+
+
+        if($request->productCode == null){
+
+        }else{
+
+
+        for($i = 0 ; $i < count($request -> productCode) ; $i++){
+
+
+            $clientProduct = DB::table('product_list')->insert([
+                [
+                    'CLIENTID' => $client,
+                    'PROD_CODE' => $request -> productCode[$i],
+                    'PRODUCT' => $request -> prodName[$i],
+                    'SIZE' => $request -> productSize[$i],
+                    'PRODUCT_PRICE' => floatval(str_replace(",", "", $request -> prodPrice[$i])),
+                    'PRICE_DATE' => $request -> PriceDate[$i]
+                ]
+            ]);
+        }
+
+        }
+
+
+
 
         if($client == true){
 //	        $request->session()->flash('status', 'True');

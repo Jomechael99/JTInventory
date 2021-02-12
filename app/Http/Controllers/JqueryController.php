@@ -572,6 +572,7 @@ class JqueryController extends Controller
             ->selectRaw("'INVOICE' as TYPE")
             ->where('CLIENT_ID', $data_id)
             ->where('FULLY_PAID', 0)
+            ->orderBy('INVOICE_NO', 'asc')
             ->get();
 
 
@@ -601,6 +602,7 @@ class JqueryController extends Controller
             ->where('CLIENT_ID', $data_id)
             ->where('AS_INVOICE', '=', '1')
             ->where('FULLY_PAID', 0)
+            ->orderBy('DR_NO', 'asc')
             ->get();
 
         foreach($delivery_invoice as $data){
