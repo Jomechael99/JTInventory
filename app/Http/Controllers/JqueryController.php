@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\DocBlock\Tags\Reference\Reference;
 use Svg\Tag\Rect;
+use Yajra\DataTables\Facades\DataTables;
 
 class JqueryController extends Controller
 {
@@ -563,7 +564,7 @@ class JqueryController extends Controller
 
     }
 
-    public function client_sales_invoice(Request $request){
+    /*public function client_sales_invoice(Request $request){
         $data_id = $request -> client_id;
         $tableData2 = '';
 
@@ -589,33 +590,84 @@ class JqueryController extends Controller
 
         return response()->json(['table_data2' => $tableData2]);
 
+    }*/
+
+    public function client_sales_invoice(){
+         $id = $_GET['id'];
+
+         if($id == ""){
+             $id = "-1";
+                $sales_invoice = db::table('sales_invoice')
+                    ->select(['INVOICE_NO','INVOICE_DATE','BALANCE'])
+                    ->where('CLIENT_ID', $id)
+                    ->where('FULLY_PAID', 0)
+                    ->orderBy('INVOICE_NO', 'asc');
+
+
+             return DataTables::query($sales_invoice)
+                 ->addColumn('action', function($row){
+                     $btn = '<td> <input type="checkbox" id="radioButton"></td>';
+                     return $btn;
+                 })
+                 ->rawColumns(['action'])
+                 ->toJson();
+         }else{
+             $sales_invoice = db::table('sales_invoice')
+                 ->select(['INVOICE_NO','INVOICE_DATE','BALANCE'])
+                 ->where('CLIENT_ID', $id)
+                 ->where('FULLY_PAID', 0)
+                 ->orderBy('INVOICE_NO', 'asc');
+
+
+             return DataTables::query($sales_invoice)
+                 ->addColumn('action', function($row){
+                     $btn = '<td> <input type="checkbox" id="radioButton"></td>';
+                     return $btn;
+                 })
+                 ->rawColumns(['action'])
+                 ->toJson();
+         }
+
     }
 
-    public function client_sales_invoice2(Request $request){
-        $data_id = $request -> client_id;
-        $tableData2 = '';
+    public function client_sales_invoice2(){
+        $id = $_GET['id'];
+
+        if($id == ""){
+
+            $id = "-1";
+            $delivery_invoice = db::table('delivery_receipt')
+                ->select(['DR_NO', 'DR_DATE' , 'BALANCE'])
+                ->where('CLIENT_ID', $id)
+                ->where('AS_INVOICE', '=', '1')
+                ->where('FULLY_PAID', 0)
+                ->orderBy('DR_NO', 'asc');
 
 
-        $delivery_invoice = db::table('delivery_receipt')
-            ->select('DR_NO as No', 'DR_DATE as date' , 'BALANCE as balance')
-            ->selectRaw("'DR' as TYPE")
-            ->where('CLIENT_ID', $data_id)
-            ->where('AS_INVOICE', '=', '1')
-            ->where('FULLY_PAID', 0)
-            ->orderBy('DR_NO', 'asc')
-            ->get();
+            return DataTables::query($delivery_invoice)
+                ->addColumn('action', function($row){
+                    $btn = '<td> <input type="checkbox" id="radioButton"></td>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->toJson();
+        }else{
+            $delivery_invoice = db::table('delivery_receipt')
+                ->select(['DR_NO', 'DR_DATE' , 'BALANCE'])
+                ->where('CLIENT_ID', $id)
+                ->where('AS_INVOICE', '=', '1')
+                ->where('FULLY_PAID', 0)
+                ->orderBy('DR_NO', 'asc');
 
-        foreach($delivery_invoice as $data){
-            $data0 = '<td> <input type="checkbox" id="radioButton"></td>';
-            $data1 = '<td>'.$data -> No .'</td>';
-            $data2 = '<td>'.$data -> date .'</td>';
-            $data3 = '<td>'.$data -> balance .'</td>';
-            $data4 = '<td class="hidden">'.$data -> TYPE .'</td>';
 
-            $tableData2 .= '<tr class="text-center">'.$data0.' '.$data1.' '. $data2 .' '.$data3.' '.$data4.' </tr>';
+            return DataTables::query($delivery_invoice)
+                ->addColumn('action', function($row){
+                    $btn = '<td> <input type="checkbox" id="radioButton"></td>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->toJson();
         }
-
-        return response()->json(['table_data2' => $tableData2]);
 
     }
 

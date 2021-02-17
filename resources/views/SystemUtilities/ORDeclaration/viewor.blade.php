@@ -39,7 +39,7 @@
                                             <div class="btn-group-vertical">
                                                  <a type="button" class="btn btn-info" href=" {{ route('ORController.create', $salesrep -> ID) }}">
                                                      <span class="fa fa-pencil">&nbsp;&nbsp;</span>
-                                                     Add OR
+                                                     Add CR
                                                  </a>
 {{--                                                <a type="button" class="btn btn-info" href=" {{ route('SalesInvoice.show', $salesrep -> ID) }}"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit Invoice</a>--}}
                                             </div>

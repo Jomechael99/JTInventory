@@ -61,7 +61,7 @@
           </a></li>
         <li class=""><a href="{{ route('DRDeclaration.index') }}"><i class="fa fa-clipboard-list"></i> DR Decleration
           </a></li>
-        <li class=""><a href="{{ route('ORDeclaration.index')}}"><i class="fa fa-clipboard-list"></i> OR Decleration
+        <li class=""><a href="{{ route('ORDeclaration.index')}}"><i class="fa fa-clipboard-list"></i> CR Decleration
           </a></li>
       </ul>
     </li>

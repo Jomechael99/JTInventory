@@ -69,7 +69,7 @@ $(document).ready(function(){
         idValidation();
     });
 
-    function client_sales_invoice(){
+    /*function client_sales_invoice(){
         var client_id = $('#customer option:selected').val();
 
         $.ajax({
@@ -92,7 +92,48 @@ $(document).ready(function(){
 
     $('#customer').on('change', function(){
         client_sales_invoice();
-    });
+    });*/
+
+    if(status != 1){
+
+        var table = $('#prodListTable').DataTable({
+            processing: true,
+            serverSide: true,
+            bjQueryUI: true,
+            ajax: {
+                url: "/getClientSalesInvoice2",
+                type: "GET",
+                dataType: 'JSON',
+                data: function (d) {
+                    d.id = $('#customer option:selected').val();
+                },
+            },
+            columns: [
+                {
+                    mData: 'action',
+                    name: 'action',
+                    orderable: true,
+                    searchable: true
+                },
+                {mData: 'DR_NO', name: 'DR_NO'},
+                {mData: 'DR_DATE', name: 'DR_DATE'},
+                {mData: 'BALANCE', name: 'BALANCE'},
+            ],
+            scrollY: '30vh',
+            scrollCollapse: true,
+            paging: false,
+            searching: true,
+            sort: false,
+        });
+
+        $('#customer').on('change', function () {
+            $('#prodListTable').DataTable().draw(true);
+        });
+
+    } else{
+
+    }
+
 
     function compute_amount(){
 

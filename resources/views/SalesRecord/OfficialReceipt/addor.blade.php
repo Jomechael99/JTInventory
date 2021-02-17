@@ -82,7 +82,7 @@
                                         <th class="text-center">  </th>
                                     </tr>
                                     </thead>
-                                    <tbody id="productBody2">
+                                    <tbody id="productBody2" class="text-center">
 
                                     </tbody>
                                 </table>
@@ -228,12 +228,14 @@
     <script>
         $(document).ready(function(){
 
-            $('#prodListTable').dataTable({
+            /*$('#prodListTable').dataTable({
                 scrollY:        '30vh',
                 scrollCollapse: true,
                 paging: false,
-                searching: false
-            });
+                searching: false,
+            });*/
+
+
 
             $('#reset').on('click', function(){
                 location.reload();

@@ -7,7 +7,7 @@
    <section class="content">
        <div class="box">
           <div class="box-header text-center">
-            <span> Add OR Declaration </span>
+            <span> Add CR Declaration </span>
           </div>
            <form method="post" action="{{ route('ORDeclaration.store') }}">
                <div class="box-body">
@@ -19,11 +19,11 @@
                          <input type="date" class="form-control" id="DateAssign" name="DateAssign" placeholder="Enter Nickname">
                        </div>
                        <div class="form-group col-md-3">
-                         <label for=""> From Invoice No. </label>
+                         <label for=""> From CR No. </label>
                          <input type="text" class="form-control" id="FromInvoice" name="FromInvoice" placeholder="Enter From Invoice No.">
                        </div>
                        <div class="form-group col-md-3">
-                         <label for=""> To Invoice No. </label>
+                         <label for=""> To CR No. </label>
                          <input type="text" class="form-control" id="ToInvoice" name="ToInvoice" placeholder="Enter To Invoice No.">
                        </div>
                        <div class="form-group col-md-3">
@@ -37,7 +37,7 @@
                <div class="box-footer">
                    <div class="row">
                        <div class="form-group col-md-4 pull-right">
-                           <button type="submit" id="addSalesInvoice" class="form-control btn btn-primary"> Add OR Decleration </button>
+                           <button type="submit" id="addSalesInvoice" class="form-control btn btn-primary"> Add CR Decleration </button>
 {{--                           <a href="{{ route('SalesInvoice.index') }}" class="form-control btn btn-primary"> Back</a>--}}
                        </div>
                        <div class="form-group col-md-1">

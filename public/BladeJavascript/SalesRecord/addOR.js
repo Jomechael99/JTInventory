@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
     $('#customer').select2();
 
@@ -10,13 +10,15 @@ $(document).ready(function(){
 
     var status = $('#status').val();
 
-    if(status != 1){
+    if (status != 1) {
         $('#submitButton').attr('disabled', true);
         $('.btn-validate').attr('disabled', false);
-    }else{
+    } else {
         $('#submitButton').attr('disabled', false);
         $('.btn-validate').attr('disabled', true);
     }
+
+
 
     function idValidation() {
 
@@ -26,23 +28,24 @@ $(document).ready(function(){
         $.ajax({
             url: "/noValidate",
             type: "POST",
-            data:{
+            data: {
                 '_token': $('input[name=_token]').val(),
-                'invoiceNo' : orNo,
-                'buttonVal' : buttonVal
+                'invoiceNo': orNo,
+                'buttonVal': buttonVal
             },
-            success: function(response){
+            success: function (response) {
 
                 console.log(response);
 
-                if(response.status == "empty"){
+                if (response.status == "empty") {
                     $('#status').text("No Record Found");
                     $('#status').css("color", "red");
                     $('#status').css('font-size', '12px');
                     $('#issuedBy').val("");
                     // $('#salesDetails').hide();
                     $('#submitButton').attr('disabled', true);
-                }if(response.status == "active"){
+                }
+                if (response.status == "active") {
                     $('#status').text('Active');
                     $('#status').css("color", 'Green');
                     $('#status').css('font-size', '12px');
@@ -50,7 +53,8 @@ $(document).ready(function(){
                     $('#issuedId').val(response.issuerID);
                     $('#salesDetails').show();
                     $('#submitButton').attr('disabled', false);
-                }if(response[0].status == "DONE" || response[0].status == 'CANCELLED' || response[0].status == 'NO RECORD FOUND'){
+                }
+                if (response[0].status == "DONE" || response[0].status == 'CANCELLED' || response[0].status == 'NO RECORD FOUND') {
                     $('#status').text(response[0].status);
                     $('#status').css("color", "red");
                     $('#status').css('font-size', '12px');
@@ -59,7 +63,7 @@ $(document).ready(function(){
                     $('#submitButton').attr('disabled', true);
                 }
             },
-            error: function(jqXHR){
+            error: function (jqXHR) {
                 console.log(jqXHR);
             }
         });
@@ -69,7 +73,7 @@ $(document).ready(function(){
         idValidation();
     });
 
-    function client_sales_invoice(){
+    /*function client_sales_invoice(){
         var client_id = $('#customer option:selected').val();
 
         $.ajax({
@@ -88,13 +92,78 @@ $(document).ready(function(){
                 console.log(jqXHR);
             }
         });
+    }*/
+
+
+    /* $('#prodListTable').DataTable({
+         processing: true,
+         serverSide: true,
+
+         ajax: {
+             url: "/getClientSalesInvoice",
+             type: 'GET',
+             data: function (d) {
+                 d.id = $('#customer option:selected').val();
+             },
+
+         },
+         Columns: [
+             /!*{
+                 mData: 'action',
+                 name: 'action',
+                 orderable: true,
+                 searchable: true
+             },
+             {mData: 'INVOICE_NO', name: 'INVOICE_NO'},
+             {mData: 'INVOICE_DATE', name: 'INVOICE_DATE'},*!/
+             {data: 'BALANCE'}
+         ]
+
+     });*/
+
+    if(status != 1){
+        var table = $('#prodListTable').DataTable({
+            processing: true,
+            serverSide: true,
+            bjQueryUI: true,
+            ajax: {
+                url: "/getClientSalesInvoice",
+                type: "GET",
+                dataType: 'JSON',
+                data: function (d) {
+                    d.id = $('#customer option:selected').val();
+                },
+            },
+            columns: [
+                {
+                    mData: 'action',
+                    name: 'action',
+                    orderable: true,
+                    searchable: true
+                },
+                {mData: 'INVOICE_NO', name: 'INVOICE_NO'},
+                {mData: 'INVOICE_DATE', name: 'INVOICE_DATE'},
+                {mData: 'BALANCE', name: 'BALANCE'},
+            ],
+            scrollY:        '30vh',
+            scrollCollapse: true,
+            paging: false,
+            searching: true,
+            sort: false,
+        });
+
+
+        $('#customer').on('change', function () {
+            $('#prodListTable').DataTable().draw(true);
+        });
+
+    }else{
+
     }
 
-    $('#customer').on('change', function(){
-        client_sales_invoice();
-    });
 
-    function compute_amount(){
+
+    function compute_amount() {
 
         var totalAmount = '';
         var e = '';
@@ -108,7 +177,7 @@ $(document).ready(function(){
         try {
             $('#remBalance , #netSales , #grossSales').val(totalAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             $('#remBalance').attr("data-value", totalAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        }catch(Exception){
+        } catch (Exception) {
             $('#remBalance , #netSales , #grossSales').val(0);
 
         }
@@ -116,40 +185,40 @@ $(document).ready(function(){
 
     }
 
-    $(document).on('click', '#radioButton', function(){
+    $(document).on('click', '#radioButton', function () {
 
-        if($(this).prop("checked") == true){
+        if ($(this).prop("checked") == true) {
 
-            var rowValue =  $(this).closest("tr");
+            var rowValue = $(this).closest("tr");
 
-           var firstTd = rowValue.find("td:eq(1)").text();
-           var secondTd = rowValue.find("td:eq(2)").text();
-           var thirdTd = rowValue.find("td:eq(3)").text();
-           var fourthTd = rowValue.find("td:eq(4)").text();
+            var firstTd = rowValue.find("td:eq(1)").text();
+            var secondTd = rowValue.find("td:eq(2)").text();
+            var thirdTd = rowValue.find("td:eq(3)").text();
+            var fourthTd = rowValue.find("td:eq(4)").text();
 
-           var tableData = "<tr class='text-center'> " +
-               "<td> <input type='hidden' name='reportNo[]' value='"+firstTd+"'> "+ firstTd + "</td> " +
-               "<td> <input type='hidden' name='reportDate[]' value='"+secondTd+"'>"+ secondTd + "</td> " +
-               "<td> <input type='hidden' name='reportAmount[]' value='"+thirdTd+"'>" + thirdTd + "</td> " +
-               "<td class='hidden'> <input type='hidden' name='reportType[]' value='"+fourthTd+"'>" + fourthTd + "</td> " +
-               "<td> <input type='radio' id='radButton' name='radButton'> P/O </td>" +
-               "</tr>";
+            var tableData = "<tr class='text-center'> " +
+                "<td> <input type='hidden' name='reportNo[]' value='" + firstTd + "'> " + firstTd + "</td> " +
+                "<td> <input type='hidden' name='reportDate[]' value='" + secondTd + "'>" + secondTd + "</td> " +
+                "<td> <input type='hidden' name='reportAmount[]' value='" + thirdTd + "'>" + thirdTd + "</td> " +
+                "<td class='hidden'> <input type='hidden' name='reportType[]' value='" + fourthTd + "'>" + fourthTd + "</td> " +
+                "<td> <input type='radio' id='radButton' name='radButton'> P/O </td>" +
+                "</tr>";
 
-           $('#productBody2').append(tableData);
+            $('#productBody2').append(tableData);
 
-           compute_amount();
+            compute_amount();
             credValue();
 
-        }else{
+        } else {
 
-            var rowValue =  $(this).closest("tr");
+            var rowValue = $(this).closest("tr");
 
             var firstTd = rowValue.find("td:eq(1)").text().trim();
 
 
             $("#productBody2").find("tr").each(function () {
 
-               // console.log($(this).find("td:eq(0)").text().trim());
+                // console.log($(this).find("td:eq(0)").text().trim());
 
                 if ($(this).find("td:eq(0)").text().trim() == firstTd) {
                     $(this).closest('tr').remove();
@@ -164,22 +233,22 @@ $(document).ready(function(){
 
     });
 
-    function payment_computation(){
+    function payment_computation() {
 
         var remBalance = parseFloat($('#remBalance').attr('data-value').replace(/,/g, ''));
         var amountPaid = parseFloat($('#amountPaid').val().replace(/,/g, ''));
 
-        if( amountPaid > remBalance){
+        if (amountPaid > remBalance) {
             $('#p2').prop('checked', true);
             $('#labelId').text("Exceeding Balance");
             var exceed = amountPaid - remBalance;
             $('#remBalance').val(exceed.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        }else if(remBalance > amountPaid){
+        } else if (remBalance > amountPaid) {
             $('#p1').prop('checked', true);
             $('#labelId').text("Remaining Balance");
             var exceed = remBalance - amountPaid;
             $('#remBalance').val(exceed.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-        }else if((remBalance - amountPaid) == 0){
+        } else if ((remBalance - amountPaid) == 0) {
             $('#p3').prop("checked", true);
             $('#labelId').text("Remaining Balance");
             var exceed = remBalance - amountPaid;
@@ -187,7 +256,7 @@ $(document).ready(function(){
         }
     }
 
-    $('#amountPaid').on('keyup', function(){
+    $('#amountPaid').on('keyup', function () {
         payment_computation();
         credValue();
     });
@@ -199,13 +268,13 @@ $(document).ready(function(){
         var netSales = parseFloat($('#netSales').val().replace(/,/g, ''));
 
 
-        if($('#credCheck').prop("checked") == true){
+        if ($('#credCheck').prop("checked") == true) {
             console.log(paymentPaid);
-            if(isNaN(paymentPaid)){
-                credValue = GrossSales * 0.01 ;
+            if (isNaN(paymentPaid)) {
+                credValue = GrossSales * 0.01;
                 var newNet = netSales - credValue;
-            }else{
-                credValue = paymentPaid * 0.01 ;
+            } else {
+                credValue = paymentPaid * 0.01;
                 var newNet = paymentPaid - credValue;
             }
 
@@ -213,32 +282,27 @@ $(document).ready(function(){
             $('#creditable').val(credValue.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             $('#netSales').val(newNet.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","))
 
-        }else{
+        } else {
             $('#creditable').val(0);
             $('#netSales').val(GrossSales.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","))
 
         }
     }
 
-    $('#credCheck').on('click', function(){
+    $('#credCheck').on('click', function () {
         credValue();
     });
 
-    $('.payType').on('click', function(){
+    $('.payType').on('click', function () {
 
         console.log($(this).val());
 
-        if($(this).val() == 1){
+        if ($(this).val() == 1) {
             $('.cheque').attr("readonly", false);
-        }else if($(this).val() == 0){
+        } else if ($(this).val() == 0) {
             $('.cheque').attr("readonly", true);
         }
     })
-
-
-
-
-
 
 
 });

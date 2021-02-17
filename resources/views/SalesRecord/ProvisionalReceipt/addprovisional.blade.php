@@ -23,7 +23,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="lbl" for=""> &nbsp;</label>
-                                <button type="button" class="form-control btn btn-primary btn-validate" id="invoiceValidate" value="PR"> Validate Delivery No. </button>
+                                <button type="button" class="form-control btn btn-primary btn-validate" id="invoiceValidate" value="PR"> Validate PR No. </button>
                             </div>
                             <div class="form-group col-md-6">
                                 <label class="lbl" for="">PR DATE</label>
@@ -230,12 +230,12 @@
     <script>
         $(document).ready(function(){
 
-            $('#prodListTable').dataTable({
+            /*$('#prodListTable').dataTable({
                 scrollY:        '30vh',
                 scrollCollapse: true,
                 paging: false,
                 searching: false
-            });
+            });*/
 
             $('#reset').on('click', function(){
                 location.reload();

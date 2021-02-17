@@ -7,7 +7,7 @@
         <section class="content">
             <div class="box">
                 <div class="box-header text-center">
-                    <span> Add OR Declaration </span>
+                    <span> Add CR Declaration </span>
                 </div>
                 @foreach($declaration as $data)
                 @endforeach
@@ -22,11 +22,11 @@
                                 <input type="date" class="form-control" id="DateAssign" name="DateAssign" value="{{ $data->ENCODED_DATE }}" placeholder="Enter Nickname">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for=""> From Invoice No. </label>
+                                <label for=""> From CR No. </label>
                                 <input type="text" class="form-control" id="FromInvoice" name="FromInvoice" value="{{ $data->FROM_OR_NO }}" placeholder="Enter From Invoice No.">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for=""> To Invoice No. </label>
+                                <label for=""> To CR No. </label>
                                 <input type="text" class="form-control" id="ToInvoice" name="ToInvoice" value="{{ $data->TO_OR_NO }}" placeholder="Enter To Invoice No.">
                             </div>
                             <div class="form-group col-md-3">
@@ -40,7 +40,7 @@
                     <div class="box-footer">
                         <div class="row">
                             <div class="form-group col-md-4 pull-right">
-                                <button type="submit" id="addSalesInvoice" class="form-control btn btn-primary"> Edit OR </button>
+                                <button type="submit" id="addSalesInvoice" class="form-control btn btn-primary"> Edit CR </button>
                                 {{--                           <a href="{{ route('SalesInvoice.index') }}" class="form-control btn btn-primary"> Back</a>--}}
                             </div>
                             <div class="form-group col-md-1">

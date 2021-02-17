@@ -92,8 +92,8 @@ Route::post('updateProductPrice', ['uses' => 'JqueryController@updateProductPric
 Route::post('noValidate', ['uses' => 'JqueryController@noValidate', 'as' => 'noValidate']);
 Route::post('poCustomerDetails', ['uses' => 'JqueryController@poCustomerDetails', 'as' => 'poCustDetails']);
 Route::post('poProductDetails', ['uses' => 'JqueryController@poProductDetails', 'as' => 'poProdDetails']);
-Route::post('getClientSalesInvoice', ['uses' => 'JqueryController@client_sales_invoice', 'as' => 'clientsalesinvoice']);
-Route::post('getClientSalesInvoice2', ['uses' => 'JqueryController@client_sales_invoice2', 'as' => 'clientsalesinvoice2']);
+Route::get('getClientSalesInvoice', ['uses' => 'JqueryController@client_sales_invoice', 'as' => 'clientsalesinvoice']);
+Route::get('getClientSalesInvoice2', ['uses' => 'JqueryController@client_sales_invoice2', 'as' => 'clientsalesinvoice2']);
 Route::post('validateCylinderType', ['uses' => 'JqueryController@cylinder_type_validation', 'as' => 'cylinderTypeValidation']);
 Route::post('customer_po', ['uses' => 'JqueryController@customer_po', 'as' => 'customerpo']);
 Route::post('DeletePricelist', ['uses' => 'JqueryController@delete_pricelist', 'as' => 'delete_pricelist']);
