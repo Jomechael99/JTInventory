@@ -122,13 +122,10 @@ class ProvisionalController extends Controller
                 db::table('provisional_receipt_paid')
                     ->insert($paid_data);
 
-
-
-                if ($request->reportType[$i] == "DR") {
                     $update_sales_invoice = db::table('delivery_receipt')
                         ->where('DR_NO', $request->reportNo[$i])
                         ->update(['FULLY_PAID' => '1']);
-                }
+
             }
 
         }

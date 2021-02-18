@@ -126,16 +126,12 @@ class OfficialReceipt extends Controller
                 db::table('official_receipt_paid')
                     ->insert($paid_data);
 
-                if ($request->reportType[$i] == "INVOICE") {
-                    $update_sales_invoice = db::table('sales_invoice')
-                        ->where('INVOICE_NO', $request->reportNo[$i])
-                        ->update(['FULLY_PAID' => '1']);
 
-                } elseif ($request->reportType[$i] == "DR") {
-                    $update_sales_invoice = db::table('delivery_receipt')
-                        ->where('DR_NO', $request->reportNo[$i])
-                        ->update(['FULLY_PAID' => '1']);
-                }
+                $update_sales_invoice = db::table('sales_invoice')
+                    ->where('INVOICE_NO', $request->reportNo[$i])
+                    ->update(['FULLY_PAID' => '1']);
+
+
             }
 
         }
