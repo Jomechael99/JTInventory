@@ -16,7 +16,7 @@
             </div>
           </div>
           <div class="box-body">
-          <form role="form" method="post" id="custInfo" action="{{ route('CustomerController.store') }}">
+          <form role="form" method="post" id="custInfo" }}">
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="form-group col-md-3">
@@ -175,11 +175,12 @@
                         </div>
                     </div>
                 </div>
+              <form>
 
 
                 <div class="section">
                     <div class="btn-group pull-right">
-                        <button type="submit" id="submit" class="btn btn-primary ">Submit</button>
+                        <button type="button" id="submit" class="btn btn-primary ">Submit</button>
                     </div>
                     <div class="btn-group">
                         <button type="button" id="back" class="btn btn-primary pull-left">Back</button>
@@ -190,7 +191,6 @@
                 </div>
 
 
-              </form>
 
               
         </div>
@@ -227,6 +227,28 @@
                     }else{
                         $('#prodSize').html($data);
                         $('#prodSize').attr("disabled", false);
+                    }
+                }
+            });
+        });
+
+        $('#submit').on('click', function(){
+
+            $.validate({
+                form: '#custInfo'
+            });
+
+            $.ajax({
+                url: '{{ route('CustomerController.store') }}' ,
+                type: "POST",
+                data: $('#custInfo').serialize(),
+                success: function( response ) {
+                    if(response.status == "success"){
+                        swal("Customer is inserted", "Success", "success").then(function(){
+                            window.location.href = "http://jtinventory.test/Customer";
+                        });
+                    }else{
+                        swal("Failed to insert the data", response.status, "error");
                     }
                 }
             });

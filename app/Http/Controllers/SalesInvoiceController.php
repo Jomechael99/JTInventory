@@ -57,14 +57,15 @@ class SalesInvoiceController extends Controller
     public function store(Request $request)
     {
         //
+
         $salesInvoice = db::table('si_assigned')
-            ->insert([
-                'SALESREP_ID' => $request -> id,
-                'FROM_OR_NO' => $request ->  FromInvoice,
-                'TO_OR_NO' => $request -> ToInvoice,
-                'ENCODED_DATE' => $request -> DateAssign,
-                'ASSIGNED_BY' => $request -> assignedBy
-            ]);
+        ->insert([
+            'SALESREP_ID' => $request -> id,
+            'FROM_OR_NO' => $request ->  FromInvoice,
+            'TO_OR_NO' => $request -> ToInvoice,
+            'ENCODED_DATE' => $request -> DateAssign,
+            'ASSIGNED_BY' => $request -> assignedBy
+        ]);
 
         return redirect()->route('SalesInvoiceController.create', $request -> id);
 

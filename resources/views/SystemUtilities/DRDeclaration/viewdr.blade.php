@@ -9,6 +9,9 @@
                <span> Sales Representative </span>
 {{--               <a href="{{ route('SalesInvoice.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Sales Invoice Declaration </a>--}}
            </div>
+             <div class="box-header text-center">
+                 <a href="{{ route('viewBatchDR') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Batch DR Declaration </a>
+             </div>
            <div class="box-body">
                 <div class="box-body table-responsive">
                         <table id="salesRep" class="table table-bordered table-striped">

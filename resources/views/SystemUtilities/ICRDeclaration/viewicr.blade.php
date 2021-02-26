@@ -7,8 +7,10 @@
          <div class="box">
            <div class="box-header text-center">
                <span> Add ICR </span>
-{{--               <a href="{{ route('SalesInvoice.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Sales Invoice Declaration </a>--}}
            </div>
+             <div class="box-header text-center">
+                 <a href="{{ route('viewBatchICR') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Batch ICR Declaration </a>
+             </div>
            <div class="box-body">
                 <div class="box-body table-responsive">
                         <table id="salesRep" class="table table-bordered table-striped">

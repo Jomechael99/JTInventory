@@ -98,6 +98,23 @@ Route::post('validateCylinderType', ['uses' => 'JqueryController@cylinder_type_v
 Route::post('customer_po', ['uses' => 'JqueryController@customer_po', 'as' => 'customerpo']);
 Route::post('DeletePricelist', ['uses' => 'JqueryController@delete_pricelist', 'as' => 'delete_pricelist']);
 
+// Batch Declaration
+
+// View Get
+Route::get('viewSalesBatch', ['uses'=> 'BatchController@viewBatchSales', 'as' => 'viewSalesBatch']);
+Route::get('viewBatchICR', ['uses'=> 'BatchController@viewBatchICR', 'as' => 'viewBatchICR']);
+Route::get('viewBatchCLC', ['uses'=> 'BatchController@viewBatchCLC', 'as' => 'viewBatchCLC']);
+Route::get('viewBatchDR', ['uses'=> 'BatchController@viewBatchDR', 'as' => 'viewBatchDR']);
+Route::get('viewBatchCR', ['uses'=> 'BatchController@viewBatchCR', 'as' => 'viewBatchCR']);
+
+//Post
+Route::post('addBatchSales', ['uses' => 'BatchController@addBatchSales', 'as' => 'addBatchSales']);
+Route::post('addICRBatch', ['uses' => 'BatchController@addICRBatch', 'as' => 'addICRBatch']);
+Route::post('addCLCBatch', ['uses' => 'BatchController@addCLCBatch', 'as' => 'addCLCBatch']);
+Route::post('addDRBatch', ['uses' => 'BatchController@addDRBatch', 'as' => 'addDRBatch']);
+Route::post('addCRBatch', ['uses' => 'BatchController@addCRBatch', 'as' => 'addCRBatch']);
+
+
 
 // Resoures
 

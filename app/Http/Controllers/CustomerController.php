@@ -57,87 +57,111 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
 
-        $clientCode = DB::table('client')->max('CLIENT_CODE');
-        $clientCode = $clientCode + 1;
+        try{
 
-        if(strlen($clientCode) == 1){
-            $cCode = "000" . strval($clientCode);
-        }elseif(strlen($clientCode) == 2){
-            $cCode = "00" . strval($clientCode);
-        }elseif(strlen($clientCode) == 3){
-            $cCode = "0" . strval($clientCode);
-        }else{
-            $cCode = $clientCode;
+
+            if(!$request->Address || !$request->City || !$request->custType
+                || !$request->custSince || !$request->tinNo || !$request->contPerson ||
+                !$request->Designation || !$request->telNo || !$request->contNo || !$request->emailAddress){
+                return response()->json(array('status' => "No Data to be inserted"));
+            }else{
+
+
+            $existing_name = db::table('client')
+                ->where('NAME', 'like', '%'.$request->input("custName").'%')
+                ->get();
+
+            }
+
+
+            if(count($existing_name) > 0){
+
+                $message = "Existing name of Customer , Please input another";
+                return response()->json(array('status' => $message));
+
+            }else{
+                $clientCode = DB::table('client')->max('CLIENT_CODE');
+                            $clientCode = $clientCode + 1;
+
+                            if(strlen($clientCode) == 1){
+                                $cCode = "000" . strval($clientCode);
+                            }elseif(strlen($clientCode) == 2){
+                                $cCode = "00" . strval($clientCode);
+                            }elseif(strlen($clientCode) == 3){
+                                $cCode = "0" . strval($clientCode);
+                            }else{
+                                $cCode = $clientCode;
+                            }
+
+                            $custName = $request->input("custName");
+                            $address = $request->input("Address");
+                            $city = $request->input("City");
+                            $custType = $request->input("custType");
+                            $custSince = $request->input("custSince");
+                            $tinNo = $request->input("tinNo");
+                            $contPerson = $request->input("contPerson");
+                            $Designation = $request->input("Designation");
+                            $telNo = $request->input("telNo");
+                            $contNo = $request->input("contNo");
+                            $emailAdd = $request->input("emailAddress");
+                            $cashPay = $request->input("cashPay");
+                            $orCopy = $request->input("orCopy");
+
+
+                            $client = DB::table("client")->insertGetId(
+                                [
+                                    'NAME' => $custName,
+                                    'TYPE' => $custType,
+                                    'DTI_NO' => $tinNo,
+                                    'ADDRESS' => $address,
+                                    'CITY_MUN' => $city,
+                                    'CON_PERSON' => $contPerson,
+                                    'DESIGNATION' => $Designation,
+                                    'TEL_NO' => $telNo,
+                                    'CELL_NO' => $contNo,
+                                    'EMAIL_ADDR' => $emailAdd,
+                                    'CLIENT_DATE' => $custSince,
+                                    'CLIENT_CODE' => $cCode,
+                                    'PAYMENT_TYPE' => $cashPay,
+                                    'ORCOPY' => $orCopy
+                                ]
+                            );
+
+
+
+                            if($request->productCode == null){
+
+                            }else{
+
+
+                                for($i = 0 ; $i < count($request -> productCode) ; $i++){
+
+
+                                    $clientProduct = DB::table('product_list')->insert([
+                                        [
+                                            'CLIENTID' => $client,
+                                            'PROD_CODE' => $request -> productCode[$i],
+                                            'PRODUCT' => $request -> prodName[$i],
+                                            'SIZE' => $request -> productSize[$i],
+                                            'PRODUCT_PRICE' => floatval(str_replace(",", "", $request -> prodPrice[$i])),
+                                            'PRICE_DATE' => $request -> PriceDate[$i]
+                                        ]
+                                    ]);
+                                }
+
+                            }
+
+                return response()->json(array('status' => "success"));
+            }
+
+
+        }catch(\Exception $e){
+            return response()->json(array('status' => $e));
         }
 
-        $custName = $request->input("custName");
-        $address = $request->input("Address");
-        $city = $request->input("City");
-        $custType = $request->input("custType");
-        $custSince = $request->input("custSince");
-        $tinNo = $request->input("tinNo");
-        $contPerson = $request->input("contPerson");
-        $Designation = $request->input("Designation");
-        $telNo = $request->input("telNo");
-        $contNo = $request->input("contNo");
-        $emailAdd = $request->input("emailAddress");
-        $cashPay = $request->input("cashPay");
-        $orCopy = $request->input("orCopy");
-
-
-        $client = DB::table("client")->insertGetId(
-	        [
-		        'NAME' => $custName,
-		        'TYPE' => $custType,
-		        'DTI_NO' => $tinNo,
-		        'ADDRESS' => $address,
-		        'CITY_MUN' => $city,
-		        'CON_PERSON' => $contPerson,
-		        'DESIGNATION' => $Designation,
-		        'TEL_NO' => $telNo,
-		        'CELL_NO' => $contNo,
-		        'EMAIL_ADDR' => $emailAdd,
-		        'CLIENT_DATE' => $custSince,
-		        'CLIENT_CODE' => $cCode,
-		        'PAYMENT_TYPE' => $cashPay,
-		        'ORCOPY' => $orCopy
-	        ]
-        );
 
 
 
-        if($request->productCode == null){
-
-        }else{
-
-
-        for($i = 0 ; $i < count($request -> productCode) ; $i++){
-
-
-            $clientProduct = DB::table('product_list')->insert([
-                [
-                    'CLIENTID' => $client,
-                    'PROD_CODE' => $request -> productCode[$i],
-                    'PRODUCT' => $request -> prodName[$i],
-                    'SIZE' => $request -> productSize[$i],
-                    'PRODUCT_PRICE' => floatval(str_replace(",", "", $request -> prodPrice[$i])),
-                    'PRICE_DATE' => $request -> PriceDate[$i]
-                ]
-            ]);
-        }
-
-        }
-
-
-
-
-        if($client == true){
-//	        $request->session()->flash('status', 'True');
-        	return redirect('Customer');
-        }else{
-//	        $request->session()->flash('status', 'False');
-			return redirect('CustomerController/create');
-        }
 
     }
 

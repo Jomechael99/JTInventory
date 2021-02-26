@@ -8,9 +8,11 @@
          <div class="box">
            <div class="box-header text-center">
                <span> Add Sales Invoice Declaration </span>
-              {{-- <a href="{{ route('SalesInvoiceController.create.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Sales Invoice Declaration </a> --}}
            </div>
-           <div class="box-body">
+             <div class="box-header text-center">
+                 <a href="{{ route('viewSalesBatch') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Batch Sales Invoice Declaration </a>
+             </div>
+             <div class="box-body">
                 <div class="box-body table-responsive">
                         <table id="salesRep" class="table table-bordered table-striped">
                             <thead>
