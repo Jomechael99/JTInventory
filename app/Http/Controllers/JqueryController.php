@@ -342,6 +342,7 @@ class JqueryController extends Controller
             }
         }elseif($buttonVal == "PR"){
 
+
             $report2 = db::table('provisional_receipt')
                 ->where('PR_NO', $invoiceNo)
                 ->get();
@@ -358,10 +359,8 @@ class JqueryController extends Controller
 
     // Add Sales Invoice Customer Details
     public function poCustomerDetails(Request $request){
-
        $cust_id = $request-> cust_id;
        $price_date = $request-> price_date;
-       $po_id = $request-> prod_id;
        $html  = '';
        $html2 = '';
        $date = '';
@@ -375,7 +374,7 @@ class JqueryController extends Controller
        $poProducts = db::table('product_list')
            ->select('*', 'product_list.ID as PROD_ID')
            ->join('products', 'products.PROD_CODE' , '=' , 'product_list.PRODUCT')
-           ->where('product_list.ID', $po_id)
+           ->where('PRICE_DATE', $price_date)
            ->where('CLIENTID', $cust_id)
            ->get();
 
@@ -383,7 +382,7 @@ class JqueryController extends Controller
            $poProducts = db::table('product_list')
                ->select('*', 'product_list.ID as PROD_ID')
                ->join('products', 'products.PRODUCT' , '=' , 'product_list.PRODUCT')
-               ->where('product_list.ID', $po_id)
+               ->where('PRICE_DATE', $price_date)
                ->where('CLIENTID', $cust_id)
                ->get();
        }
@@ -396,28 +395,27 @@ class JqueryController extends Controller
        }
 
        foreach($poProducts as $products){
-           //$product .= '<option value="' . $products -> PROD_CODE . '" id="product" data-id=" '. $products -> PRODUCT . ' ">' . $products->PRODUCT . ' - '. $products -> SIZE.'</option>';
-            $product = $products -> PROD_CODE;
-            $amount = $products -> PRODUCT_PRICE;
-            $size = $products -> SIZE;
+           $product .= '<option value="' . $products -> PROD_CODE . '" id="product" data-id=" '. $products -> PRODUCT . ' ">' . $products->PRODUCT . ' - '. $products -> SIZE.'</option>';
+
        }
 
-        return response()->json(array('html' => $html , 'html2' => $html2 , 'date' => $date , 'product' => $product , 'amount' => $amount, 'size' => $size));
-
+        return response()->json(array('html' => $html , 'html2' => $html2 , 'date' => $date , 'product' => $product , 'amount' => $amount));
     }
 
     function poProductDetails(Request $request){
-
         $cust_id = $request-> cust_id;
         $po_id = $request-> po_id;
         $prodCode = $request -> prodCode;
         $prod_id = $request -> prodId;
         $price_date = $request-> price_date;
 
+
         $size = '';
         $quantity = 0;
         $amount = '';
         $usedQty = 0;
+
+        //dd($request->all());
 
         $productDetails = db::table('client_po_list as a')
             ->join('client_po as b' , 'b.ID', '=' , 'a.CLIENTPO_ID')
@@ -437,12 +435,15 @@ class JqueryController extends Controller
             $amount = db::table('product_list')
                 ->select('*', 'product_list.ID as PROD_ID')
                 ->join('products', 'products.PRODUCT' , '=' , 'product_list.PRODUCT')
+                ->where('PRICE_DATE', $price_date)
                 ->where('CLIENTID', $cust_id)
                 ->where('product_list.PROD_CODE', $prodCode)
                 ->get();
         }
 
+
         foreach($productDetails as $product){
+
             $quantity = $product -> QUANTITY;
         }
 
@@ -776,8 +777,7 @@ class JqueryController extends Controller
 
         $price_date = db::table('product_list')
             ->where('CLIENTID', $client_id)
-            //->groupBy('PRICE_DATE')
-            ->orderBy('ID', 'ASC')
+            ->orderBy('PRICE_DATE', 'ASC')
             ->get();
 
 
@@ -786,10 +786,11 @@ class JqueryController extends Controller
         }
 
         foreach($price_date as $data2){
-            $option2 .= '<option value="'.$data2 -> PRICE_DATE.'" custId="'.$data2->CLIENTID.'" prodId="'.$data2 -> ID.'"> '.$data2 -> ID.' - '.$data2 -> PRICE_DATE.' - '.$data2->PROD_CODE.'['.$data2 -> SIZE.'] </option>';
+            $option2 .= '<option value="'.$data2 -> PRICE_DATE.'" custId="'.$data2->CLIENTID.'"> '.$data2 -> ID.' - '.$data2 -> PROD_CODE.' - '.$data2->SIZE.' - '.$data2 -> PRICE_DATE.' </option>';
         }
 
         return response()->json(array('option' => $option, 'option2' => $option2));
+
     }
 
 
