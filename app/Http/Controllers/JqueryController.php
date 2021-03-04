@@ -786,7 +786,7 @@ class JqueryController extends Controller
         }
 
         foreach($price_date as $data2){
-            $option2 .= '<option value="'.$data2 -> PRICE_DATE.'" custId="'.$data2->CLIENTID.'"> '.$data2 -> ID.' - '.$data2 -> PROD_CODE.' - '.$data2->SIZE.' - '.$data2 -> PRICE_DATE.' </option>';
+            $option2 .= '<option value="'.$data2 -> PRICE_DATE.'" custId="'.$data2->CLIENTID.'"> '.$data2 -> PRICE_DATE.' </option>';
         }
 
         return response()->json(array('option' => $option, 'option2' => $option2));
