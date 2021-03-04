@@ -86,9 +86,10 @@
                            </div>
                            <div class="form-group col-md-4">
                                <label for="">PRODUCTS</label>
-                               <select id="productItem" class="form-control">
+                               <input type="text" id="productItem" class="form-control" readonly>
+<!--                               <select id="productItem" class="form-control">
                                    <option value=""> Choose Option </option>
-                               </select>
+                               </select>-->
                            </div>
                            <div class="form-group hidden">
                                <label for="">SIZE</label>

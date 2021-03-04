@@ -233,15 +233,19 @@ $(document).ready(function(){
 
 
     function customerDetailsAndDate(){
+
         var cust_id = $('#custDetails option:selected').val();
         var price_date = $('#priceDate option:selected').val();
+        var prod_id = $('#priceDate option:selected').attr("prodid");
+
         $.ajax({
             url: "/poCustomerDetails",
             type: "POST",
             data:{
                 '_token': $('input[name=_token]').val(),
                 'cust_id' : cust_id,
-                'price_date' : price_date
+                'price_date' : price_date,
+                'prod_id' : prod_id
             },
             success: function(response){
                 /*$('#CustDetails option').remove();
@@ -252,8 +256,12 @@ $(document).ready(function(){
                 $('#poDate').val(response.date);
                 $('#productQuantity').val(0);
                 $('#remQuantity').val(0);
-                $('#productItem').empty().append("<option value=''> Choose Option </option> ");
-                $('#productItem').append(response.product);
+                /*$('#productItem').empty().append("<option value=''> Choose Option </option> ");*/
+                $('#productItem').val(response.product);
+                var amount = (response.amount);
+                $('#productAmount').val(amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $('#productSize').val(response.size);
+
             },
             error: function(jqXHR){
                 console.log(jqXHR);
@@ -262,11 +270,13 @@ $(document).ready(function(){
     }
 
     function productDetails(){
+
         var prodCode = $('#productItem option:selected').val();
         var prodId = $('#productItem option:selected').attr('data-id');
         var po_id = $('#poNo option:selected').text()
         var price_date = $('#priceDate option:selected').val();
         var cust_id = $('#priceDate option:selected').attr("custId");
+
         $.ajax({
             url: "/poProductDetails",
             type: "POST",
@@ -279,11 +289,8 @@ $(document).ready(function(){
                 'prodId' : prodId
             },
             success: function(response){
-                $('#productSize').val(response.size);
-                $('#remQuantity').val(response.quantity)
+                $('#remQuantity').val(response.quantity);
                 $('#productQuantity').val(0);
-                var amount = (response.amount);
-                $('#productAmount').val(amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             },
             error: function(jqXHR){
                 console.log(jqXHR);
@@ -330,8 +337,8 @@ $(document).ready(function(){
 
     function addProductList(){
 
-        var productName = $('#productItem option:selected').text();
-        var productCode = $('#productItem option:selected').val();
+        var productName = $('#productItem').text();
+        var productCode = $('#productItem').val();
         var productSize = $('#productSize').val();
         var productQty = $('#productQuantity').val();
         var productPrice = $('#productAmount').val();
@@ -359,7 +366,7 @@ $(document).ready(function(){
             }else{
 
                 var tableElements = "<tr class='text-center'> " +
-                    "<td><input type='hidden' name='productCode[]' id='productCode' value='" + productCode + "'>" + productName + "</td> " +
+                    "<td><input type='hidden' name='productCode[]' id='productCode' value='" + productCode + "'>" + productCode + "</td> " +
                     "<td><input type='hidden' name='productSize[]' id='productSize' value='" + productSize + "'>" + productSize + "</td> " +
                     "<td><input type='hidden' name='productPrice[]' id='productPrice' value='" + productPrice + "'>" + productPrice + "</td> " +
                     "<td><input type='hidden' name='productQty[]' id='productQty' value='" + productQty + "'>" + productQty + "</td> " +
