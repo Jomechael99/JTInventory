@@ -395,8 +395,7 @@ class JqueryController extends Controller
        }
 
        foreach($poProducts as $products){
-           $product .= '<option value="' . $products -> PROD_CODE . '" id="product" data-id=" '. $products -> PRODUCT . ' ">' . $products->PRODUCT . ' - '. $products -> SIZE.'</option>';
-
+           $product .= '<option value="' . $products -> PROD_CODE . '" id="product" data-id=" '. $products -> PROD_ID . ' ">'.$products -> PROD_ID.' - ' . $products->PRODUCT . ' - '. $products -> SIZE.'</option>';
        }
 
         return response()->json(array('html' => $html , 'html2' => $html2 , 'date' => $date , 'product' => $product , 'amount' => $amount));
@@ -428,8 +427,9 @@ class JqueryController extends Controller
             ->join('products', 'products.PROD_CODE' , '=' , 'product_list.PRODUCT')
             ->where('PRICE_DATE', $price_date)
             ->where('CLIENTID', $cust_id)
-            ->where('product_list.PROD_CODE', $prodCode)
+            ->where('product_list.ID', $prod_id)
             ->get();
+
 
         if($amount -> isEmpty()){
             $amount = db::table('product_list')
@@ -437,10 +437,9 @@ class JqueryController extends Controller
                 ->join('products', 'products.PRODUCT' , '=' , 'product_list.PRODUCT')
                 ->where('PRICE_DATE', $price_date)
                 ->where('CLIENTID', $cust_id)
-                ->where('product_list.PROD_CODE', $prodCode)
+                ->where('product_list.ID', $prod_id)
                 ->get();
         }
-
 
         foreach($productDetails as $product){
 
@@ -777,6 +776,7 @@ class JqueryController extends Controller
 
         $price_date = db::table('product_list')
             ->where('CLIENTID', $client_id)
+            ->groupBy('PRICE_DATE')
             ->orderBy('PRICE_DATE', 'ASC')
             ->get();
 

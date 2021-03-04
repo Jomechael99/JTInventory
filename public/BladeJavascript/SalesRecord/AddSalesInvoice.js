@@ -235,6 +235,8 @@ $(document).ready(function(){
     function customerDetailsAndDate(){
         var cust_id = $('#custDetails option:selected').val();
         var price_date = $('#priceDate option:selected').val();
+
+
         $.ajax({
             url: "/poCustomerDetails",
             type: "POST",

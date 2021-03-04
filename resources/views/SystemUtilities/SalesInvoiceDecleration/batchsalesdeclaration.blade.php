@@ -111,7 +111,7 @@
                 });
 
                 $.ajax({
-                    url: '{{ route('addICRBatch') }}' ,
+                    url: '{{ route('addBatchSales') }}' ,
                     type: "POST",
                     data: $('#batch_form').serialize(),
                     success: function( response ) {
