@@ -104,6 +104,8 @@
     <script>
         $(document).ready( function(){
 
+            var APP_URL = {!! json_encode(url('/')) !!}
+
             $('#btnAdd').on('click', function(){
 
                 $.validate({
@@ -117,7 +119,7 @@
                     success: function( response ) {
                         if(response.status == "success"){
                             swal("Data is inserted", "Success", "success").then(function(){
-                                window.location.href = "http://jtinventory.test/CLCDeclaration";
+                                window.location.href = APP_URL + "/CLCDeclaration";
                             });
                         }else{
                             swal("Failed to insert the data", response.status, "error");

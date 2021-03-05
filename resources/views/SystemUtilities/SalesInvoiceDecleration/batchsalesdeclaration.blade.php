@@ -104,11 +104,14 @@
     <script>
         $(document).ready( function(){
 
+            var APP_URL = {!! json_encode(url('/')) !!}
+
             $('#btnAdd').on('click', function(){
 
                 $.validate({
                     form: '#batch_form'
                 });
+
 
                 $.ajax({
                     url: '{{ route('addBatchSales') }}' ,
@@ -117,7 +120,7 @@
                     success: function( response ) {
                         if(response.status == "success"){
                             swal("Data is inserted", "Success", "success").then(function(){
-                                window.location.href = "http://jtinventory.test/ICRDeclaration";
+                                window.location.href = APP_URL + "/SalesInvoice";
                             });
                         }else{
                             swal("Failed to insert the data", response.status, "error");
