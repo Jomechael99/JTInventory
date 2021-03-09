@@ -8,7 +8,9 @@
          <div class="box">
            <div class="box-header">
              <div class="col-md-4" role="alert">
-               <a href="{{ route('SalesRepController.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Sales Representative </a>
+                 @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
+                    <a href="{{ route('SalesRepController.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Sales Representative </a>
+                 @endif
              </div>
            </div>
            <div class="box-body">
@@ -23,8 +25,8 @@
                                     <th class="text-center">Birthdate</th>
                                     <th class="text-center">Contact No.</th>
                                     <th class="text-center">Email Address</th>
-                                    @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
-                                        <th class="text-center">Actions</th>
+                                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
+                                    <th class="text-center">Actions</th>
                                     @endif
                                 </tr>
                             </thead>
@@ -39,7 +41,7 @@
                                         <td>{{ $salesrep -> BIRTH_DATE }}</td>
                                         <td>{{ $salesrep -> CONTACT_NO }}</td>
                                         <td>{{ $salesrep -> EMAIL }}</td>
-                                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                             <td class="text-center">
                                                 <div class="btn-group-vertical">
                                                     <a type="button" class="btn btn-info" href=" {{ route('SalesRepController.show', $salesrep -> ID) }}"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>

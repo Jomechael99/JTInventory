@@ -4,24 +4,26 @@
 
 
     <div class="content-wrapper">
+        @foreach(Session::get('user') as $user)
+        @endforeach
         <section class="content">
             <div class="box">
                 <div class="box-header text-center">
                     <div class="col-md-4" role="alert">
+                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                         <br>
                         <a href="{{ route('OfficialReceipt.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Collection Receipt</a>
+                        @endif
                     </div>
                 </div>
                 <div class="box-body table-responsive">
                     <table id="delivery" class="table table-bordered table-striped">
-                        @foreach(Session::get('user') as $user)
-                        @endforeach
                         <thead>
                         <th class="text-center"> CR No. </th>
                         <th class="text-center"> CR Date. </th>
                         <th class="text-center"> Customer Name </th>
-                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
-                        <th class="text-center"> Actions </th>
+                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
+                            <th class="text-center"> Actions </th>
                         @endif
                         </thead>
                         <tbody class="text-center">
@@ -63,7 +65,7 @@
                     {data: 'OR_NO', name: 'a.OR_NO'},
                     {data: 'OR_DATE', name: 'a.OR_DATE'},
                     {data: 'NAME', name: 'b.NAME'},
-                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                     {
                         data: 'action',
                         name: 'action',

@@ -1,12 +1,11 @@
 @extends('main')
 
 @section('content')
-
+    @foreach(Session::get('user') as $user)
+    @endforeach
     <div class="content-wrapper">
 
         <section class="content">
-
-
 
             <div class="box">
                 <div class="box-header">
@@ -18,7 +17,7 @@
 
                 @endforeach
                 <div class="box-body">
-                    <form role="form" action="{{ route('CustomerController.update', $row -> CLIENTID) }}"  method="POST" >
+                    <form role="form" id="edit" action="{{ route('CustomerController.update', $row -> CLIENTID) }}"  method="POST" >
 
                         {{ method_field('PUT') }}
                         {{ csrf_field() }}
@@ -116,13 +115,11 @@
                             </div>
 
                         </div>
-
-                        <div class="btn-group pull-right">
-                            <button type="submit" class="btn btn-primary ">Submit</button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary pull-left">Back</button>
-                        </div>
+                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
+                            <div class="btn-group pull-right">
+                                <button type="submit" class="btn btn-primary ">Submit</button>
+                            </div>
+                        @endif
                         <div class="btn-group">
                             <button type="button" id="reset" class="btn btn-primary pull-left">Reset</button>
                         </div>
@@ -146,6 +143,7 @@
 
         $.validate({});
 
+
         $(document).ready(function(){
 
             $('#cashPay').on('click', function(){
@@ -166,5 +164,5 @@
 
 
     </script>
-
+s
 @endsection

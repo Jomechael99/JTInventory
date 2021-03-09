@@ -21,7 +21,7 @@ class PagesDatatablesController extends Controller
             $role = $user -> user_authorization;
         }
 
-        if($role == "ADMINISTRATOR" || $role == 1){
+        if(in_array($role, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3"))){
             return DataTables::query($invoice_data)
                 ->addColumn('action', function($row){
                         $btn = '<td></d></tr><div class="btn-group-vertical">
@@ -47,7 +47,7 @@ class PagesDatatablesController extends Controller
             $role = $user -> user_authorization;
         }
 
-        if($role == "ADMINISTRATOR" || $role == 1){
+        if(in_array($role, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3"))){
             return DataTables::query($deliver_invoice)
                 ->addColumn('action', function($row){
                     $btn = '<td></d></tr><div class="btn-group-vertical">
@@ -73,7 +73,7 @@ class PagesDatatablesController extends Controller
             $role = $user -> user_authorization;
         }
 
-        if($role == "ADMINISTRATOR" || $role == 1){
+        if(in_array($role, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3"))){
             return DataTables::query($deliver_invoice)
                 ->addColumn('action', function($row){
                     $btn = '<td></d></tr><div class="btn-group-vertical">
@@ -98,7 +98,7 @@ class PagesDatatablesController extends Controller
             $role = $user -> user_authorization;
         }
 
-        if($role == "ADMINISTRATOR" || $role == 1){
+        if(in_array($role, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3"))){
             return DataTables::query($OR)
                 ->addColumn('action', function($row){
                     $btn = '<td></d></tr><div class="btn-group-vertical">
@@ -123,7 +123,7 @@ class PagesDatatablesController extends Controller
             $role = $user -> user_authorization;
         }
 
-        if($role == "ADMINISTRATOR" || $role == 1){
+        if(in_array($role, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3"))){
             return DataTables::query($PR)
                 ->addColumn('action', function($row){
                     $btn = '<td></d></tr><div class="btn-group-vertical">

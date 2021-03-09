@@ -10,7 +10,9 @@
                <span> Add Sales Invoice Declaration </span>
            </div>
              <div class="box-header text-center">
+                 @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                  <a href="{{ route('viewSalesBatch') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Batch Sales Invoice Declaration </a>
+                 @endif
              </div>
              <div class="box-body">
                 <div class="box-body table-responsive">
@@ -38,12 +40,14 @@
                                         <td>{{ $salesrep -> BIRTH_DATE }}</td>
                                         <td>{{ $salesrep -> CONTACT_NO }}</td>
                                         <td>{{ $salesrep -> EMAIL }}</td>
+                                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                         <td class="text-center">
                                             <div class="btn-group-vertical">
                                                  <a type="button" class="btn btn-info" href=" {{ route('SalesInvoiceController.create', $salesrep -> ID) }}"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Add Invoice</a>
 {{--                                                <a type="button" class="btn btn-info" href=" {{ route('SalesInvoice.show', $salesrep -> ID) }}"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit Invoice</a>--}}
                                             </div>
                                         </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

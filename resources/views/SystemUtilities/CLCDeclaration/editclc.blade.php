@@ -40,8 +40,10 @@
                     <div class="box-footer">
                         <div class="row">
                             <div class="form-group col-md-4 pull-right">
+                                @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                                 <button type="submit" id="addSalesInvoice" class="form-control btn btn-primary"> Edit CLC </button>
                                 {{--                           <a href="{{ route('SalesInvoice.index') }}" class="form-control btn btn-primary"> Back</a>--}}
+                                @endif
                             </div>
                             <div class="form-group col-md-1">
                                 <button type="button" id="reset" class="form-control btn btn-primary pull-left">Reset</button>

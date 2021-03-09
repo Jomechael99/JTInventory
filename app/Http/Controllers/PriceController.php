@@ -65,36 +65,47 @@ class PriceController extends Controller
     {
         //
 
-	    $clientid = $request -> clientID;
-	    $prodCode = $request -> productCode;
-	    $prodName = $request -> prodName;
-	    $prodSize = $request -> prodSize;
-	    $prodPrice = $request -> prodPrice;
-	    $prodDate = $request -> PriceDate;
-	    $prodPrice = floatval(str_replace(",", "", $prodPrice));
+        try{
+            $clientid = $request -> clientID;
+            $prodCode = $request -> productCode;
+            $prodName = $request -> prodName;
+            $prodSize = $request -> prodSize;
+            $prodPrice = $request -> prodPrice;
+            $prodDate = $request -> PriceDate;
+            $prodPrice = floatval(str_replace(",", "", $prodPrice));
 
+            $existingData = DB::table('product_list')
+                ->where('CLIENTID', $clientid)
+                ->where('PROD_CODE', $prodCode)
+                ->where('PRODUCT', $prodName)
+                ->where('SIZE', $prodSize)
+                ->where('PRODUCT_PRICE', $prodPrice)
+                ->where('PRICE_DATE', $prodDate)
+                ->get();
 
+            if(count($existingData) > 0){
+                return Response()->json(['status' => 'Exising Product Pricelist']);
+            }else{
+                $clientProduct = DB::table('product_list')->insert([
+                    [
+                        'CLIENTID' => $clientid,
+                        'PROD_CODE' => $prodCode,
+                        'PRODUCT' => $prodName,
+                        'SIZE' => $prodSize,
+                        'PRODUCT_PRICE' => $prodPrice,
+                        'PRICE_DATE' => $prodDate
+                    ]
+                ]);
 
-	  $clientProduct = DB::table('product_list')->insert([
-			[
-				'CLIENTID' => $clientid,
-				'PROD_CODE' => $prodCode,
-				'PRODUCT' => $prodName,
-				'SIZE' => $prodSize,
-                'PRODUCT_PRICE' => $prodPrice,
-				'PRICE_DATE' => $prodDate
-			]
-	  ]);
-
-
-
-	  if($clientProduct == "TRUE"){
-		  return Response()->json(['status' => 'true']);
-	  }else{
-		  return Response()->json(['status' => 'false']);
-	  }
-
-
+                if($clientProduct == "TRUE"){
+                    return Response()->json(['status' => 'true']);
+                }else{
+                    return Response()->json(['status' => 'Error on inserting data']);
+                }
+            }
+        }catch(\Exception $e){
+            return Response()->json(['status' => $e]);
+        }
 
 
     }

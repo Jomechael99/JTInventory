@@ -22,13 +22,14 @@
     <div class="content-wrapper">
 
         <section class="content">
-
-
-
+            @foreach(Session::get('user') as $user)
+            @endforeach
             <div class="box">
               <div class="box-header">
                 <div class="col-md-2" role="alert">
-                  <a href="{{ route('CustomerController.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Customer </a>
+                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
+                        <a href="{{ route('CustomerController.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Customer </a>
+                    @endif
               </div>
 {{--                  @if( Session::get('status') == "True" )--}}
 {{--                      <input type="text" id="notifAlert" value="1">--}}
@@ -38,8 +39,7 @@
 {{--                  @endif--}}
               </div>
               <div class="box-body">
-                  @foreach(Session::get('user') as $user)
-                  @endforeach
+
                 <div class="row-content">
                   <div class="col-12">
                     <div class="box">
@@ -62,9 +62,7 @@
                                     <th>Tel. NO</th>
                                     <th>Cell. No</th>
                                     <th>Email Addres</th>
-                                    @if($user -> user_authorization == "ADMINISTRATOR" || $user -> user_authorization == 1)
-                                        <th>Actions</th>
-                                    @endif
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,7 +78,7 @@
                                         <td>{{ $row -> TEL_NO }}</td>
                                         <td>{{ $row -> CELL_NO }}</td>
                                         <td>{{ $row -> EMAIL_ADDR }}</td>
-                                        @if($user -> user_authorization == "ADMINISTRATOR" || $user -> user_authorization == 1)
+                                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                             <td class="text-center">
                                                 <div class="btn-group-vertical">
                                                     <a type="button" class="btn btn-info" href="{{ route('CustomerController.show', $row->CLIENTID) }}"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>

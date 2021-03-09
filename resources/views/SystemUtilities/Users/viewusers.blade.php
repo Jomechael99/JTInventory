@@ -10,7 +10,9 @@
             <div class="box">
               <div class="box-header">
                 <div class="col-md-2" role="alert">
-                  <a href="{{ route('SystemUsersController.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Users </a>
+                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
+                     <a href="{{ route('SystemUsersController.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Users </a>
+                    @endif
               </div>
               </div>
              <div class="box-body">
@@ -24,7 +26,7 @@
                                     <th class="text-center">User Designation</th>
                                     <th class="text-center">User Authorization</th>
                                     <th class="text-center">User Email</th>
-                                    @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                         <th class="text-center">Actions</th>
                                     @endif
                                 </tr>
@@ -39,7 +41,7 @@
                                         <td>{{ $systemUsers -> designation }}</td>
                                         <td>{{ $systemUsers -> user_authorization }}</td>
                                         <td>{{ $systemUsers -> email }}</td>
-                                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                             <td class="text-center">
                                                 <div class="btn-group-vertical">
                                                     <a type="button" class="btn btn-info" href=" {{ route('SystemUsersController.show', $systemUsers -> id) }}"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>

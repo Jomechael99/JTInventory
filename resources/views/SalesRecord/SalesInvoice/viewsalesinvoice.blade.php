@@ -4,19 +4,21 @@
     @include('SalesRecord.SalesInvoice.viewinvoice')
   <div class="content-wrapper">
      <section class="content">
+         @foreach(Session::get('user') as $user)
+         @endforeach
          <div class="box">
            <div class="box-header">
-
              <div class="col-md-4" role="alert">
                  <br>
-               <a href="{{ route('Sales.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Sales Invoice </a>
+                 @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
+                 <a href="{{ route('Sales.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Sales Invoice </a>
+                @endif
              </div>
            </div>
             <div class="box-body">
                 <div class="box-body table-responsive">
                         <table id="salesInvoice" class="table table-bordered table-striped salesInvoice">
-                            @foreach(Session::get('user') as $user)
-                            @endforeach
+
                             <thead>
                                 <tr>
                                     <th class="text-center">INVOICE NO</th>
@@ -24,7 +26,7 @@
                                     <th class="text-center">CUSTOMER NAME</th>
                                     <th class="text-center">DESIGNATION</th>
                                     <th class="text-center">CONTACT NO</th>
-                                    @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                     <th class="text-center">Actions</th>
                                     @endif
                                 </tr>
@@ -80,7 +82,7 @@
                     {data: 'NAME', name: 'b.NAME'},
                     {data: 'DESIGNATION', name: 'b.DESIGNATION'},
                     {data: 'CELL_NO', name: 'b.CELL_NO'},
-                    @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                     {
                         data: 'action',
                         name: 'action',

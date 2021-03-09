@@ -5,6 +5,8 @@
   <div class="content-wrapper">
 
    <section class="content">
+       @foreach(Session::get('user') as $user)
+       @endforeach
        <div class="box">
           <div class="box-header text-center">
             <span> Add CLC Declaration </span>
@@ -27,8 +29,6 @@
                          <input type="text" class="form-control" id="ToInvoice" name="ToInvoice" placeholder="Enter To Invoice No.">
                        </div>
                        <div class="form-group col-md-3">
-                           @foreach(Session::get('user') as $user)
-                           @endforeach
                          <label for=""> Assigned By: </label>
                          <input type="text" class="form-control" id="assignedBy" name="assignedBy" value="{{ $user->userid }}" placeholder="" readonly>
                        </div>
@@ -36,10 +36,12 @@
                </div>
                <div class="box-footer">
                    <div class="row">
+                       @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                        <div class="form-group col-md-4 pull-right">
                            <button type="submit" id="addSalesInvoice" class="form-control btn btn-primary"> Add CLC Decleration </button>
-{{--                           <a href="{{ route('SalesInvoice.index') }}" class="form-control btn btn-primary"> Back</a>--}}
+{{--                           <a href="" class="form-control btn btn-primary"> Back</a>--}}
                        </div>
+                       @endif
                        <div class="form-group col-md-1">
                             <button type="button" id="reset" class="form-control btn btn-primary pull-left">Reset</button>
                         </div>
@@ -67,8 +69,8 @@
                                     <th class="text-center">To</th>
                                     <th class="text-center">Assigned Date</th>
                                     <th class="text-center">Assigned By</th>
-                                    @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
-                                        <th class="text-center">Actions</th>
+                                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
+                                    <th class="text-center">Actions</th>
                                     @endif
                                 </tr>
                             </thead>
@@ -81,11 +83,15 @@
                                         <td>{{ $clc -> TO_NO }}</td>
                                         <td>{{ $clc -> ENCODED_DATE }}</td>
                                         <td>{{ $clc -> ASSIGNED_BY }}</td>
-                                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
-                                           <td>
-                                               <a href="{{ route('viewCLC', $clc -> ID) }}" class="btn btn-info"> Edit </a>
-                                               <button type="button" id="delete" value="{{ $clc -> ID }}" class="btn btn-info"> Delete </button>
-                                           </td>
+                                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
+                                        <td>
+                                            @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
+                                            <a href="{{ route('viewCLC', $clc -> ID) }}" class="btn btn-info"> Edit </a>
+                                            @endif
+                                            @if(in_array($user->user_authorization, array("ADMINISTRATOR", "1")))
+                                                <button type="button" id="delete" value="{{ $clc -> ID }}" class="btn btn-info"> Delete </button>
+                                            @endif
+                                        </td>
                                         @endif
                                     </tr>
                                 @endforeach

@@ -4,23 +4,26 @@
 
 
     <div class="content-wrapper">
+        @foreach(Session::get('user') as $user)
+        @endforeach
         <section class="content">
             <div class="box">
                 <div class="box-header text-center">
                     <div class="col-md-4" role="alert">
                         <br>
+                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                         <a href="{{ route('ProvisionalReceipt.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Provisional Receipt</a>
+                        @endif
                     </div>
                 </div>
                 <div class="box-body table-responsive">
                     <table id="delivery" class="table table-bordered table-striped">
-                        @foreach(Session::get('user') as $user)
-                        @endforeach
+
                         <thead>
                         <th class="text-center"> PR No. </th>
                         <th class="text-center"> PR Date. </th>
                         <th class="text-center"> Customer Name </th>
-                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                             <th class="text-center"> Actions </th>
                         @endif
                         </thead>
@@ -63,7 +66,7 @@
                     {data: 'PR_NO', name: 'a.PR_NO'},
                     {data: 'PR_DATE', name: 'a.PR_DATE'},
                     {data: 'NAME', name: 'b.NAME'},
-                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                     {
                         data: 'action',
                         name: 'action',

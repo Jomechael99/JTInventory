@@ -10,6 +10,8 @@
     </style>
 
     <div class="content-wrapper">
+        @foreach(Session::get('user') as $user)
+        @endforeach
         <section class="content">
             <div class="box">
                 <div class="box-header text-center">
@@ -163,9 +165,11 @@
                             <div class="form-group col-md-1 pull-left">
                                 <button type="button" id="reset" class="form-control btn btn-primary"> Reset </button>
                             </div>
+                            @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                             <div class="form-group col-md-3 pull-right">
                                 <button type="button" id="submitButton" class="form-control btn btn-primary"> Add Cylinder Receipt </button>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </form>

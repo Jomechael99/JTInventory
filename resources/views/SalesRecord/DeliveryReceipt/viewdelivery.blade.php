@@ -8,22 +8,25 @@
     </style>
 
     <div class="content-wrapper">
+        @foreach(Session::get('user') as $user)
+        @endforeach
         <section class="content">
             <div class="box">
                 <div class="box-header">
                     <div class="col-md-4" role="alert">
+                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                         <a href="{{ route('Deliver.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Delivery </a>
+                        @endif
                     </div>
                 </div>
                 <div class="box-body table-responsive">
                     <table id="delivery" class="table table-bordered table-striped">
-                        @foreach(Session::get('user') as $user)
-                        @endforeach
+
                         <thead>
                             <th class="text-center"> Delivery No. </th>
                             <th class="text-center"> Delivery Date. </th>
                             <th class="text-center"> Customer Name </th>
-                            @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                            @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                 <th class="text-center"> Actions </th>
                             @endif
                         </thead>
@@ -66,7 +69,7 @@
                     {data: 'DR_NO', name: 'a.DR_NO'},
                     {data: 'DR_DATE', name: 'a.DR_DATE'},
                     {data: 'NAME', name: 'b.NAME'},
-                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                     {
                         data: 'action',
                         name: 'action',

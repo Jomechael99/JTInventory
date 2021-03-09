@@ -22,12 +22,15 @@
     <div class="content-wrapper">
 
         <section class="content">
-
+            @foreach(Session::get('user') as $user)
+            @endforeach
             <div class="box">
                 <div class="box-header">
                     <div class="col-md-2">
-                        <a type="button" class="btn btn-success btn-md" href="{{ route('PurchaseOrderController.create') }}"> Add Purchase Order </a>
-                 </div>
+                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","1", "2")))
+                            <a type="button" class="btn btn-success btn-md" href="{{ route('PurchaseOrderController.create') }}"> Add Purchase Order </a>
+                        @endif
+                    </div>
                 </div>
               <div class="box-body table-responsive">
                         <table id="customerTable" class="table table-bordered table-striped">

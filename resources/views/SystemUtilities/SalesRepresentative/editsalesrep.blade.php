@@ -3,7 +3,8 @@
 @section('content')
 
   <div class="content-wrapper">
-
+      @foreach(Session::get('user') as $user)
+      @endforeach
    <section class="content">
        <div class="box">
           <div class="box-header text-center">
@@ -61,9 +62,11 @@
                </div>
                <div class="box-footer">
                    <div class="row">
+                       @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                        <div class="form-group col-md-4 pull-right">
                           <button type="submit" class="form-control btn btn-primary"> Edit Sales Representative </button>
                        </div>
+                       @endif
                        <div class="form-group col-md-1">
                             <button type="button" id="reset" class="form-control btn btn-primary pull-left">Reset</button>
                         </div>

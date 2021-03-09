@@ -1,9 +1,9 @@
 @extends('main')
 
 @section('content')
-
+    @foreach(Session::get('user') as $user)
+    @endforeach
   <div class="content-wrapper">
-
    <section class="content">
        <div class="box">
           <div class="box-header text-center">
@@ -36,11 +36,13 @@
                </div>
                <div class="box-footer">
                    <div class="row">
+                       @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                        <div class="form-group col-md-4 pull-right">
                            <button type="submit" id="addSalesInvoice" class="form-control btn btn-primary"> Add ICR </button>
                        </div>
+                       @endif
                        <div class="form-group col-md-1">
-                            <a href="{{ route('SalesInvoice.index') }}" class="form-control btn btn-primary"> Back</a>
+                            <!-- <a href="" class="form-control btn btn-primary"> Back</a> -->
                         </div>
                        <div class="form-group col-md-1">
                             <button type="button" id="reset" class="form-control btn btn-primary pull-left">Reset</button>
@@ -65,9 +67,9 @@
                                     <th class="text-center">To</th>
                                     <th class="text-center">Assigned Date</th>
                                     <th class="text-center">Assigned By</th>
-                                    @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                         <th class="text-center">Actions</th>
-                                    @endif
+                                    @esndif
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,11 +81,14 @@
                                         <td>{{ $icr -> TO_NO }}</td>
                                         <td>{{ $icr -> ENCODED_DATE }}</td>
                                         <td>{{ $icr -> ASSIGNED_BY }}</td>
-                                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
-                                            <td>
-                                                <a href="{{ route('viewICR', $icr -> ID) }}" class="btn btn-info"> Edit </a>
+                                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
+                                        <td>
+                                            @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
+                                            <a href="{{ route('viewICR', $icr -> ID) }}" class="btn btn-info"> Edit </a>
+                                            @endif
+                                            @if(in_array($user->user_authorization, array("ADMINISTRATOR", "1")))
                                                 <button type="button" id="delete" value="{{ $icr -> ID }}" class="btn btn-info"> Delete </button>
-
+                                            @endif
                                             </td>
                                         @endif
                                     </tr>

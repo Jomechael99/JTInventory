@@ -94,9 +94,11 @@
 
                         </div>
                         <div class="box-footer">
-                            <div class="btn-group pull-right">
-                                <button type="button" id="submit" class="btn btn-primary ">Add Price</button>
-                            </div>
+                            @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","1", "2")))
+                                <div class="btn-group pull-right">
+                                    <button type="button" id="submit" class="btn btn-primary ">Add Price</button>
+                                </div>
+                            @endif
                             <div class="btn-group">
                                 <button type="button" id="back" class="btn btn-primary pull-left">Back</button>
                             </div>
@@ -124,7 +126,7 @@
                                     <th class="text-center"> Products Size </th>
                                     <th class="text-center"> Product Price </th>
                                     <th class="text-center"> Product Date </th>
-                                    @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                                         <th class="text-center"> Action </th>
                                     @endif
                                 </tr>
@@ -137,12 +139,15 @@
                                         <td class="text-center">{{ $prodList-> SIZE }}</td>
                                         <td class="text-center"><input type="text" name="editProdPrice" class="prodPrice" value="{{ number_format($prodList-> PRODUCT_PRICE, 2) }}" data-value="{{ number_format($prodList-> PRODUCT_PRICE, 2) }}" disabled="true"></td>
                                         <td class="text-center">{{ $prodList-> PRICE_DATE }}</td>
-                                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
-                                            <td class="text-center">
-
+                                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","1", "2")))
+                                        <td class="text-center">
                                                 <div class="btn-group-vertical btn-action">
-                                                    <a type="button" class="btn btn-info btn-edit"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
-                                                    <a type="button" class="btn btn-warning btn-delete"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Delete</a>
+                                                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","1", "2")))
+                                                        <a type="button" class="btn btn-info btn-edit"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
+                                                    @endif
+                                                    @if(in_array($user->user_authorization, array("ADMINISTRATOR","1")))
+                                                        <a type="button" class="btn btn-warning btn-delete"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Delete</a>
+                                                    @endif
                                                 </div>
 
                                                 <div class="btn-group-vertical btn-edit-yes hidden">
@@ -151,7 +156,7 @@
                                                 </div>
 
                                             </td>
-                                        @endif
+                                            @endif
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -241,7 +246,7 @@
                                     });
 
                       }else{
-                          swal("Error in adding of Product", "danger");
+                          swal(response.status , "" , "error");
                       }
                     }
                 });

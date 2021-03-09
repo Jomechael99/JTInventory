@@ -36,10 +36,12 @@
                </div>
                <div class="box-footer">
                    <div class="row">
+                       @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                        <div class="form-group col-md-4 pull-right">
                            <button type="submit" id="addSalesInvoice" class="form-control btn btn-primary"> Add DR Decleration </button>
-{{--                           <a href="{{ route('SalesInvoice.index') }}" class="form-control btn btn-primary"> Back</a>--}}
+{{--                           <a href="" class="form-control btn btn-primary"> Back</a>--}}
                        </div>
+                       @endif
                        <div class="form-group col-md-1">
                             <button type="button" id="reset" class="form-control btn btn-primary pull-left">Reset</button>
                         </div>
@@ -63,7 +65,7 @@
                                     <th class="text-center">To</th>
                                     <th class="text-center">Assigned Date</th>
                                     <th class="text-center">Assigned By</th>
-                                    @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
+                                    @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                         <th class="text-center">Actions</th>
                                     @endif
                                 </tr>
@@ -77,10 +79,14 @@
                                         <td>{{ $dr -> TO_NO }}</td>
                                         <td>{{ $dr -> ENCODED_DATE }}</td>
                                         <td>{{ $dr -> ASSIGNED_BY }}</td>
-                                        @if($user -> user_authorization == "ADMINISTRATOR" || $user->user_authorization == 1)
-                                            <td>
+                                        @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
+                                        <td>
+                                            @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                                 <a href="{{ route('viewDR', $dr -> ID) }}" class="btn btn-info"> Edit </a>
+                                            @endif
+                                            @if(in_array($user->user_authorization, array("ADMINISTRATOR", "1")))
                                                 <button type="button" id="delete" value="{{ $dr -> ID }}" class="btn btn-info"> Delete </button>
+                                            @endif
                                             </td>
                                         @endif
                                     </tr>
