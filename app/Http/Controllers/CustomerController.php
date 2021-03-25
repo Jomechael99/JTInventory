@@ -58,21 +58,11 @@ class CustomerController extends Controller
     {
 
         try{
-
-
-            if(!$request->Address || !$request->City || !$request->custType
-                || !$request->custSince || !$request->tinNo || !$request->contPerson ||
-                !$request->Designation || !$request->telNo || !$request->contNo || !$request->emailAddress){
-                return response()->json(array('status' => "No Data to be inserted"));
-            }else{
-
+            
 
             $existing_name = db::table('client')
                 ->where('NAME', 'like', '%'.$request->input("custName").'%')
                 ->get();
-
-            }
-
 
             if(count($existing_name) > 0){
 

@@ -271,10 +271,10 @@ $(document).ready(function () {
         if ($('#credCheck').prop("checked") == true) {
             console.log(paymentPaid);
             if (isNaN(paymentPaid)) {
-                credValue = GrossSales * 0.01;
+                credValue = GrossSales / 112;
                 var newNet = netSales - credValue;
             } else {
-                credValue = paymentPaid * 0.01;
+                credValue = paymentPaid / 112;
                 var newNet = paymentPaid - credValue;
             }
 
