@@ -69,7 +69,7 @@
                                     <th class="text-center">Assigned By</th>
                                     @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                         <th class="text-center">Actions</th>
-                                    @esndif
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>

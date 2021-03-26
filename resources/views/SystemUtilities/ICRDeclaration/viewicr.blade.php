@@ -8,6 +8,8 @@
            <div class="box-header text-center">
                <span> Add ICR </span>
            </div>
+             @foreach(Session::get('user') as $user)
+             @endforeach
              <div class="box-header text-center">
                  <a href="{{ route('viewBatchICR') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Batch ICR Declaration </a>
              </div>
