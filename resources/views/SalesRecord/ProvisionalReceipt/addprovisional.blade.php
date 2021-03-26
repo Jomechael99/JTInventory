@@ -135,7 +135,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <input type = "checkbox" id="credCheck">
-                                <label class="lbl" for="">1% Creditable</label>
+                                <label class="lbl" for="">Creditable</label>
                                 <input type="text" id="creditable" name="creditable" class="form-control" readonly>
                             </div>
                             <div class="form-group col-md-3">
