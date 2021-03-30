@@ -245,7 +245,7 @@
                 success: function( response ) {
                     if(response.status == "success"){
                         swal("Customer is inserted", "Success", "success").then(function(){
-                            window.location.href = "http://jtinventory.test/Customer";
+                            window.location.href = APP_URL + "/Customer";
                         });
                     }else{
                         swal("Failed to insert the data", response.status, "error");
