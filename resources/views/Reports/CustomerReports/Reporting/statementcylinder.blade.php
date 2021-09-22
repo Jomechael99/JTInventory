@@ -26,6 +26,7 @@
                 @foreach($reportdata as $data)
                 @endforeach
                 <div class="box-body">
+                    <span> <a href="{{ route('cylinder_pdf_print', ['id' => $id]) }}" class="btn btn-info"> Download PDF </a> </span>
                     <div class="box-body table-responsive">
                         <table id="salesInvoice" class="table table-bordered table-striped">
                             <thead>
@@ -43,9 +44,9 @@
                                     <th class="text-center">C2H2_STANDARD_DELIVER</th>
                                     <th class="text-center">C2H2_STANDARD_PICKUP</th>
                                     <th class="text-center">C2H2_STANDARD_BALANCE</th>
-                                    <th class="text-center">AR_STANDARD_DELIVER</th>
-                                    <th class="text-center">AR_STANDARD_PICKUP</th>
-                                    <th class="text-center">AR_STANDARD_BALANCE</th>
+                                    <th class="text-center">A2_STANDARD_DELIVER</th>
+                                    <th class="text-center">A2_STANDARD_PICKUP</th>
+                                    <th class="text-center">A2_STANDARD_BALANCE</th>
                                     <th class="text-center">CO2_FLASK_DELIVER</th>
                                     <th class="text-center">CO2_FLASK_PICKUP</th>
                                     <th class="text-center">CO2_FLASK_BALANCE</th>
@@ -195,8 +196,9 @@
             $('#salesInvoice').DataTable( {
                 dom: 'Bfrtip',
                 buttons: [
-                    'csv', 'excel', 'print'
+                 'excel',
                 ],
+                paging: 'false',
                 orientation: 'landscape',
                 pageSize: 'A5',
             } );

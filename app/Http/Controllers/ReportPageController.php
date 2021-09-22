@@ -235,7 +235,10 @@ class ReportPageController extends Controller
             ->get();
 
         return view('Reports.CustomerReports.Reporting.statement')
-           ->with('statement', $statement);
+           ->with('statement', $statement)
+            ->with('from_date', $from_date)
+            ->with('to_date', $to_date)
+            ->with('id', $id);
 
     }
 
@@ -912,7 +915,8 @@ class ReportPageController extends Controller
 //        dd($summary_cylinder_report);
 
         return view('Reports.CustomerReports.Reporting.statementcylinder')
-            ->with('reportdata',$summary_cylinder_report);
+            ->with('reportdata',$summary_cylinder_report)
+            ->with('id', $id);
 
     }
 

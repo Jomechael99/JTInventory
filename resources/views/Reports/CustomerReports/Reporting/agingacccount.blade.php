@@ -22,8 +22,10 @@
             <div class="box">
                 <div class="box-header text-center">
                     <span> Aging of Account </span>
+                   
                 </div>
                 <div class="box-body">
+                    <span> <a href="{{ route('aging_pdf_print') }}" class="btn btn-info"> Download PDF </a> </span>
                     <div class="box-body table-responsive">
                         <table id="salesInvoice" class="table table-bordered table-striped">
                             <thead>
@@ -110,8 +112,9 @@
             $('#salesInvoice').DataTable( {
                 dom: 'Bfrtip',
                 buttons: [
-                    'csv', 'excel', 'print'
+                    'excel',
                 ],
+                paging: false,
                 orientation: 'landscape',
                 pageSize: 'A5',
                 processing: true,
