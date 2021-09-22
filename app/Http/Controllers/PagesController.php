@@ -63,7 +63,7 @@ class PagesController extends Controller
                 ->selectRaw(' "PR" AS TYPE ')
                 ->join('client', 'client.CLIENTID', '=', 'delivery_receipt.client_id')
                 ->where('BALANCE','!=', 0)
-                ->where('FULLY_PAID', 1)
+                ->where('FULLY_PAID', 0)
                 ->where(db::raw('DATEDIFF(CURDATE(),DR_DATE)'),'=','120')
                 ->unionAll($sales_data)
                 ->orderBy('REPORTNO', 'DESC')
@@ -74,7 +74,7 @@ class PagesController extends Controller
                 ->join('client', 'client.CLIENTID', '=', 'sales_invoice.client_id')
                 ->where('BALANCE','!=', 0)
                 ->where(db::raw('DATEDIFF(CURDATE(),INVOICE_DATE)'), 120)
-                ->where('FULLY_PAID', 1);
+                ->where('FULLY_PAID', 0);
 
             $dr_data2 = db::table('delivery_receipt')
                 ->select(db::raw('DATEDIFF(CURDATE(),DR_DATE) as AGING'),'DR_DATE as REPORTDATE','DR_NO as REPORTNO','BALANCE','NAME')

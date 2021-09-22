@@ -173,3 +173,12 @@ Route::get('/SOA/PDF/Print', ['uses' => 'PdfController@soa_pdf_print', 'as' => '
 Route::get('/Cylinder/PDF/View', ['uses'=> 'PdfController@cylinder_pdf_view', 'as' => 'cylinder_pdf_view']);
 Route::get('/Cylinder/PDF/Print', ['uses' => 'PdfController@cylinder_pdf_print', 'as' => 'cylinder_pdf_print']);
 
+
+// Cancel
+
+Route::post('/CancelInvoice', ['uses' => 'CancelController@cancel_sales', 'as' => 'cancel_sales']);
+Route::post('/CancelDRInvoice', ['uses' => 'CancelController@cancel_dr', 'as' => 'cancel_dr']);
+Route::post('/CancelICRInvoice', ['uses' => 'CancelController@cancel_icr', 'as' => 'cancel_icr']);
+Route::post('/CancelLoanInvoice', ['uses' => 'CancelController@cancel_loan', 'as' => 'cancel_loan']);
+
+

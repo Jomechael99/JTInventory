@@ -117,6 +117,48 @@
             });
 
         });
+
+
+        $(document).on('click' , '.btn-cancel' , function(){
+            var id = $(this).attr("data-id");
+
+            swal({
+                title: "Are you sure to cancel the invoice?",
+                text: "Once cancelled, you will not be able to recover this recancelled this invoice!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type:"POST",
+                            url: '{{ route('cancel_sales') }}' ,
+                            data: {
+                                '_token': $('input[name=_token]').val(),
+                                'id' : id,
+                            }, // get all form field value in serialize form
+                            success: function(response){
+                                /*swal.fire("Sorry this function currently not working");*/
+                                if(response.status == "success"){
+                                    swal("Cancellation of Invoice is Success", {
+                                        icon: "success",
+                                    }).then(function(){
+                                        location.reload();
+                                    });
+                                }else{
+                                    swal("Something is wrong , Please contact the developer!!", {
+                                        icon: "error",
+                                    })
+                                }
+                            }
+                        });
+
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+        });
     </script>
 
 @endsection
