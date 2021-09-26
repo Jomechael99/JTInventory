@@ -20,8 +20,10 @@ class CylinderReceipt extends Controller
 
         if(session()->has('user')){
             $cylinder_data = db::table('cylinder_receipt')
+                ->select('*', 'cylinder_receipt.STATUS as Receipt_Status')
                 ->join('client', 'cylinder_receipt.CLIENT_NO', '=' , 'client.CLIENTID')
                 ->where('icr_tag', 0)
+                ->where('cylinder_receipt.STATUS', 1)
                 ->get();
 
             return view('SalesRecord.CylinderReceipt.viewcylinderreceipt')

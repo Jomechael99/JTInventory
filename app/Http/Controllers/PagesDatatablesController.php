@@ -15,6 +15,7 @@ class PagesDatatablesController extends Controller
     public function sales_invoice_data(){
         $invoice_data = db::table('sales_invoice as a')
             ->select(['a.ID','a.INVOICE_NO', 'a.INVOICE_DATE', 'b.NAME','b.DESIGNATION','b.CELL_NO','a.STATUS'])
+            ->where('a.STATUS', 1)
             ->join('client as b', 'b.CLIENTID' , '=' , 'a.CLIENT_ID');
 
         foreach(Session::get('user') as $user){
@@ -65,7 +66,8 @@ class PagesDatatablesController extends Controller
         $deliver_invoice = db::table('delivery_receipt as a')
             ->select(['a.ID','a.DR_NO', 'a.DR_DATE', 'b.NAME','b.DESIGNATION','b.CELL_NO', 'a.STATUS'])
             ->join('client as b', 'a.CLIENT_ID', '=', 'b.CLIENTID')
-            ->where('a.AS_INVOICE', 1);
+            ->where('a.AS_INVOICE', 1)
+            ->where('a.STATUS', 1);
 
         foreach(Session::get('user') as $user){
             $role = $user -> user_authorization;
@@ -117,7 +119,8 @@ class PagesDatatablesController extends Controller
         $deliver_invoice = db::table('delivery_receipt as a')
             ->select(['a.ID','a.DR_NO', 'a.DR_DATE', 'b.NAME','b.DESIGNATION','b.CELL_NO', 'a.STATUS'])
             ->join('client as b', 'a.CLIENT_ID', '=', 'b.CLIENTID')
-            ->where('a.AS_INVOICE', 0);
+            ->where('a.AS_INVOICE', 0)
+            ->where('a.STATUS', 1);
 
         foreach(Session::get('user') as $user){
             $role = $user -> user_authorization;
