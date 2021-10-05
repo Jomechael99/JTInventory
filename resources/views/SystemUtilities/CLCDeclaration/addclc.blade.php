@@ -130,7 +130,7 @@
 
         @endif
 
-        $('#delete').on('click', function(){
+        $(document).on('click', '#delete', function(){
             var id = $(this).val();
             $.ajax({
                 url: "{{ route('deleteCLC') }}",
