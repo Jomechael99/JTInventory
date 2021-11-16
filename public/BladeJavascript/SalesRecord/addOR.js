@@ -203,8 +203,25 @@ $(document).ready(function () {
                 "<td class='hidden'> <input type='hidden' name='reportType[]' value='" + fourthTd + "'>" + fourthTd + "</td> " +
                 "<td> <input type='radio' id='radButton' name='radButton'> P/O </td>" +
                 "</tr>";
+            
+            var flag = 0;
+        
+            $("#productBody2").find("tr").each(function () {
+                var td1 = $(this).find("td:eq(0)").text().trim();
+                if(td1 == firstTd){
+                    flag = 1;
+                    return false;
+                }else{
+                    flag = 0;
+                }
+            });
 
-            $('#productBody2').append(tableData);
+            if(flag == 1){
+                swal("Existing Data", "Please select another no.", "error");
+            }else{
+                $('#productBody2').append(tableData);
+            }
+            
 
             compute_amount();
             credValue();
