@@ -159,6 +159,49 @@
                     }
                 });
         });
+
+        $(document).on('click' , '.btn-delete' , function(){
+            var id = $(this).attr("data-id");
+            var value = $(this).attr('value').trim();
+          
+            swal({
+                title: "Are you sure to delete the invoice?",
+                text: "Once deleted, you will not be able to recover this invoice!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type:"POST",
+                            url: '{{ route('DeleteInvoice') }}' ,
+                            data: {
+                                '_token': $('input[name=_token]').val(),
+                                'id' : id,
+                                'value' : value
+                            }, // get all form field value in serialize form
+                            success: function(response){
+                                /*swal.fire("Sorry this function currently not working");*/
+                                if(response.status == "success"){
+                                    swal("Deletion of Invoice is Success", {
+                                        icon: "success",
+                                    }).then(function(){
+                                        location.reload();
+                                    });
+                                }else{
+                                    swal("Something is wrong , Please contact the developer!!", {
+                                        icon: "error",
+                                    })
+                                }
+                            }
+                        });
+
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+        });
     </script>
 
 @endsection

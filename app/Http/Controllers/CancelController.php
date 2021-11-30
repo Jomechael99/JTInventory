@@ -58,4 +58,30 @@ class CancelController extends Controller
             'status' => 'success'
         ]);
     }
+
+    public function cancelInvoice(Request $request){
+        extract($request->all());
+
+        if($value == 'OR'){
+            db::table('official_receipt')
+            ->where('ID', $id)
+            ->update([
+                'STATUS' => 2
+            ]);
+
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }else if($value == 'PR'){
+            db::table('provisional_receipt')
+            ->where('ID', $id)
+            ->update([
+                'STATUS' => 2
+            ]);
+
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }
+    }
 }

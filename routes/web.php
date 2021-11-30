@@ -180,5 +180,10 @@ Route::post('/CancelInvoice', ['uses' => 'CancelController@cancel_sales', 'as' =
 Route::post('/CancelDRInvoice', ['uses' => 'CancelController@cancel_dr', 'as' => 'cancel_dr']);
 Route::post('/CancelICRInvoice', ['uses' => 'CancelController@cancel_icr', 'as' => 'cancel_icr']);
 Route::post('/CancelLoanInvoice', ['uses' => 'CancelController@cancel_loan', 'as' => 'cancel_loan']);
+Route::post('/Cancel_Invoice', ['uses' => 'CancelController@cancelInvoice', 'as' => 'cancel_invoice']);
+
+// Delete
+
+Route::post('DeleteInvoice', ['uses' => 'DeleteController@DeleteInvoice', 'as' => 'DeleteInvoice']);
 
 
