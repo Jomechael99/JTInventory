@@ -23,6 +23,9 @@ class DeleteController extends Controller
 
             db::table('sales_invoice_po')
                 ->where('INVOICE_NO', $id)->delete();
+
+            db::table('si_assigned_report')
+                ->where('INVOICE_NO', $id)->delete();
             
             return response()->json(['status' => 'success']);
         }
@@ -35,6 +38,9 @@ class DeleteController extends Controller
                 ->where('DR_NO', $id)->delete();
 
             db::table('delivery_receipt_po')
+                ->where('DR_NO', $id)->delete();
+
+            db::table('dr_assigned_report')
                 ->where('DR_NO', $id)->delete();
             
             return response()->json(['status' => 'success']);
@@ -54,6 +60,8 @@ class DeleteController extends Controller
             db::table('official_receipt_report')
                 ->where('OR_NO', $id)->delete();
             db::table('official_receipt_reports')
+                ->where('OR_NO', $id)->delete();
+            db::table('or_assigned_report')
                 ->where('OR_NO', $id)->delete();
             return response()->json(['status' => 'success']);
 
