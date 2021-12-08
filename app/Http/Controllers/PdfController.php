@@ -116,6 +116,14 @@ class PdfController extends Controller
             $address = $customer -> ADDRESS;
         }
 
+        db::table('statement_account_history')
+            ->insert([
+                'sa_number' => $sa_number,
+                'cust_id' => $id,
+                'from_date' => $from_date,
+                'to_date' => $to_date,
+            ]);
+
         $path = 'img/jt-new-logo.jpg';
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
@@ -141,7 +149,7 @@ class PdfController extends Controller
         $words =  IntToEnglish::Int2Eng($amount_total);
 
 
-        view()->share(['statement' => $statement, 'name' => $name, 'logo' => $logo , 'address' => $address , 'from_date' => $from_date , 'words' => $words, 'total1' => $total1 , 'total2' => $total2, 'total3' => $total3, 'total4'=> $total4,'amount_due' =>$amount_total]);
+        view()->share(['statement' => $statement, 'name' => $name, 'logo' => $logo , 'address' => $address , 'from_date' => $from_date , 'words' => $words, 'total1' => $total1 , 'total2' => $total2, 'total3' => $total3, 'total4'=> $total4,'amount_due' =>$amount_total ,'sa_number' => $sa_number]);
 
         $pdf = PDF::loadView('PDF.soa_pdf', $statement);
 

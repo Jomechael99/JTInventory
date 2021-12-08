@@ -216,6 +216,14 @@ class PagesController extends Controller
 
     }
 
+    public function statement_account_history(){
+        if(session()->has('user')){
+            return view('Reports.CustomerReports.Viewing.soa_history');
+        }else{
+            return view('login');
+        }
+    }
+
     
 
 }

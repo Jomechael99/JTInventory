@@ -277,4 +277,13 @@ class PagesDatatablesController extends Controller
             return DataTables::query($PR)->toJson();
         }
     }
+
+    public function soa_history(){
+
+        $history = db::table('statement_account_history');
+        $btn = '';
+
+        return DataTables::query($history)
+            ->toJson();
+    }
 }

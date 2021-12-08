@@ -19,6 +19,7 @@ Route::get('Purchase_Order', ['uses' => 'PagesController@getPurchaseOrder', 'as'
 Route::get('SystemUtilities/SystemUsers', ['uses' => 'PagesController@getSystemUsers', 'as' => 'SystemUsers']);
 Route::get('/', ['uses' => 'PagesController@getLogin' , 'as' => 'loginPage']);
 route::post('Login', ['uses' => 'PagesController@postLogin' , 'as' => 'Userlogin']);
+route::get('SOA_HISTORY', ['uses' => 'PagesController@statement_account_history', 'as' => 'SOA_History']);
 
 // Resources Exception
 
@@ -162,6 +163,7 @@ Route::get('official_receipt_data', ['uses' => 'PagesDatatablesController@offici
 Route::get('provisional_data', ['uses' => 'PagesDatatablesController@provisional_data', 'as'=>'provisional_data']);
 
 Route::get('dashboard_data', ['uses' => 'PagesDatatablesController@dashboard_data', 'as'=>'dashboard_data']);
+Route::get('soa_history', ['uses' => 'PagesDatatablesController@soa_history', 'as'=>'soa_history_data']);
 
 
 // PDF Controller

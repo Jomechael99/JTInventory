@@ -29,7 +29,7 @@
             <b> Customer Name : {{ $name }}</b>
         </td>
         <td style="text-align: center">
-           SA#:
+           SA#: {{ $sa_number }}
         </td>
     </tr>
 </table>
@@ -39,7 +39,7 @@
             <b> Address : {{ $address }}</b>
         </td>
         <td style="text-align: center">
-           {{ date('d-F-Y', strtotime($from_date)) }}
+           {{ date('d-F-Y') }}
         </td>
     </tr>
 </table>
@@ -51,10 +51,11 @@
             <th>S.I</th>
             <th>DR</th>
             <th>P.O</th>
+            <th>MO2</th>
             <th>LPG(S)</th>
             <th>CO2</th>
-            <th>OXY</th>
-            <th>ACE</th>
+            <th>O2</th>
+            <th>C2H2</th>
             <th>AMOUNT</th>
         </tr>
     </thead>
@@ -67,7 +68,7 @@
                 <td>{{ $statement->PO_NO }}</td>
                 <td>{{ $statement->LPG }}</td>
                 <td>{{ $statement->CO2}}</td>
-                <td>{{ $statement->MO2S }}</td>
+                <td>{{ $statement->MO2F + $statement -> MO2S }}</td>
                 <td>{{ $statement->C2H2 }}</td>
                 <td>{{ number_format($statement->TOTAL,2) }}</td>
             </tr>

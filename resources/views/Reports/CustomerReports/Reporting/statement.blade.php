@@ -25,7 +25,7 @@
                 </div>
                 <div class="box-body">
                     <div class="box-body table-responsive">
-                        <span> <a href="{{ route('soa_pdf_print', ['id' => $id , 'from_date' => $from_date , 'to_date' => $to_date]) }}" class="btn btn-info"> Download PDF </a> </span>
+                        <span> <a href="{{ route('soa_pdf_print', ['id' => $id , 'from_date' => $from_date , 'to_date' => $to_date , 'sa_number' => $sa_number]) }}" class="btn btn-info"> Download PDF </a> </span>
                         <table id="salesInvoice" class="table table-bordered table-striped">
                             <thead>
                             <tr>

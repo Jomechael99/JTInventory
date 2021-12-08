@@ -103,6 +103,8 @@
           <li><a data-toggle="modal" data-target="#statementAccount"> <i class="fa fa-circle-o"></i> Statement of Account </a></li>
           <li><a data-toggle="modal" data-target="#summaryAccount"> <i class="fa fa-circle-o"></i> Summary of Account </a></li>
           <li><a data-toggle="modal" data-target="#cylinderBalModal"> <i class="fa fa-circle-o"></i> Statement of Cylinder Balance </a></li>
+          <li class="{{ (request()->is('SOA_History')) ? 'active' : '' }}"><a
+                    href="{{ route('SOA_History') }}"><i class="fa fa-circle-o"></i> Statement of Account History </a></li>
         </ul>
     </li>
 

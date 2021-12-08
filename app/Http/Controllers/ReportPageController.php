@@ -41,6 +41,7 @@ class ReportPageController extends Controller
         $id = $request -> custDetails;
         $from_date = $request -> fromDate;
         $to_date =$request -> toDate;
+        $sa_number = $request-> saNumber;
 
         db::table('statement_account')->truncate();
 
@@ -238,7 +239,8 @@ class ReportPageController extends Controller
            ->with('statement', $statement)
             ->with('from_date', $from_date)
             ->with('to_date', $to_date)
-            ->with('id', $id);
+            ->with('id', $id)
+            ->with('sa_number', $sa_number);
 
     }
 

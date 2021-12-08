@@ -18,13 +18,18 @@
                             </select>
                             {{--<input type="text" id="custName" class="form-control">--}}
                         </div>
+                        <div class="form-group col-md-12">
+                            <label for=""> SA# </label>
+                            <input type="text" id="saNUmber" name="saNumber" class="form-control" required>
+                            {{--<input type="text" id="custName" class="form-control">--}}
+                        </div>
                         <div class="form-group col-md-6">
                             <label for=""> FROM DATE </label>
-                            <input type="date" id="fromDate" name="fromDate" class="form-control">
+                            <input type="date" id="fromDate" name="fromDate" class="form-control" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for=""> TO DATE </label>
-                            <input type="date" id="toDate"  name="toDate" class="form-control">
+                            <input type="date" id="toDate"  name="toDate" class="form-control" required>
                         </div>
                     </div>
                     <div class="modal-footer">
