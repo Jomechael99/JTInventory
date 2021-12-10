@@ -371,21 +371,20 @@ class JqueryController extends Controller
            ->where('CLIENTID', $cust_id)
            ->get();
 
-       $poProducts = db::table('product_list')
+       $poProducts_1 = db::table('product_list')
            ->select('*', 'product_list.ID as PROD_ID')
            ->join('products', 'products.PROD_CODE' , '=' , 'product_list.PRODUCT')
            ->where('PRICE_DATE', $price_date)
-           ->where('CLIENTID', $cust_id)
-           ->get();
+           ->where('CLIENTID', $cust_id);
 
-       if($poProducts -> isEmpty()){
-           $poProducts = db::table('product_list')
+       $poProducts_2 = db::table('product_list')
                ->select('*', 'product_list.ID as PROD_ID')
                ->join('products', 'products.PRODUCT' , '=' , 'product_list.PRODUCT')
                ->where('PRICE_DATE', $price_date)
                ->where('CLIENTID', $cust_id)
+               ->union($poProducts_1)
                ->get();
-       }
+
 
        // Dito ko sana ilalagay kaso parang humahaba na
 
@@ -394,7 +393,7 @@ class JqueryController extends Controller
            $html2 = $cust_detail->NAME;
        }
 
-       foreach($poProducts as $products){
+       foreach($poProducts_2 as $products){
            $product .= '<option value="' . $products -> PROD_CODE . '" id="product" data-id=" '. $products -> PROD_ID . ' ">'.$products -> PROD_ID.' - ' . $products->PRODUCT . ' - '. $products -> SIZE.'</option>';
        }
 

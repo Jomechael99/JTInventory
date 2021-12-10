@@ -43,7 +43,7 @@ class ReportPageController extends Controller
         $to_date =$request -> toDate;
         $sa_number = $request-> saNumber;
 
-        db::table('statement_account')->truncate();
+        db::table('statement_account_pdf')->truncate();
 
 
         $sales_invoice = db::table('sales_invoice as a')
@@ -75,44 +75,107 @@ class ReportPageController extends Controller
                     ->where('INVOICE_NO', $data -> REPORTNO)
                     ->get();
 
-                $C2H2 = 0;$AR = 0;$CO2 = 0;$IO2 = 0;$LPG = 0;
-                $MO2F = 0; $MO2S = 0;$N2 = 0;$N20 = 0;$H = 0;$COMPMED = 0;
+                $C2H2_PRESTOLITE = 0;
+                $C2H2_MEDIUM = 0;
+                $C2H2_STANDARD = 0;
+                $AR_STANDARD = 0;
+                $CO2_FLASK = 0;
+                $CO2_STANDARD = 0;
+                $IO2_FLASK = 0;
+                $IO2_MEDIUM = 0;
+                $IO2_STANDARD = 0;
+                $IO2_OVERSIZE = 0;
+                $LPG_11KG = 0;
+                $LPG_22KG = 0;
+                $LPG_50KG = 0;
+                $MO2_FLASK = 0;
+                $MO2_MEDIUM = 0;
+                $MO2_STANDARD = 0;
+                $MO2_OVERSIZE = 0;
+                $N2_FLASK = 0;
+                $N2_STANDARD = 0;
+                $N2O_FLASK = 0;
+                $N2O_STANDARD = 0;
+                $H_STANDARD = 0;
+                $COMPMED_STANDARD = 0;
+                $FIREEXT_10LBS = 0;
 
                 foreach($sales_product as $product){
 
                     if($product ->PRODUCT == "C2H2" || $product ->PRODUCT == "ACETYLENE"){
-                        $C2H2 +=  (int)$product -> QTY ;
+                       /* $C2H2 +=  (int)$product -> QTY ;*/
+                        if($product -> SIZE == "PRESTOLITE"){
+                            $C2H2_PRESTOLITE += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "MEDIUM"){
+                            $C2H2_MEDIUM += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "STANDARD"){
+                            $C2H2_STANDARD += (int)$product -> QTY ;
+                        }
                     }
                     if($product ->PRODUCT == "AR" || $product ->PRODUCT == "ARGON"){
-                        $AR +=  (int)$product -> QTY ;
+                        $AR_STANDARD +=  (int)$product -> QTY ;
                     }
                     if($product ->PRODUCT == "CO2" || $product ->PRODUCT == "CARBON DIOXIDE"){
-                        $CO2 +=  (int)$product -> QTY ;
+                        if($product -> SIZE == "FLASK"){
+                            $CO2_FLASK += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "STANDARD"){
+                            $CO2_STANDARD += (int)$product -> QTY ;
+                        }
                     }
                     if($product ->PRODUCT == "IO2" || $product ->PRODUCT == "INDUSTRIAL OXYGEN"){
-                        $IO2 +=  (int)$product -> QTY ;
+                        if($product -> SIZE == "FLASK"){
+                            $IO2_FLASK += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "MEDIUM"){
+                            $IO2_MEDIUM += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "STANDARD"){
+                            $IO2_STANDARD += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "OVERSIZE"){
+                            $IO2_OVERSIZE += (int)$product -> QTY ;
+                        }
                     }
                     if($product -> PRODUCT == "LPG"){
-                        $LPG +=  (int)$product -> QTY ;
+                        if($product -> SIZE == "11KG"){
+                            $LPG_11KG +=  (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "22KG"){
+                            $LPG_22KG +=  (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "50KG"){
+                            $LPG_50KG +=  (int)$product -> QTY ;
+                        }
                     }
                     if($product ->PRODUCT == "MO2" || $product ->PRODUCT == "MEDICAL OXYGEN"){
                         if($product -> SIZE == "FLASK"){
-                            $MO2F += (int)$product -> QTY ;
+                            $MO2_FLASK += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "MEDIUM"){
+                            $MO2_MEDIUM += (int)$product -> QTY ;
                         }elseif($product -> SIZE == "STANDARD"){
-                            $MO2S += (int)$product -> QTY ;
+                            $MO2_STANDARD += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "OVERSIZE"){
+                            $MO2_OVERSIZE += (int)$product -> QTY ;
                         }
                     }
                     if($product ->PRODUCT == "N2" || $product ->PRODUCT == "NITROGEN"){
-                        $N2 +=  (int)$product -> QTY ;
+                        if($product -> SIZE == "FLASK"){
+                            $N2_FLASK += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "STANDARD"){
+                            $N2_STANDARD += (int)$product -> QTY ;
+                        }
                     }
-                    if($product ->PRODUCT == "N20" || $product ->PRODUCT == "NITROUS OXIDE"){
-                        $N20 +=  (int)$product -> QTY ;
+                    if($product ->PRODUCT == "N2O" || $product ->PRODUCT == "NITROUS OXIDE"){
+                        if($product -> SIZE == "FLASK"){
+                            $N2O_FLASK += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "STANDARD"){
+                            $N2O_STANDARD += (int)$product -> QTY ;
+                        }
                     }
                     if($product ->PRODUCT == "H" || $product ->PRODUCT == "HYDROGEN"){
-                        $H +=  (int)$product -> QTY ;
+                        $H_STANDARD +=  (int)$product -> QTY ;
                     }
                     if($product ->PRODUCT == "COMPMED" || $product ->PRODUCT == "COMPRESSED AIR"){
-                        $COMPMED +=  (int)$product -> QTY ;
+                        $COMPMED_STANDARD +=  (int)$product -> QTY ;
+                    }
+
+                    if($product -> PRODUCT == "FIREEXT" || $product -> PRODUCT == "FIRE EXTINGUISHER"){
+                        $FIREEXT_10LBS += (int)$product -> QTY;
                     }
 
                     $totalOther2 = 0;
@@ -132,21 +195,34 @@ class ReportPageController extends Controller
                     'INVOICE_NO' => $data -> REPORTNO,
                     'INVOICE_DATE' => $data -> REPORTDATE,
                     'PO_NO' => $data -> PO_NO,
-                    'C2H2'  => $C2H2,
-                    'AR' => $AR,
-                    'CO2' => $CO2,
-                    'IO2' => $IO2,
-                    'LPG' => $LPG,
-                    'MO2F' => $MO2F,
-                    'MO2S' => $MO2S,
-                    'N2' => $N2,
-                    'N2O' => $N20,
-                    'H' => $H,
-                    'COMPMED' => $COMPMED,
+                    'C2H2_PRESTOLITE'  => $C2H2_PRESTOLITE,
+                    'C2H2_MEDIUM'  => $C2H2_MEDIUM,
+                    'C2H2_STANDARD'  => $C2H2_STANDARD,
+                    'AR_STANDARD' => $AR_STANDARD,
+                    'CO2_FLASK' => $CO2_FLASK,
+                    'CO2_STANDARD' => $CO2_STANDARD,
+                    'IO2_FLASK' => $IO2_FLASK,
+                    'IO2_MEDIUM' => $IO2_MEDIUM,
+                    'IO2_STANDARD' => $IO2_STANDARD,
+                    'IO2_OVERSIZE' => $IO2_OVERSIZE,
+                    'LPG_11KG' => $LPG_11KG,
+                    'LPG_22KG' => $LPG_22KG,
+                    'LPG_50KG' => $LPG_50KG,
+                    'MO2_FLASK' => $MO2_FLASK,
+                    'MO2_MEDIUM' => $MO2_MEDIUM,
+                    'MO2_STANDARD' => $MO2_STANDARD,
+                    'MO2_OVERSIZE' => $MO2_OVERSIZE,
+                    'N2_FLASK' => $N2_FLASK,
+                    'N2_STANDARD' => $N2_STANDARD,
+                    'N2O_FLASK' => $N2O_FLASK,
+                    'N2O_STANDARD' => $N2O_STANDARD,
+                    'H_STANDARD' => $H_STANDARD,
+                    'COMPMED_STANDARD' => $COMPMED_STANDARD,
+                    'FIREEXT_10LBS' => $FIREEXT_10LBS,
                     'TOTAL' => $data -> TOTAL + $totalOther2
                 ]);
 
-                db::table('statement_account')
+                db::table('statement_account_pdf')
                     ->insert($sales_invoice_report);
 
             }elseif($data->TYPE == "DR"){
@@ -155,44 +231,106 @@ class ReportPageController extends Controller
                     ->where('INVOICE_NO', $data -> REPORTNO)
                     ->get();
 
-                $C2H2 = 0;$AR = 0;$CO2 = 0;$IO2 = 0;$LPG = 0;
-                $MO2F = 0; $MO2S = 0;$N2 = 0;$N20 = 0;$H = 0;$COMPMED = 0;
+                $C2H2_PRESTOLITE = 0;
+                $C2H2_MEDIUM = 0;
+                $C2H2_STANDARD = 0;
+                $AR_STANDARD = 0;
+                $CO2_FLASK = 0;
+                $CO2_STANDARD = 0;
+                $IO2_FLASK = 0;
+                $IO2_MEDIUM = 0;
+                $IO2_STANDARD = 0;
+                $IO2_OVERSIZE = 0;
+                $LPG_11KG = 0;
+                $LPG_22KG = 0;
+                $LPG_50KG = 0;
+                $MO2_FLASK = 0;
+                $MO2_MEDIUM = 0;
+                $MO2_STANDARD = 0;
+                $MO2_OVERSIZE = 0;
+                $N2_FLASK = 0;
+                $N2_STANDARD = 0;
+                $N2O_FLASK = 0;
+                $N2O_STANDARD = 0;
+                $H_STANDARD = 0;
+                $COMPMED_STANDARD = 0;
+                $FIREEXT_10LBS = 0;
 
-                foreach($delivery_product as $product){
+                foreach($sales_product as $product){
 
                     if($product ->PRODUCT == "C2H2" || $product ->PRODUCT == "ACETYLENE"){
-                        $C2H2 +=  (int)$product -> QTY ;
+                        if($product -> SIZE == "PRESTOLITE"){
+                            $C2H2_PRESTOLITE += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "MEDIUM"){
+                            $C2H2_MEDIUM += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "STANDARD"){
+                            $C2H2_STANDARD += (int)$product -> QTY ;
+                        }
                     }
                     if($product ->PRODUCT == "AR" || $product ->PRODUCT == "ARGON"){
-                        $AR +=  (int)$product -> QTY ;
+                        $AR_STANDARD +=  (int)$product -> QTY ;
                     }
                     if($product ->PRODUCT == "CO2" || $product ->PRODUCT == "CARBON DIOXIDE"){
-                        $CO2 +=  (int)$product -> QTY ;
+                        if($product -> SIZE == "FLASK"){
+                            $CO2_FLASK += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "STANDARD"){
+                            $CO2_STANDARD += (int)$product -> QTY ;
+                        }
                     }
                     if($product ->PRODUCT == "IO2" || $product ->PRODUCT == "INDUSTRIAL OXYGEN"){
-                        $IO2 +=  (int)$product -> QTY ;
+                        if($product -> SIZE == "FLASK"){
+                            $IO2_FLASK += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "MEDIUM"){
+                            $IO2_MEDIUM += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "STANDARD"){
+                            $IO2_STANDARD += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "OVERSIZE"){
+                            $IO2_OVERSIZE += (int)$product -> QTY ;
+                        }
                     }
                     if($product -> PRODUCT == "LPG"){
-                        $LPG +=  (int)$product -> QTY ;
+                        if($product -> SIZE == "11KG"){
+                            $LPG_11KG +=  (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "22KG"){
+                            $LPG_22KG +=  (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "50KG"){
+                            $LPG_50KG +=  (int)$product -> QTY ;
+                        }
                     }
                     if($product ->PRODUCT == "MO2" || $product ->PRODUCT == "MEDICAL OXYGEN"){
                         if($product -> SIZE == "FLASK"){
-                            $MO2F += (int)$product -> QTY ;
+                            $MO2_FLASK += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "MEDIUM"){
+                            $MO2_MEDIUM += (int)$product -> QTY ;
                         }elseif($product -> SIZE == "STANDARD"){
-                            $MO2S += (int)$product -> QTY ;
+                            $MO2_STANDARD += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "OVERSIZE"){
+                            $MO2_OVERSIZE += (int)$product -> QTY ;
                         }
                     }
                     if($product ->PRODUCT == "N2" || $product ->PRODUCT == "NITROGEN"){
-                        $N2 +=  (int)$product -> QTY ;
+                        if($product -> SIZE == "FLASK"){
+                            $N2_FLASK += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "STANDARD"){
+                            $N2_STANDARD += (int)$product -> QTY ;
+                        }
                     }
-                    if($product ->PRODUCT == "N20" || $product ->PRODUCT == "NITROUS OXIDE"){
-                        $N20 +=  (int)$product -> QTY ;
+                    if($product ->PRODUCT == "N2O" || $product ->PRODUCT == "NITROUS OXIDE"){
+                        if($product -> SIZE == "FLASK"){
+                            $N2O_FLASK += (int)$product -> QTY ;
+                        }elseif($product -> SIZE == "STANDARD"){
+                            $N2O_STANDARD += (int)$product -> QTY ;
+                        }
                     }
                     if($product ->PRODUCT == "H" || $product ->PRODUCT == "HYDROGEN"){
-                        $H +=  (int)$product -> QTY ;
+                        $H_STANDARD +=  (int)$product -> QTY ;
                     }
                     if($product ->PRODUCT == "COMPMED" || $product ->PRODUCT == "COMPRESSED AIR"){
-                        $COMPMED +=  (int)$product -> QTY ;
+                        $COMPMED_STANDARD +=  (int)$product -> QTY ;
+                    }
+
+                    if($product -> PRODUCT == "FIREEXT" || $product -> PRODUCT == "FIRE EXTINGUISHER"){
+                        $FIREEXT_10LBS += (int)$product -> QTY;
                     }
 
                     $totalOther2 = 0;
@@ -212,27 +350,150 @@ class ReportPageController extends Controller
                     'INVOICE_NO' => $data -> REPORTNO,
                     'INVOICE_DATE' => $data -> REPORTDATE,
                     'PO_NO' => $data -> PO_NO,
-                    'C2H2'  => $C2H2,
-                    'AR' => $AR,
-                    'CO2' => $CO2,
-                    'IO2' => $IO2,
-                    'LPG' => $LPG,
-                    'MO2F' => $MO2F,
-                    'MO2S' => $MO2S,
-                    'N2' => $N2,
-                    'N2O' => $N20,
-                    'H' => $H,
-                    'COMPMED' => $COMPMED,
+                    'C2H2_PRESTOLITE'  => $C2H2_PRESTOLITE,
+                    'C2H2_MEDIUM'  => $C2H2_MEDIUM,
+                    'C2H2_STANDARD'  => $C2H2_STANDARD,
+                    'AR_STANDARD' => $AR_STANDARD,
+                    'CO2_FLASK' => $CO2_FLASK,
+                    'CO2_STANDARD' => $CO2_STANDARD,
+                    'IO2_FLASK' => $IO2_FLASK,
+                    'IO2_MEDIUM' => $IO2_MEDIUM,
+                    'IO2_STANDARD' => $IO2_STANDARD,
+                    'IO2_OVERSIZE' => $IO2_OVERSIZE,
+                    'LPG_11KG' => $LPG_11KG,
+                    'LPG_22KG' => $LPG_22KG,
+                    'LPG_50KG' => $LPG_50KG,
+                    'MO2_FLASK' => $MO2_FLASK,
+                    'MO2_MEDIUM' => $MO2_MEDIUM,
+                    'MO2_STANDARD' => $MO2_STANDARD,
+                    'MO2_OVERSIZE' => $MO2_OVERSIZE,
+                    'N2_FLASK' => $N2_FLASK,
+                    'N2_STANDARD' => $N2_STANDARD,
+                    'N2O_FLASK' => $N2O_FLASK,
+                    'N2O_STANDARD' => $N2O_STANDARD,
+                    'H_STANDARD' => $H_STANDARD,
+                    'COMPMED_STANDARD' => $COMPMED_STANDARD,
+                    'FIREEXT_10LBS' => $FIREEXT_10LBS,
                     'TOTAL' => $data -> TOTAL + $totalOther2
                 ]);
 
-                db::table('statement_account')
+                db::table('statement_account_pdf')
                     ->insert($sales_invoice_report);
             }
 
         }
 
-        $statement = db::table('statement_account')
+        $statement = db::table('statement_account_pdf')
+            ->get();
+
+        $C2H2 = 0;
+        $CO2 = 0;
+        $IO2 = 0;
+        $LPG = 0;
+        $MO2 = 0;
+        $N2 = 0;
+        $N2O = 0;
+        $AR = 0;
+        $H = 0;
+        $COMPMED = 0;
+        $FIREEXT = 0;
+
+        db::table('statement_count')
+            ->truncate();
+
+        foreach($statement as $data){
+
+            if($data -> C2H2_PRESTOLITE != 0){
+                $C2H2 += 1;
+            }
+            if($data -> C2H2_MEDIUM != 0){
+                $C2H2 += 1;
+            }
+            if($data -> C2H2_STANDARD != 0){
+                $C2H2 += 1;
+            }
+            if($data-> CO2_FLASK != 0){
+                $CO2 += 1;
+            }
+            if($data -> CO2_STANDARD != 0){
+                $CO2 += 1;
+            }
+            if($data -> IO2_FLASK != 0){
+                $IO2 += 1;
+            }
+            if($data -> IO2_MEDIUM != 0){
+                $IO2 += 1;
+            }
+            if($data -> IO2_STANDARD != 0){
+                $IO2 += 1;
+            }
+            if($data -> IO2_OVERSIZE != 0){
+                $IO2 += 1;
+            }
+            if($data -> LPG_11KG != 0){
+                $LPG += 1;
+            }
+            if($data -> LPG_22KG != 0){
+                $LPG += 1;
+            }
+            if($data -> LPG_50KG != 0){
+                $LPG += 1;
+            }
+            if($data -> MO2_FLASK != 0){
+                $MO2 += 1;
+            }
+            if($data -> MO2_MEDIUM != 0){
+                $MO2 += 1;
+            }
+            if($data -> MO2_STANDARD != 0){
+                $MO2 += 1;
+            }
+            if($data -> MO2_OVERSIZE != 0){
+                $MO2 += 1;
+            }
+            if($data-> N2_FLASK != 0){
+                $N2 += 1;
+            }
+            if($data -> N2_STANDARD != 0){
+                $N2 += 1;
+            }
+            if($data-> N2O_FLASK != 0){
+                $N2O += 1;
+            }
+            if($data -> N2O_STANDARD != 0){
+                $N20 += 1;
+            }
+            if($data -> AR_STANDARD != 0){
+                $AR += 1;
+            }
+            if($data -> H_STANDARD != 0){
+                $H += 1;
+            }
+            if($data -> COMPMED_STANDARD != 0){
+                $COMPMED += 1;
+            }
+            if($data -> FIREEXT_10LBS != 0){
+                $FIREEXT += 1;
+            }
+        }
+
+        db::table('statement_count')
+            ->insert([
+                'C2H2' => $C2H2 >= 4 ? 3 : $C2H2,
+                'CO2' => $CO2 >= 2 ? 2 : $CO2,
+                'IO2' => $IO2,
+                'LPG' => $LPG,
+                'MO2' => $MO2,
+                'N2' => $N2,
+                'N2O' => $N2O,
+                'AR' => $AR,
+                'H' => $H,
+                'COMPMED' => $COMPMED,
+                'FIREEXT' => $FIREEXT >= 1 ? 1 : $FIREEXT,
+            ]);
+
+
+        $statement_count = db::table('statement_count')
             ->get();
 
         return view('Reports.CustomerReports.Reporting.statement')
@@ -240,7 +501,8 @@ class ReportPageController extends Controller
             ->with('from_date', $from_date)
             ->with('to_date', $to_date)
             ->with('id', $id)
-            ->with('sa_number', $sa_number);
+            ->with('sa_number', $sa_number)
+            ->with('count', $statement_count);
 
     }
 
@@ -518,7 +780,7 @@ class ReportPageController extends Controller
             }elseif($data->TYPE == "DR"){
 
                 $delivery_product = db::table('delivery_receipt_order')
-                    ->where('INVOICE_NO', $data -> REPORTNO)
+                    ->where('DR_NO', $data -> REPORTNO)
                     ->get();
 
                 $C2H2 = 0;$AR = 0;$CO2 = 0;$IO2 = 0;$LPG = 0;
@@ -561,7 +823,7 @@ class ReportPageController extends Controller
 
                     $sales_other = db::table('other_charges')
                         ->select('QUANTITY', 'UNIT_PRICE')
-                        ->where('INVOICE_NO', $product -> INVOICE_NO)
+                        ->where('INVOICE_NO', $product -> DR_NO)
                         ->get();
 
                     foreach($sales_other as $other_price){
