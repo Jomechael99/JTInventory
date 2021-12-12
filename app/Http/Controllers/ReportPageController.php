@@ -860,7 +860,8 @@ class ReportPageController extends Controller
              ->get();
 
         return view('Reports.CustomerReports.Reporting.summary')
-            ->with('summary_account', $summary_account);
+            ->with('summary_account', $summary_account)
+            ->with('id', $id);
 
 
 

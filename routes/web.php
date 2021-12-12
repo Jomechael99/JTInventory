@@ -175,6 +175,9 @@ Route::get('/SOA/PDF/Print', ['uses' => 'PdfController@soa_pdf_print', 'as' => '
 Route::get('/Cylinder/PDF/View', ['uses'=> 'PdfController@cylinder_pdf_view', 'as' => 'cylinder_pdf_view']);
 Route::get('/Cylinder/PDF/Print', ['uses' => 'PdfController@cylinder_pdf_print', 'as' => 'cylinder_pdf_print']);
 Route::get('view_pdf', ['uses' => 'PdfController@view_pdf', 'as' => 'view_pdf']);
+Route::get('/Summary/PDF/View', ['uses'=> 'PdfController@summary_pdf_view', 'as' => 'summary_pdf_view']);
+Route::get('/Summary/PDF/Print', ['uses' => 'PdfController@summary_pdf_print', 'as' => 'summary_pdf_print']);
+
 
 
 // Cancel

@@ -748,4 +748,56 @@ class PdfController extends Controller
         // download PDF file with download method
         return $pdf->stream('soa.pdf',array('Attachment'=>0));
     }
+
+    public function summary_pdf_print(Request $request){
+        ob_start();
+
+        extract($request->all());
+
+        $summary = db::table('summary_account')
+            ->get();
+
+        $customer = db::table('client')
+            ->where('CLIENTID', $id)
+            ->get();
+
+        foreach($customer as $customer){
+            $name = $customer -> NAME;
+            $address = $customer -> ADDRESS;
+        }
+
+        $path = 'img/jt-new-logo.jpg';
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        $logo = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+
+        // share data to view
+
+
+        $amount_total = 0;
+
+        foreach($summary as $data){
+            $amount_total += $data->TOTAL;
+        }
+
+
+        /*$words = $amount_total;*/
+        $words =  IntToEnglish::Int2Eng($amount_total);
+
+        view()->share([
+            'summary' => $summary,
+            'name' => $name,
+            'logo' => $logo ,
+            'address' => $address ,
+            'words' => $words,
+            'amount_due' =>$amount_total]);
+
+        $pdf = PDF::loadView('PDF.summary', $summary);
+
+        ob_end_clean();
+
+        // download PDF file with download method
+        return $pdf->stream('sumamry.pdf',array('Attachment'=>0));
+    }
 }
