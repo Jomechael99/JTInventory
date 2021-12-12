@@ -34,19 +34,15 @@ $(document).ready(function () {
                     'buttonVal': buttonVal
                },
                success: function (response) {
+                   console.log(response);
                     if (response.status == "empty") {
                          $('#status').text("No Record Found");
                          $('#status').css("color", "red");
                          $('#status').css('font-size', '12px');
                          $('#issuedBy').val("");
                          $('#submitButton').attr('disabled', true);
-                    } else if (response.status == "DONE" || response.status == 'CANCELLED' || response.status == 'NO RECORD FOUND') {
-                         $('#status').text(response.status);
-                         $('#status').css("color", "red");
-                         $('#status').css('font-size', '12px');
-                         $('#issuedBy').val("");
-                         $('#submitButton').attr('disabled', true);
-                    } else {
+                    }
+                    if(response.status == "active") {
                          $('#status').text('Active');
                          $('#status').css("color", 'Green');
                          $('#status').css('font-size', '12px');
@@ -54,6 +50,20 @@ $(document).ready(function () {
                          $('#issuedId').val(response.issuerID);
                          $('#submitButton').attr('disabled', false);
                     }
+                    if(response[0].status == "DONE"){
+                        $('#status').text(response[0].status);
+                        $('#status').css("color", "red");
+                        $('#status').css('font-size', '12px');
+                        $('#issuedBy').val("");
+                        $('#submitButton').attr('disabled', true);
+                    }
+                   if(response[0].status.REMARKS == "DONE" || response[0].status.REMARKS == 'CANCELLED' || response[0].status.REMARKS == 'NO RECORD FOUND'){
+                       $('#status').text(response[0].status.REMARKS);
+                       $('#status').css("color", "red");
+                       $('#status').css('font-size', '12px');
+                       $('#issuedBy').val("");
+                       $('#submitButton').attr('disabled', true);
+                   }
                }
 
           });

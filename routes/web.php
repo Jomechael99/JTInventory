@@ -174,6 +174,7 @@ Route::get('/SOA/PDF/View', ['uses'=> 'PdfController@soa_pdf_view', 'as' => 'soa
 Route::get('/SOA/PDF/Print', ['uses' => 'PdfController@soa_pdf_print', 'as' => 'soa_pdf_print']);
 Route::get('/Cylinder/PDF/View', ['uses'=> 'PdfController@cylinder_pdf_view', 'as' => 'cylinder_pdf_view']);
 Route::get('/Cylinder/PDF/Print', ['uses' => 'PdfController@cylinder_pdf_print', 'as' => 'cylinder_pdf_print']);
+Route::get('view_pdf', ['uses' => 'PdfController@view_pdf', 'as' => 'view_pdf']);
 
 
 // Cancel
@@ -183,6 +184,8 @@ Route::post('/CancelDRInvoice', ['uses' => 'CancelController@cancel_dr', 'as' =>
 Route::post('/CancelICRInvoice', ['uses' => 'CancelController@cancel_icr', 'as' => 'cancel_icr']);
 Route::post('/CancelLoanInvoice', ['uses' => 'CancelController@cancel_loan', 'as' => 'cancel_loan']);
 Route::post('/Cancel_Invoice', ['uses' => 'CancelController@cancelInvoice', 'as' => 'cancel_invoice']);
+Route::get('/invoiceCancel', ['uses' => 'CancelController@cancel', 'as' => 'cancelInvoice']);
+
 
 // Delete
 

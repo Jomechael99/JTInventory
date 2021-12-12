@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\VarDumper\Cloner\Data;
 use Yajra\DataTables\Contracts\DataTable;
 use Yajra\DataTables\Facades\DataTables;
@@ -280,10 +281,19 @@ class PagesDatatablesController extends Controller
 
     public function soa_history(){
 
-        $history = db::table('statement_account_history');
+        $history = db::table('statement_account_history as a')
+            ->select('a.id', 'b.NAME', 'a.from_date', 'a.to_date' , 'a.cust_id', 'a.sa_number')
+            ->join('client as b', 'a.cust_id', '=', 'b.CLIENTID');
         $btn = '';
 
         return DataTables::query($history)
+            ->addColumn('action', function($row){
+                $btn = '<td></d></tr><div class="btn-group-vertical">
+                        <a type="button" href='. route('view_pdf', ['id' => $row->cust_id , 'from_date' => $row->from_date ,'to_date' => $row->to_date , 'sa_number' => $row->sa_number]) .' class="btn btn-info"><span class="fa fa-pencil">&nbsp;&nbsp;</span>View PDF File</a>
+                    ';
+                return $btn;
+            })
+            ->rawColumns(['action'])
             ->toJson();
     }
 }

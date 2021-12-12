@@ -14,8 +14,10 @@
                             <tr>
                                 <th class="text-center">ID</th>
                                 <th class="text-center">SA NUMBER</th>
+                                <th class="text-center">CUSTOMER</th>
                                 <th class="text-center">FROM DATE</th>
                                 <th class="text-center">TO DATE</th>
+                                <th class="text-center">ACTIONS</th>
                             </tr>
                             </thead>
                             <tbody class="text-center">
@@ -66,8 +68,15 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'sa_number', name: 'sa_number'},
+                    {data: 'NAME', name: 'NAME'},
                     {data: 'from_date', name: 'to_date'},
                     {data: 'to_date', name: 'to_date'},
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    }
                 ]
             });
         });

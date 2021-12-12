@@ -38,7 +38,10 @@
                                         @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I","USER LEVEL II", "1", "2" ,"3")))
                                         <td>
                                                 <a type="button" class="btn btn-info" href="{{ route('CylinderLoan.edit', $data->ID) }}"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
-                                            </td>
+                                            @if($data -> loan_status == 1)
+                                                <a type="button" class="btn btn-warning btn-cancel" data-id='{{ $data->ID }}'><span class="fa fa-times">&nbsp;&nbsp;</span>Cancel CLC</a>
+                                            @endif
+                                        </td>
                                         @endif
                                     </tr>
                                 @endforeach
@@ -56,6 +59,45 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#salesInvoice').dataTable();
+            $(document).on('click' , '.btn-cancel' , function(){
+                var id = $(this).attr("data-id");
+                swal({
+                    title: "Are you sure to cancel the Cylinder Receipt?",
+                    text: "Once cancelled, you will not be able to recover this recancelled this Cylinder Receipt!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                type:"POST",
+                                url: '{{ route('cancel_loan') }}' ,
+                                data: {
+                                    '_token': $('input[name=_token]').val(),
+                                    'id' : id,
+                                }, // get all form field value in serialize form
+                                success: function(response){
+                                    /*swal.fire("Sorry this function currently not working");*/
+                                    if(response.status == "success"){
+                                        swal("Cancellation of Cylinder Loan is Success", {
+                                            icon: "success",
+                                        }).then(function(){
+                                            location.reload();
+                                        });
+                                    }else{
+                                        swal("Something is wrong , Please contact the developer!!", {
+                                            icon: "error",
+                                        })
+                                    }
+                                }
+                            });
+
+                        } else {
+                            swal("Your imaginary file is safe!");
+                        }
+                    });
+            });
         });
     </script>
 @endsection

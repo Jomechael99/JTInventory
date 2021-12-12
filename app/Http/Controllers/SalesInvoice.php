@@ -90,7 +90,8 @@ class SalesInvoice extends Controller
                 'CLIENT_ID' => $request -> custDetails,
                 'FULLY_PAID' => $fullypaid,
                 'CYLINDER_ENTRY' => $request -> cylinderType,
-                'CYLINDER_IDS' => $request -> inputtedTypeId
+                'CYLINDER_IDS' => $request -> inputtedTypeId,
+                'SALES_TYPE' => $request->PaymentType,
             ]);
 
             $sales_invoice_insert = db::table('sales_invoice')

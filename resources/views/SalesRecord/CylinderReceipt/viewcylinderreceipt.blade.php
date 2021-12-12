@@ -38,7 +38,7 @@
                                                 <div class="btn-group-vertical">
                                                     <a type="button" class="btn btn-info" href="{{ route('CylinderReceipt.edit', $data->ID) }}"><span class="fa fa-pencil">&nbsp;&nbsp;</span>Edit</a>
                                                     @if($data -> Receipt_Status == 1)
-                                                    <a type="button" class="btn btn-warning btn-cancel" data-id='{{ $data->ID }}'><span class="fa fa-times">&nbsp;&nbsp;</span>Cancel DR INVOICE</a>
+                                                    <a type="button" class="btn btn-warning btn-cancel" data-id='{{ $data->ID }}'><span class="fa fa-times">&nbsp;&nbsp;</span>Cancel ICR</a>
                                                     @endif
                                                 </div>
                                             </td>

@@ -189,7 +189,8 @@ class SalesRecordUpdate extends Controller
             'FULLY_PAID' => $fullypaid,
             'CYLINDER_ENTRY' => $request -> cylinderType,
             'CYLINDER_IDS' => $request -> inputtedTypeId ,
-            'AS_INVOICE' => 1
+            'AS_INVOICE' => 1,
+            'SALES_TYPE' => $request->PaymentType,
         ];
 
         $cylinder_receipt_insert = db::table('delivery_receipt')
@@ -232,7 +233,8 @@ class SalesRecordUpdate extends Controller
             'CLIENT_ID' => $request -> custDetails,
             'FULLY_PAID' => $fullypaid,
             'CYLINDER_ENTRY' => $request -> cylinderType,
-            'CYLINDER_IDS' => $request -> inputtedTypeId
+            'CYLINDER_IDS' => $request -> inputtedTypeId,
+            'SALES_TYPE' => $request->PaymentType,
         ];
 
         $cylinder_receipt_insert = db::table('sales_invoice')

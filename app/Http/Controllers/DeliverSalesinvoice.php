@@ -86,7 +86,8 @@ class DeliverSalesinvoice extends Controller
             'FULLY_PAID' => $fullypaid,
             'CYLINDER_ENTRY' => $request -> cylinderType,
             'CYLINDER_IDS' => $request -> inputtedTypeId ,
-            'AS_INVOICE' => 1
+            'AS_INVOICE' => 1,
+            'SALES_TYPE' => $request->PaymentType,
         ]);
 
         $sales_invoice_insert = db::table('delivery_receipt')

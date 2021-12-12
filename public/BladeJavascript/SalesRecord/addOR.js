@@ -42,24 +42,28 @@ $(document).ready(function () {
                     $('#status').css("color", "red");
                     $('#status').css('font-size', '12px');
                     $('#issuedBy').val("");
-                    // $('#salesDetails').hide();
                     $('#submitButton').attr('disabled', true);
                 }
-                if (response.status == "active") {
+                if(response.status == "active") {
                     $('#status').text('Active');
                     $('#status').css("color", 'Green');
                     $('#status').css('font-size', '12px');
                     $('#issuedBy').val(response.issuedBy);
                     $('#issuedId').val(response.issuerID);
-                    $('#salesDetails').show();
                     $('#submitButton').attr('disabled', false);
                 }
-                if (response[0].status == "DONE" || response[0].status == 'CANCELLED' || response[0].status == 'NO RECORD FOUND') {
+                if(response[0].status == "DONE"){
                     $('#status').text(response[0].status);
                     $('#status').css("color", "red");
                     $('#status').css('font-size', '12px');
                     $('#issuedBy').val("");
-                    // $('#salesDetails').hide();
+                    $('#submitButton').attr('disabled', true);
+                }
+                if(response[0].status.REMARKS == "DONE" || response[0].status.REMARKS == 'CANCELLED' || response[0].status.REMARKS == 'NO RECORD FOUND'){
+                    $('#status').text(response[0].status.REMARKS);
+                    $('#status').css("color", "red");
+                    $('#status').css('font-size', '12px');
+                    $('#issuedBy').val("");
                     $('#submitButton').attr('disabled', true);
                 }
             },

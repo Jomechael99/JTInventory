@@ -207,11 +207,11 @@
                                 <div class="form-group col-md-2">
                                     <label for="">Payment Type</label>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline1" name="PaymentType" value="1"  class="custom-control-input" {{ ( $sales -> CYLINDER_ENTRY == 0) ? 'selected' : '' }}>
+                                        <input type="radio" id="customRadioInline1" name="PaymentType" value="1"  class="custom-control-input" {{ ( $sales -> SALES_TYPE == 1) ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="customRadioInline1" >Cash</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline2" name="PaymentType" value="2" class="custom-control-input">
+                                        <input type="radio" id="customRadioInline2" name="PaymentType" value="2" class="custom-control-input" {{ ( $sales -> SALES_TYPE == 2) ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="customRadioInline2">Accounts</label>
                                     </div>
                                 </div>

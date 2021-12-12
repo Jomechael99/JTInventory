@@ -12,7 +12,31 @@
                  <br>
                  @if(in_array($user->user_authorization, array("ADMINISTRATOR", "USER LEVEL I", "1", "2")))
                  <a href="{{ route('Sales.create') }}" class="btn btn-block btn-primary btn-flat addCustomer pull-right"> Add Sales Invoice </a>
-                @endif
+                 <button type="button" class="btn btn-block btn-warning btn-flat pull-right" data-toggle="modal" data-target="#cancelInvoice">
+                     Cancel Invoice
+                 </button>
+                     <!-- Modal -->
+                 <div class="modal fade" id="cancelInvoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                         <div class="modal-content">
+                             <div class="modal-header">
+                                 <h5 class="modal-title" id="exampleModalLabel">Cancellation of Invoice</h5>
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                             </div>
+                             <div class="modal-body">
+                                 <label>Invoice No: </label>
+                                 <input type="number" id="invoice_number" class="form-control" value="" autocomplete="off">
+                             </div>
+                             <div class="modal-footer">
+                                 <button type="button" class="btn btn-primary cancelInvoice">Cancel Invoice</button>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+
+                 @endif
              </div>
            </div>
             <div class="box-body">
@@ -116,7 +140,29 @@
                 });
             });
 
+            $(document).on('click', '.cancelInvoice',  function(){
+                var id = $('#invoice_number').val();
+
+                $.ajax({
+                    url: "{{ route('cancelInvoice') }}",
+                    method: 'GET',
+                    data:
+                        {
+                            'id': id,
+                            'type': 'sales'
+                        },
+                    success: function(response){
+                        swal("Cancellation of Invoice is Success", {
+                            icon: "success",
+                        });
+                        $('#invoice_number').val("");
+                    }
+                });
+            });
+
         });
+
+
 
 
         $(document).on('click' , '.btn-cancel' , function(){
