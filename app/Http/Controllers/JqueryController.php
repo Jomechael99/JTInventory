@@ -601,6 +601,7 @@ class JqueryController extends Controller
                     ->select(['INVOICE_NO','INVOICE_DATE','BALANCE'])
                     ->where('CLIENT_ID', $id)
                     ->where('FULLY_PAID', 0)
+                    ->where('STATUS', 1)
                     ->orderBy('INVOICE_NO', 'asc');
 
 
@@ -616,6 +617,7 @@ class JqueryController extends Controller
                  ->select(['INVOICE_NO','INVOICE_DATE','BALANCE'])
                  ->where('CLIENT_ID', $id)
                  ->where('FULLY_PAID', 0)
+                 ->where('STATUS', 1)
                  ->orderBy('INVOICE_NO', 'asc');
 
 
@@ -641,6 +643,7 @@ class JqueryController extends Controller
                 ->where('CLIENT_ID', $id)
                 ->where('AS_INVOICE', '=', '1')
                 ->where('FULLY_PAID', 0)
+                ->where('STATUS', 1)
                 ->orderBy('DR_NO', 'asc');
 
 
@@ -657,6 +660,7 @@ class JqueryController extends Controller
                 ->where('CLIENT_ID', $id)
                 ->where('AS_INVOICE', '=', '1')
                 ->where('FULLY_PAID', 0)
+                ->where('STATUS', 1)
                 ->orderBy('DR_NO', 'asc');
 
 

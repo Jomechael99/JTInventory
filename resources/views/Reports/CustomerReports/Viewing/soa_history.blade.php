@@ -12,7 +12,6 @@
 
                             <thead>
                             <tr>
-                                <th class="text-center">ID</th>
                                 <th class="text-center">SA NUMBER</th>
                                 <th class="text-center">CUSTOMER</th>
                                 <th class="text-center">FROM DATE</th>
@@ -66,7 +65,6 @@
                     dataType: 'JSON'
                 },
                 columns: [
-                    {data: 'id', name: 'id'},
                     {data: 'sa_number', name: 'sa_number'},
                     {data: 'NAME', name: 'NAME'},
                     {data: 'from_date', name: 'to_date'},

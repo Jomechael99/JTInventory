@@ -87,7 +87,7 @@
 <br><br><br>
 <table>
     <tr>
-        <td><span>Attached here with photocopies of Sales Invoices, Statement of Accoutn and Summary of Account for your easy reference.</span></td>
+        <td><span>Attached here with photocopies of Sales Invoices, Statement of Account and Summary of Account for your easy reference.</span></td>
     </tr>
     <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>    <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
     <tr>
@@ -117,7 +117,7 @@
     <tr>
     <td>
         <span>
-            Prepared By: <u>Merjorie Lubiano</u>
+            Prepared By: <u>Marjorie Lubiano</u>
         </span>
     </td>
     </tr>
@@ -132,7 +132,7 @@
     <tr>
         <td>
         <span>
-            Reviewed By: <u>Heide Espiritu</u>
+            Reviewed By: <u>Heidi Espiritu</u>
         </span>
         </td>
     </tr>
