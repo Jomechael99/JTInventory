@@ -25,7 +25,7 @@
                 </div>
                 <div class="box-body">
                     <div class="box-body table-responsive">
-                        <span> <a href="{{ route('summary_pdf_print', ['id' => $id]) }}" class="btn btn-info"> Download PDF </a> </span>
+                        <span> <a href="{{ route('summary_pdf_print', ['id' => $id , 'department' => $department]) }}" class="btn btn-info"> Download PDF </a> </span>
                         <br>
                         <br>
                         <table id="salesInvoice" class="table table-bordered table-striped">

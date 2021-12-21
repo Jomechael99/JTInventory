@@ -681,6 +681,7 @@ class ReportPageController extends Controller
 
     public function summary_account(Request $request){
         $id = $request -> custDetails;
+        $department = $request -> department;
 
         DB::table('summary_account')->truncate();
 
@@ -865,6 +866,7 @@ class ReportPageController extends Controller
 
         return view('Reports.CustomerReports.Reporting.summary')
             ->with('summary_account', $summary_account)
+            ->with('department', $department)
             ->with('id', $id);
 
 

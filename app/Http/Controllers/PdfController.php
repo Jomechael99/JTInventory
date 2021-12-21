@@ -58,7 +58,7 @@ class PdfController extends Controller
         ob_end_clean();
 
         // download PDF file with download method
-        return $pdf->stream('Aging.pdf',array('Attachment'=>0));
+        return $pdf->stream($name . '_Aging.pdf',array('Attachment'=>0));
     }
 
     public function cylinder_pdf_print(Request $request){
@@ -96,7 +96,7 @@ class PdfController extends Controller
         ob_end_clean();
 
         // download PDF file with download method
-        return $pdf->stream('CylinderBalance.pdf',array('Attachment'=>0));
+        return $pdf->stream($name . '_CylinderBalance.pdf',array('Attachment'=>0));
     }
 
     public function soa_pdf_print(Request $request){
@@ -196,7 +196,7 @@ class PdfController extends Controller
         ob_end_clean();
 
         // download PDF file with download method
-        return $pdf->stream('soa.pdf',array('Attachment'=>0));
+        return $pdf->stream($name . 'statement_of_account.pdf',array('Attachment'=>0));
     }
 
     public function view_pdf(Request $request){
@@ -746,7 +746,7 @@ class PdfController extends Controller
         ob_end_clean();
 
         // download PDF file with download method
-        return $pdf->stream('soa.pdf',array('Attachment'=>0));
+        return $pdf->stream($name . 'statement_of_account.pdf',array('Attachment'=>0));
     }
 
     public function summary_pdf_print(Request $request){
@@ -782,8 +782,8 @@ class PdfController extends Controller
         }
 
 
-        /*$words = $amount_total;*/
-        $words =  IntToEnglish::Int2Eng($amount_total);
+        $words = $amount_total;
+        //$words =  IntToEnglish::Int2Eng($amount_total);
 
         view()->share([
             'summary' => $summary,
@@ -791,13 +791,14 @@ class PdfController extends Controller
             'logo' => $logo ,
             'address' => $address ,
             'words' => $words,
-            'amount_due' =>$amount_total]);
+            'amount_due' =>$amount_total,
+            'department' => $department]);
 
         $pdf = PDF::loadView('PDF.summary', $summary);
 
         ob_end_clean();
 
         // download PDF file with download method
-        return $pdf->stream('sumamry.pdf',array('Attachment'=>0));
+        return $pdf->stream($name . '_summary.pdf',array('Attachment'=>0));
     }
 }

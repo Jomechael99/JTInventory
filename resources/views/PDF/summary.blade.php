@@ -32,7 +32,7 @@
 <table><tr></tr></table><table><tr></tr></table>
 <table>
     <tr>
-        <td><h3>Attention: Accounting Department</h3></td>
+        <td><h3>Attention: {{ $department }} Department</h3></td>
     </tr>
 </table>
 <table><tr></tr></table><table><tr></tr></table>

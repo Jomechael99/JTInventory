@@ -18,6 +18,11 @@
                             </select>
                             {{--<input type="text" id="custName" class="form-control">--}}
                         </div>
+                        <div class="form-group col-md-12">
+                            <label for=""> Department </label>
+                            <input type="text" id="department" name="department" class="form-control" required>
+                            {{--<input type="text" id="custName" class="form-control">--}}
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
