@@ -517,6 +517,7 @@ class ReportPageController extends Controller
             ->join('client as b', 'b.CLIENTID', '=', 'a.CLIENT_ID')
             ->where('FULLY_PAID', 0)
             ->where('BALANCE' ,'!=', 0)
+            ->where('a.STATUS', 1)
             ->get();
 
         $dr_data = db::table('delivery_receipt as a')
@@ -526,6 +527,7 @@ class ReportPageController extends Controller
             ->where('FULLY_PAID', 0)
             ->where('BALANCE' ,'!=', 0)
             ->where('AS_INVOICE', 1)
+            ->where('a.STATUS', 1)
             ->get();
 
 
@@ -578,6 +580,7 @@ class ReportPageController extends Controller
             ->where('CLIENT_ID', $id)
             ->where('FULLY_PAID', 0)
             ->where('BALANCE' ,'!=', 0)
+            ->where('a.STATUS', 1)
 
             ->get();
 
@@ -589,6 +592,7 @@ class ReportPageController extends Controller
             ->where('CLIENT_ID', $id)
             ->where('BALANCE' ,'!=', 0)
             ->where('AS_INVOICE', 1)
+            ->where('a.STATUS', 1)
             ->get();
 
 
